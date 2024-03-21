@@ -1,0 +1,75 @@
+/* navbar.css */
+
+.nav {
+  display: flex;
+  padding: 20px;
+}
+
+.container1 {
+  flex-grow: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  /* background-color: rgb(182, 206, 146); */
+  max-width: 10%;
+  height: 40px;
+  border-radius: 10px;
+}
+
+.Logo {
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.container2 {
+  flex-grow: 1;
+  background-color: rgb(182, 206, 146);
+  max-width: 80%;
+  height: 40px;
+  border-radius: 10px;
+}
+
+.nav-box {
+  display: flex;
+  align-self: center;
+  justify-content: center;
+  justify-content: space-between;
+}
+
+.nav-item {
+  margin: 5px;
+  padding: 5px 10px;
+  color: #fff;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.nav-item:last-child {
+  margin-right: 0;
+}
+
+.nav-item:hover {
+  transition: 1s;
+  color: black;
+}
+
+/* icon */
+
+.container3 {
+  flex-grow: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  /* background-color: rgb(182, 206, 146); */
+  max-width: 10%;
+  height: 40px;
+  border-radius: 10px;
+}
+.icon-box{
+  padding: 8px;
+}
+
+.dark-mode {
+  background-color: #000;
+  color: #fff;
+}

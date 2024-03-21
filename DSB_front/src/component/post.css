@@ -1,0 +1,11 @@
+.post {
+  margin: 10px auto;
+  height: 800px;
+  width: 1000px;
+  border: solid black 1px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  border-radius: 5px;
+}

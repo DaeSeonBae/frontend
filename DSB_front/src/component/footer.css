@@ -1,0 +1,19 @@
+.footer-container {
+  margin: 10px auto;
+  height: 80px;
+  width: 1000px;
+  border: solid black 1px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  border-radius: 5px;
+
+  bottom: 10px;
+  left: 50%;
+}
+.rule{
+  font-size: 10px;
+  margin-top: 10px; /* 위쪽으로 10px 간격을 줍니다. */
+  letter-spacing: 2px; /* 글자 사이의 간격을 조절합니다. */
+}
