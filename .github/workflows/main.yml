@@ -36,7 +36,7 @@ jobs:
           BUCKET_NAME: ${{ secrets.AWS_S3_BUCKET_NAME}}
         run: |
           aws s3 sync \
-            ./build s3://$BUCKET_NAME
+            ./DSB_front/build s3://$BUCKET_NAME
 
       - name: CloudFront Invalidation
         env:
