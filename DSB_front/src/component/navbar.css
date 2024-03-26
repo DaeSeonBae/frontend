@@ -3,6 +3,7 @@
 .nav {
   display: flex;
   padding: 20px;
+  position: relative;
 }
 
 .container1 {
@@ -11,7 +12,7 @@
   align-items: center;
   justify-content: center;
   /* background-color: rgb(182, 206, 146); */
-  max-width: 10%;
+  max-width: 15%;
   height: 40px;
   border-radius: 10px;
 }
@@ -24,7 +25,7 @@
 .container2 {
   flex-grow: 1;
   background-color: rgb(182, 206, 146);
-  max-width: 80%;
+  max-width: 70%;
   height: 40px;
   border-radius: 10px;
 }
@@ -61,7 +62,7 @@
   align-items: center;
   justify-content: center;
   /* background-color: rgb(182, 206, 146); */
-  max-width: 10%;
+  max-width: 15%;
   height: 40px;
   border-radius: 10px;
 }

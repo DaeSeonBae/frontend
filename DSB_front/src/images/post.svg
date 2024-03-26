@@ -1,0 +1,12 @@
+<svg width="50" height="50" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g id="Group 18">
+<circle id="Ellipse 8" cx="50" cy="50" r="49.5" fill="white" stroke="black"/>
+<rect id="Rectangle 37" x="15.5" y="30.5" width="69" height="39" rx="4.5" fill="white" stroke="black"/>
+<path id="Vector 7" d="M15.5 66V76.5C15.5 78.1569 16.8431 79.5 18.5 79.5V79.5C20.1569 79.5 21.5 78.1569 21.5 76.5V69.5" stroke="black"/>
+<path id="Vector 8" d="M85 66V76.5C85 78.1569 83.6569 79.5 82 79.5V79.5C80.3431 79.5 79 78.1569 79 76.5V69.5" stroke="black"/>
+<line id="Line 1" x1="21" y1="38.5" x2="79" y2="38.5" stroke="black"/>
+<line id="Line 2" x1="21" y1="46.5" x2="79" y2="46.5" stroke="black"/>
+<line id="Line 3" x1="21" y1="54.5" x2="79" y2="54.5" stroke="black"/>
+<line id="Line 4" x1="21" y1="62.5" x2="79" y2="62.5" stroke="black"/>
+</g>
+</svg>

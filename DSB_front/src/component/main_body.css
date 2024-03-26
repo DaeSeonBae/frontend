@@ -1,0 +1,130 @@
+.banner-box {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
+.main_body {
+  display: flex;
+  flex-direction: row;
+  /* justify-content: flex-start; 요소 사이의 여백을 최대화하여 가로로 배치합니다. */
+  justify-content: center;
+  /* align-items: center; */
+}
+
+.first{
+  margin: 10px;
+  width: 200px;
+  height: 120px;
+  border: solid black 1px;
+  border-radius: 5px;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+
+}
+
+.login_box{
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  padding: 5px;
+}
+
+.login_box input {
+  width: 100px;
+  margin-bottom: 5px; /* 선택적으로 간격을 조정할 수 있음 */
+}
+
+.login_button{
+  width: 60px;
+  height: 60px;
+}
+
+.banner {
+  margin: 10px auto;
+  height: 400px;
+  width: 1000px;
+  border: solid black 1px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  border-radius: 5px;
+}
+.sub_header{
+  /* background-color: rgb(247, 175, 175); */
+  color: black;
+  margin: 5px auto;
+  height: 50px;
+  width: 1000px;
+  font-size: 30px;
+  display: flex;
+  justify-content: left;
+  align-items: center;
+  text-align: center;
+  border-radius: 5px;
+}
+.sub_name{
+  padding:5px;
+}
+.list_box {
+  margin: 10px 50px;
+  height: 400px;
+  width: 1000px;
+  border: solid black 1px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  border-radius: 5px;
+  flex-direction: row;
+}
+
+.list_item {
+  margin: 10px;
+  width: 16%;
+  height: 160px;
+  border: solid black 1px;
+  border-radius: 5px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  /* 기본 배경 색상 및 기타 스타일 */
+  background-color: rgb(255, 255, 255); /* 기본 배경 색상 */
+  transition: 1s;
+}
+
+.list_item:hover {
+  animation: shadowAnimation 10s infinite alternate;
+}
+.footer-container {
+  margin: 10px auto;
+  height: 80px;
+  width: 1000px;
+  border: solid black 1px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  border-radius: 5px;
+
+  bottom: 10px;
+  left: 50%;
+}
+.rule{
+  font-size: 10px;
+  margin-top: 10px; /* 위쪽으로 10px 간격을 줍니다. */
+  letter-spacing: 2px; /* 글자 사이의 간격을 조절합니다. */
+}
+.three{
+  margin: 10px;
+  width: 200px;
+  height: 600px;
+  border: solid black 1px;
+  border-radius: 5px;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
