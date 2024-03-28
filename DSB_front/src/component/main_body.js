@@ -15,7 +15,7 @@ function MainBody() {
       <div className="main_body">
         <div className="first">
           <div>
-            <div className="login_box">
+            <div className="login_box1">
               <div className="input_box">
                 <input type="text"/>
                 <input type="password"/>
@@ -26,7 +26,7 @@ function MainBody() {
                 </button>
               </div>
             </div>
-            <div className="login_box">
+            <div className="login_box2">
               <button>회원가입</button>
               <button>아이디/비번 찾기</button>
             </div>
@@ -53,13 +53,6 @@ function MainBody() {
               <div className="list_item">8</div>
               <div className="list_item">9</div>
               <div className="list_item">10</div>
-            </div>
-          </div>
-
-          <div className='footer-container'>
-            <div className='footer-box'>
-              <div className='team'>팀 : 범부</div>
-              <div className='rule'>이용약관, 개인정보처리방침, 청소년보호정책, 커뮤니티이용규칙, 공지사항, 문의하기, @대선배</div>
             </div>
           </div>
         </div>
