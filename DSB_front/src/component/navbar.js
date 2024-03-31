@@ -21,6 +21,11 @@ import studentIcon from '../images/student.svg';
 
 
 class Navbar extends React.Component {
+
+  refreshPage = () => {
+    window.location.reload();
+  }
+
   constructor(props) {
     super(props);
     this.state = {
@@ -39,8 +44,9 @@ class Navbar extends React.Component {
       <nav className="nav">
         <div className="nav_container">
         <div className="container1">
-          <div className="Logo">
-            <img src={logoIcon} alt='aplusIcon' className="logoImage" /> 대선배
+          <div className="Logo" onClick={this.refreshPage}>
+            <img src={logoIcon} alt='aplusIcon' className="logoImage" />
+            <div>대선배</div>
           </div>
         </div>
           <div className="container2">
