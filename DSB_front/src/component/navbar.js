@@ -4,19 +4,9 @@ import DarkModeIcon from '../images/darkmode.svg';
 import LightModeIcon from '../images/lightmode.svg';
 import messageIcon from '../images/message.svg';
 import notificationIcon from '../images/notification.svg';
-import postlistIcon from '../images/post.svg';
-import timeIcon from '../images/time.svg';
-import sugangIcon from '../images/sugang.svg';
-import starIcon from '../images/star.svg';
-import aiIcon from '../images/AI.svg';
-import aplusIcon from '../images/Aplus.svg';
+
 import logoIcon from '../images/logo.png';
 
-import hotIcon from '../images/hot.svg';
-import flyIcon from '../images/fly.svg';
-import professorIcon from '../images/professor.svg';
-import gradeIcon from '../images/grade.svg';
-import studentIcon from '../images/student.svg';
 
 
 
@@ -42,49 +32,28 @@ class Navbar extends React.Component {
   render() {
     return (
       <nav className="nav">
-        <div className="nav_container">
-        <div className="container1">
-          <div className="Logo" onClick={this.refreshPage}>
-            <img src={logoIcon} alt='aplusIcon' className="logoImage" />
-            <div>대선배</div>
-          </div>
+        <div className='container1'>
+        <img src={logoIcon} alt = 'logoIcon'/>
+          대선배
         </div>
-          <div className="container2">
-            <div className="nav-box">
-              <div class="nav-item">
-                <img src={postlistIcon} alt='postIcon'/>
-                <div>게시판</div>
-                <div class="hover-content">
-                  <p><img src={hotIcon} alt='hotIcon'/></p>
-                  <p><img src={flyIcon} alt='flyIcon'/></p>
-                  <p><img src={professorIcon} alt='professorIcon'/></p>
-                  <p><img src={gradeIcon} alt='gradeIcon'/></p>
-                  <p><img src={studentIcon} alt='studdentIcon'/></p>
-                </div>  
-              </div>
-              <div className="nav-item">
-                <img src={timeIcon} alt='timeIcon'/>
-                <div>시간표</div>
-              </div>
-              <div className="nav-item">
-                <img src={sugangIcon} alt='sugangIcon'/>
-                <div>수강신청</div>
-              </div>
-              <div className="nav-item">
-                <img src={starIcon} alt='starIcon'/>
-                <div>강의평가</div>
-              </div>
-              <div className="nav-item">
-                <img src={aiIcon} alt='aiIcon'/>
-                <div>AI</div>
-              </div>
-              <div className="nav-item">
-                <img src={aplusIcon} alt='aplusIcon'/>
-                <div>학점계산</div>
-              </div>
+        <div className='container2'>
+          <div className='nav-item'>
+            <p>게시판</p>
+            <div className='nav-sub-item'>
+              <div className='sub-list'><p>HOT 게시판</p></div>
+              <div className='sub-list'><p>자유 게시판</p></div>
+              <div className='sub-list'><p>교수님 게시판</p></div>
+              <div className='sub-list'><p>졸업생 게시판</p></div>
+              <div className='sub-list'><p>재학생 게시판</p></div>
             </div>
           </div>
-          <div className="container3">
+          <div className='nav-item'><p>시간표</p></div>
+          <div className='nav-item'><p>수강신청</p></div>
+          <div className='nav-item'><p>강의평가</p></div>
+          <div className='nav-item'><p>AI</p></div>
+          <div className='nav-item'><p>학점계산</p></div>
+        </div>
+        <div className="container3">
             <div className="icon-box" onClick={this.toggleDarkMode}>
               {this.state.isDarkMode ?  <img src={LightModeIcon} alt='Light Mode' />:<img src={DarkModeIcon} alt="Dark Mode" />}
             </div>
@@ -95,7 +64,7 @@ class Navbar extends React.Component {
               <img src={notificationIcon} alt = 'notificationIcon'/>
             </div>
           </div>
-        </div>
+
       </nav>
     );
   }
