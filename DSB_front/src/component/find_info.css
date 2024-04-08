@@ -1,0 +1,71 @@
+
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-color: grey;
+}
+
+.card {
+  width: 300px;
+  padding: 20px;
+  margin: 50px;
+  border-radius: 8px;
+  box-shadow: 0 3px 5px rgb(61, 61, 61); /* 그림자 설정 */
+  background-color: white;
+}
+
+
+.card h2 {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.input-group {
+  margin-bottom: 15px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.input-group label {
+  display: block;
+  margin-bottom: 5px;
+}
+
+.input-group input {
+  width: 90%;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.sign_up {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.sign_up_member, .find_member {
+  cursor: pointer;
+  margin: 5px;
+}
+
+button[type="button"] {
+  width: 100%;
+  padding: 10px;
+  background-color: #4DCB00;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+button[type="button"]:hover {
+  background-color: #0B994A;
+}
+
+.login_link{
+  text-decoration: none;
+}

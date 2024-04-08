@@ -3,18 +3,27 @@ import './App.css';
 import Navbar from './component/navbar';
 import MainBody from './component/main_body';
 import Login from './component/login';
+import Signup from './component/signup';
+import Findinfo from './component/findinfo';
 import { BrowserRouter as Router, Routes, Route} from 'react-router-dom';
 
 function App() {
   return (
     <Router>
-      <div className="App">
-        <Navbar />
-        <Routes>
-          <Route path="/" element={<MainBody />} />
-          <Route path="/login" element={<Login />} />
-        </Routes>
-      </div>
+      <Routes>
+        <Route path='/' element={
+          <>
+            <Navbar />
+            <MainBody />
+          </>
+        } />
+
+        <Route path='/login' element={<Login />} />
+        <Route path='/signup' element={<Signup />} />
+        <Route path='/find_info' element={<Findinfo />} />
+
+        <Route path='*' element={<div>404error! 없는 페이지 입니다.</div>} />
+      </Routes>
     </Router>
   );
 }

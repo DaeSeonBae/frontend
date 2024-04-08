@@ -59,8 +59,8 @@
   align-items: center;
   max-width: 70%;
   border-radius: 10px;
-  color: grey;
-  background-color: rgb(151, 151, 207);
+  color: rgb(180, 180, 180);
+  background-color: rgb(170, 64, 64);
   box-shadow: 0 2px 4px rgba(2, 2, 2, 2); /* 그림자 효과를 추가합니다. */
 }
 

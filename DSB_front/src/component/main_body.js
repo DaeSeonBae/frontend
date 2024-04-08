@@ -1,5 +1,6 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import './main_body.css';
 
 function MainBody() {
@@ -16,10 +17,6 @@ function MainBody() {
         <div className="first">
           <div>
             <div className="login_box1">
-              <div className="input_box">
-                <input type="text"/>
-                <input type="password"/>
-              </div>
               <div className="button_box">
                 <button className='login_button' onClick={handleClick}>
                   로그인
@@ -27,8 +24,8 @@ function MainBody() {
               </div>
             </div>
             <div className="login_box2">
-              <button>회원가입</button>
-              <button>아이디/비번 찾기</button>
+              <button><Link to='/signup' className='login_link'>회원가입</Link></button>
+              <button><Link to='/find_info' className='login_link'>아이디/비밀번호 찾기</Link></button>
             </div>
           </div>
         </div>
