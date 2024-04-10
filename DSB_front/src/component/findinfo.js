@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import './find_info.css';
+import '../component_style/find_info.css';
 
 function Findinfo() {
   return (

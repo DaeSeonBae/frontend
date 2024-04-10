@@ -1,5 +1,5 @@
 import React from 'react';
-import './navbar.css';
+import '../component_style/navbar.css';
 import DarkModeIcon from '../images/darkmode.svg';
 import LightModeIcon from '../images/lightmode.svg';
 import messageIcon from '../images/message.svg';

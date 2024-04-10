@@ -1,7 +1,7 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Link } from 'react-router-dom';
-import './main_body.css';
+import '../component_style/main_body.css';
 
 function MainBody() {
   const navigate = useNavigate();
