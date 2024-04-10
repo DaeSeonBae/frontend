@@ -15,10 +15,14 @@
   background-color: white;
 }
 
-
 .card h2 {
   text-align: center;
   margin-bottom: 20px;
+}
+
+.DSB_logo{
+  width: 150px;
+  height:70px;
 }
 
 .input-group {

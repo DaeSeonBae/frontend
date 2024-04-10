@@ -5,6 +5,7 @@ import MainBody from './component/main_body';
 import Login from './component/login';
 import Signup from './component/signup';
 import Findinfo from './component/findinfo';
+import Post from './component/post';
 import { BrowserRouter as Router, Routes, Route} from 'react-router-dom';
 
 function App() {
@@ -17,10 +18,17 @@ function App() {
             <MainBody />
           </>
         } />
+        <Route path='/post' element={
+          <>
+            <Navbar />
+            <Post />
+          </>
+        }/>
 
         <Route path='/login' element={<Login />} />
         <Route path='/signup' element={<Signup />} />
         <Route path='/find_info' element={<Findinfo />} />
+        {/* <Route path='/post' element={<Post />} /> */}
 
         <Route path='*' element={<div>404error! 없는 페이지 입니다.</div>} />
       </Routes>

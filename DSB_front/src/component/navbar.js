@@ -5,10 +5,9 @@ import LightModeIcon from '../images/lightmode.svg';
 import messageIcon from '../images/message.svg';
 import notificationIcon from '../images/notification.svg';
 
-import logoIcon from '../images/logo.png';
+import logoIcon from '../images/DSB_logo.png';
 
-
-
+import { Link } from 'react-router-dom';
 
 class Navbar extends React.Component {
 
@@ -33,12 +32,15 @@ class Navbar extends React.Component {
     return (
       <nav className="nav">
         <div className='container1'>
-        <img src={logoIcon} alt = 'logoIcon'/>
-          대선배
+        <img className='DSB_logo' src={logoIcon} alt = 'logoIcon'/>
         </div>
         <div className='container2'>
           <div className='nav-item'>
-            <p>게시판</p>
+            <p>
+              <Link to='/post' className='s'>
+                게시판
+              </Link>
+            </p>
             <div className='nav-sub-item'>
               <div className='sub-list'><p>HOT 게시판</p></div>
               <div className='sub-list'><p>자유 게시판</p></div>

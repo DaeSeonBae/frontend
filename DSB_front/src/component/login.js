@@ -1,13 +1,18 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import '../component_style/login.css';
+import logoIcon from '../images/DSB_logo.png';
 
 function Login() {
   return (
     <div>
       <div class="container">
         <div class="card">
-          <h2><Link to='/' className='login_link'>대선배</Link></h2>
+          <h2>
+            <Link to='/' className='login_link'>
+              <img className='DSB_logo' src={logoIcon} alt = 'logoIcon'/>
+            </Link>
+          </h2>
           <form>
             <div class="input-group">
               {/* <label for="username">아이디</label> */}
