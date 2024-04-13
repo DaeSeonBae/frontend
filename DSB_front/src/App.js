@@ -6,6 +6,7 @@ import Login from './component/login';
 import Signup from './component/signup';
 import Findinfo from './component/findinfo';
 import Post from './component/post';
+import Footer from './component/footer';
 import { BrowserRouter as Router, Routes, Route} from 'react-router-dom';
 
 function App() {
@@ -16,12 +17,14 @@ function App() {
           <>
             <Navbar />
             <MainBody />
+            <Footer/>
           </>
         } />
         <Route path='/post' element={
           <>
             <Navbar />
             <Post />
+            <Footer/>
           </>
         }/>
 

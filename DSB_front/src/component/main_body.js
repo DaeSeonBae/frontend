@@ -1,10 +1,21 @@
-import React from 'react';
+import React ,{ useState }from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 import '../component_style/main_body.css';
 
 function MainBody() {
+  const [showModal, setShowModal] = useState(false);
   const navigate = useNavigate();
+
+  // 모달 열기
+  const openModal = () => {
+    setShowModal(true);
+  };
+
+  // 모달 닫기
+  const closeModal = () => {
+    setShowModal(false);
+  };
 
   const handleClick = () => {
     // 버튼을 클릭하면 '/login' 경로로 이동합니다.
@@ -40,30 +51,38 @@ function MainBody() {
               <h6 className="sub_name">HOT 게시판</h6>
             </div>
             <div className="list_box">
-              <div className="list_item">1</div>
-              <div className="list_item">2</div>
-              <div className="list_item">3</div>
-              <div className="list_item">4</div>
-              <div className="list_item">5</div>
-              <div className="list_item">6</div>
-              <div className="list_item">7</div>
-              <div className="list_item">8</div>
-              <div className="list_item">9</div>
-              <div className="list_item">10</div>
+              {/* 클릭 이벤트 추가 */}
+            {[...Array(10)].map((_, index) => (
+              <div className="list_item" key={index} onClick={openModal}>
+                {index + 1}
+              </div>
+            ))}
+            </div>
+          </div>
+          {/* 모달 */}
+      {showModal && (
+        <div className="modal">
+          <div className="modal_content">
+            {/* 닫기 버튼 */}
+            <span className="close" onClick={closeModal}>&times;</span>
+            <div className='main_post_box'>
+              <div>제목</div>
+              <div>날짜</div>
+              <div>작성자</div>
+              <div>내용</div>
+            </div>
+            <div className='comment_box'>
+              <div className='best_comment'>best</div>
+              <div className='basic_comment'>basic</div>
             </div>
           </div>
         </div>
+      )}
+        </div>
         <div className="side">
           side
-        </div>
-        
-    </div>
-    <div className='footer-container'>
-    <div className='footer-box'>
-      <div className='team'>팀 : 범부</div>
-      <div className='rule'>이용약관, 개인정보처리방침, 청소년보호정책, 커뮤니티이용규칙, 공지사항, 문의하기, @대선배</div>
-    </div>
-  </div>
+        </div>    
+      </div>
     </div>
   );
 }

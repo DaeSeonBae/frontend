@@ -51,19 +51,9 @@
   margin: 10px;
 }
 
-.banner {
-  height: 400px;
-  border: solid black 1px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-  border-radius: 5px;
-}
-
 .sub_header{
   color: black;
-  margin: 5px auto;
+  /* margin: 5px auto; */
   height: 50px;
   font-size: 30px;
   display: flex;
@@ -71,6 +61,7 @@
   align-items: center;
   text-align: center;
   border-radius: 5px;
+  border: 1px solid black
 }
 
 .sub_name{
@@ -79,7 +70,7 @@
 
 .list_box {
   /* margin: 10px 50px; */
-  height: 400px;
+  height: 100%;
   /* width: 1000px; */
   border: solid black 1px;
   display: flex;
@@ -95,14 +86,102 @@
   margin: 15px;
   width: 16%;
   height: 160px;
-  border: solid black 1px;
+  border: solid black 3px;
   border-radius: 5px;
   display: flex;
   justify-content: center;
   align-items: center;
   /* 기본 배경 색상 및 기타 스타일 */
   background-color: rgb(255, 255, 255); /* 기본 배경 색상 */
-  transition: 1s;
+  /* transition: 1s; */
+}
+
+.list_item:hover{
+  /* border: 3px solid red; */
+  box-shadow: 0 0 5px 5px black;
+}
+
+/* modal=================================== */
+
+.modal {
+  display: flex;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  justify-content: center;
+  align-items: center;
+}
+
+.modal_content {
+  background-color: rgb(145, 83, 83);
+  width: 80%;
+  height: 80%;
+  padding: 20px;
+  border-radius: 10px;
+  display: flex;
+}
+
+.close {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  cursor: pointer;
+}
+
+.main_post_box{
+  background-color: white;
+  margin: 20px;
+  width: 90%;
+  height: 90%;
+  border: 1px solid black;
+}
+.comment_box{
+  background-color: white;
+  margin:20px;
+  width: 40%;
+  height: 670px;
+  border: 1px solid black;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+.best_comment{
+  margin:10px;
+  width: 96%;
+  height: 20%;
+  border: 1px solid black;
+}
+.basic_comment{
+  margin:10px;
+  /* padding:10px; */
+  width: 96%;
+  height: 75%;
+  border: 1px solid black;
+}
+/* .comment_list{
+  /* max-height: 600px; 최대 높이 지정 */
+  /* overflow-y: auto; 세로 스크롤이 필요한 경우만 스크롤 표시 */
+/* } */ 
+.comment_input_box{
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 90%;
+  background-color: #ffffff; /* 배경색 설정 */
+  padding: 10px; /* 내부 여백 설정 */
+  /* box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); 그림자 효과 추가 */
+}
+.comment_input_box textarea{
+  width: 95%;
+  padding: 5px;
+}
+
+.comment_form{
+  display: flex;
+  /* padding: 5px; */
 }
 
 /* ================================================================= */
