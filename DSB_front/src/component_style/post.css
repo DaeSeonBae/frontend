@@ -122,6 +122,7 @@
   padding: 20px;
   border-radius: 10px;
   display: flex;
+  
 }
 
 .close {
@@ -132,57 +133,81 @@
 }
 
 .main_post_box{
-  background-color: white;
-  margin: 20px;
-  width: 90%;
-  height: 90%;
-  border: 1px solid black;
+  width: 68%;
+  margin: 0 auto;
+  /* padding: 20px; */
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  background-color: #f9f9f9;
 }
-.comment_box{
-  background-color: white;
-  margin:20px;
-  width: 40%;
-  height: 670px;
-  border: 1px solid black;
-  display: flex;
-  flex-direction: column;
-  position: relative;
-}
-.best_comment{
-  margin:10px;
-  width: 96%;
-  height: 20%;
-  border: 1px solid black;
-}
-.basic_comment{
-  margin:10px;
-  /* padding:10px; */
-  width: 96%;
-  height: 75%;
-  border: 1px solid black;
-}
-/* .comment_list{
-  /* max-height: 600px; 최대 높이 지정 */
-  /* overflow-y: auto; 세로 스크롤이 필요한 경우만 스크롤 표시 */
-/* } */ 
-.comment_input_box{
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  width: 90%;
-  background-color: #ffffff; /* 배경색 설정 */
-  padding: 10px; /* 내부 여백 설정 */
-  /* box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); 그림자 효과 추가 */
-}
-.comment_input_box textarea{
-  width: 95%;
-  padding: 5px;
+.postdata{
+  padding: 10px;
 }
 
-.comment_form{
+/* comment 댓글창 */
+.comment-container {
   display: flex;
-  /* padding: 5px; */
+  flex-direction: column;
+  align-items: center;
+  width: 28%;
+  /* height: 800px; 최소 높이를 설정합니다. */
+  margin: 0 auto;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  background-color: #f9f9f9;
 }
+
+
+.comment-container h2 {
+  font-size: 24px;
+  margin-bottom: 15px;
+}
+
+.comment-list {
+  width: 100%;
+  max-height: 600px; /* 최대 높이를 설정합니다. */
+  overflow-y: auto; /* 내용이 넘칠 때 수직 스크롤바를 표시합니다. */
+  margin-bottom: 20px;
+}
+
+.comment {
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  padding: 10px;
+  margin-bottom: 10px;
+}
+
+.comment-form {
+  width: 100%;
+  margin-top: auto; /* 이 부분이 추가됩니다. */
+  display: flex;
+}
+
+.comment-form textarea {
+  width: 100%;
+  height: 50px;
+  /* padding: 10px;
+  margin-bottom: 10px; */
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  resize: none;
+}
+
+.comment-form button {
+  padding: 10px 20px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.comment-form button:hover {
+  background-color: #0056b3;
+}
+
 
 /* ================================================================= */
 
