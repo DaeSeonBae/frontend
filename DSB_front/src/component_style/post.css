@@ -61,12 +61,101 @@
   align-items: center;
   text-align: center;
   border-radius: 5px;
-  border: 1px solid black
+  border: 1px solid black;
+  justify-content: space-between;
 }
 
 .sub_name{
   padding:5px;
 }
+/* ======================================================= */
+.choiceOption{
+  width: 100%;
+  margin: 0 auto;
+  /* padding: 20px; */
+  /* border: 1px solid #ccc; */
+  /* border-radius: 8px; */
+  /* background-color: #f9f9f9; */
+}
+
+.postGroup{
+  width: 100%;
+  /* height: 15%; */
+  /* margin: 5px; */
+  /* background-color: grey; */
+  border-radius: 8px;
+}
+.postname{
+  font-size: 27px;
+  font-weight: bold;
+}
+
+.helpBox{
+  /* width: 200px; */
+  height: 30px;
+  border: 1px solid black;
+  margin-left: 50px;
+  display: flex;
+}
+
+.helpBox select,input{
+  height:30px;
+  width:60px;
+}
+
+.titleinput input {
+  width: 100%;
+  
+  padding: 10px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
+.postSelect{
+  width: 100%;
+  height: 40px;
+  display: flex;
+}
+
+.postForm select{
+  width: 150px;
+  height: 30px;
+}
+
+.scriptBox{
+  width: 100%;
+  height: 90%;
+  /* margin: 5px; */
+  /* background-color: grey; */
+  border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+}
+
+.scriptBox label {
+  margin-bottom: 5px;
+}
+
+.scriptBox textarea {
+  height: 100%;
+  margin-bottom: 10px;
+}
+
+.scriptBox button {
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.scriptBox button:hover {
+  background-color: #0056b3;
+}
+/* ======================================================= */
 
 .list_box {
   /* margin: 10px 50px; */
