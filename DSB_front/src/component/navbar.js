@@ -37,13 +37,15 @@ class Navbar extends React.Component {
         <div className='container2'>
           <div className='nav-item'>
             <p>
-              <Link to='/post' className='s'>
-                게시판
-              </Link>
+              게시판
             </p>
             <div className='nav-sub-item'>
               <div className='sub-list'><p>HOT 게시판</p></div>
-              <div className='sub-list'><p>자유 게시판</p></div>
+              <div className='sub-list'>
+                <Link to='/post' className='s'>
+                  자유 게시판
+                </Link>
+              </div>
               <div className='sub-list'><p>교수님 게시판</p></div>
               <div className='sub-list'><p>졸업생 게시판</p></div>
               <div className='sub-list'><p>재학생 게시판</p></div>
