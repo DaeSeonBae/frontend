@@ -25,7 +25,9 @@ function Findinfo() {
           </form>
         </div>
         <div class="card">
-          <h2><Link to='/' className='login_link'>대선배</Link></h2>
+          <h2>
+            <Link to='/' className='login_link'><img className='DSB_logo' src={logoIcon} alt = 'logoIcon'/></Link>
+            </h2>
           <h2>비밀번호 찾기</h2>
           <form>
             <div class="input-group">

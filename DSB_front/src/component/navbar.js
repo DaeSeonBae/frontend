@@ -32,7 +32,9 @@ class Navbar extends React.Component {
     return (
       <nav className="nav">
         <div className='container1'>
-        <img className='DSB_logo' src={logoIcon} alt = 'logoIcon'/>
+          <Link to='/' className=''>
+            <img className='DSB_logo' src={logoIcon} alt = 'logoIcon'/>
+          </Link>
         </div>
         <div className='container2'>
           <div className='nav-item'>
@@ -42,7 +44,7 @@ class Navbar extends React.Component {
             <div className='nav-sub-item'>
               <div className='sub-list'><p>HOT 게시판</p></div>
               <div className='sub-list'>
-                <Link to='/post' className='s'>
+                <Link to='/post' className=''>
                   자유 게시판
                 </Link>
               </div>
@@ -52,7 +54,11 @@ class Navbar extends React.Component {
             </div>
           </div>
           <div className='nav-item'><p>시간표</p></div>
-          <div className='nav-item'><p>수강신청</p></div>
+          <div className='nav-item'>
+            <Link to='/enrolment' className=''>
+              수강 신청
+            </Link>
+          </div>
           <div className='nav-item'><p>강의평가</p></div>
           <div className='nav-item'><p>AI</p></div>
           <div className='nav-item'><p>학점계산</p></div>
