@@ -60,7 +60,11 @@ class Navbar extends React.Component {
             </Link>
           </div>
           <div className='nav-item'><p>강의평가</p></div>
-          <div className='nav-item'><p>AI</p></div>
+          <div className='nav-item'>
+            <Link to='/ai' className=''>
+              AI
+            </Link>
+          </div>
           <div className='nav-item'><p>학점계산</p></div>
         </div>
         <div className="container3">

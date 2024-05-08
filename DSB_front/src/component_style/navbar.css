@@ -56,17 +56,21 @@
   align-items: center;
   max-width: 70%;
   border-radius: 10px;
-  color: rgb(180, 180, 180);
-  background-color: rgb(170, 64, 64);
+  color: rgb(0, 0, 0);
+  background-color: rgb(247, 196, 196);
   box-shadow: 0 2px 4px rgba(2, 2, 2, 2); /* 그림자 효과를 추가합니다. */
 }
 
 .nav-item {
   position: relative;
   cursor: pointer;
+  height: 0px auto;
 }
-.nav-item:hover{
+.nav-item>p:hover,.nav-item>a:hover{
   color:black;
+  background-image: url('../images/neon.svg'); /* 이미지 경로 설정 */
+  /* background-size: cover; */
+  background-size: 100px 25px;
 }
 
 .nav-item:hover:before,

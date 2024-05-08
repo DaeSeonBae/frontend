@@ -8,6 +8,7 @@ import Findinfo from './component/findinfo';
 import Post from './component/post';
 import Footer from './component/footer';
 import Enrolment from './component/Enrolment';
+import Ai from './component/ai';
 import { BrowserRouter as Router, Routes, Route} from 'react-router-dom';
 
 function App() {
@@ -34,9 +35,14 @@ function App() {
             <Enrolment/>
             <Footer/>
           </>
-        }>
-
-        </Route>
+        }/>
+        <Route path='/ai' element={
+          <>
+            <Navbar/>
+            <Ai/>
+            <Footer/>
+          </>
+        }/>
 
         <Route path='/login' element={<Login />} />
         <Route path='/signup' element={<Signup />} />

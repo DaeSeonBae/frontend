@@ -1,0 +1,92 @@
+.ai_chatcontainer{
+  height: 90%;
+  width: 1000px;
+  border: solid 1px black;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center; /* 수평 가운데 정렬 */
+  align-items: center; /* 수직 가운데 정렬 */
+}
+.ai_chatbox {
+  width: 96%;
+  height: 96%;
+  border: solid 1px black;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  background-color: rgba(250, 149, 149, 0.6);
+
+  margin-top: 10px;
+
+  font-family: 'UhBee ann';
+  box-shadow: 0 2px 4px rgba(2, 2, 2, 2); /* 그림자 효과를 추가합니다. */
+}
+
+.ai_output{
+  display: flex;
+  justify-content: flex-start;
+  flex-direction: column;
+}
+.ai_name{
+  /* border: 1px solid black; */
+  width: 40%;
+  height: 30px;
+  align-self: flex-start; /* 메시지를 오른쪽으로 정렬 */
+  margin-top: 10px;
+  margin-left: 10px;
+}
+.ai_message{
+  border: 1px solid black;
+  width: 40%;
+  height: 0px auto;
+  align-self: flex-start;
+  margin-left: 15px;
+  border-radius: 10px;
+  box-shadow: 0 2px 4px rgba(2, 2, 2, 2); /* 그림자 효과를 추가합니다. */
+  text-indent: 10px;/*들여쓰기*/
+} 
+
+.user_output{
+  display: flex;
+  justify-content: flex-end;
+  flex-direction: column;
+}
+
+.user{
+  /* border: 1px solid black; */
+  width: 40%;
+  height: 30px;
+  align-self: flex-end; /* 메시지를 오른쪽으로 정렬 */
+  margin-top: 10px;
+  margin-right: 10px;
+}
+
+.user_message{
+  border: 1px solid black;
+  width: 40%;
+  height: 30px auto;
+  align-self: flex-end;
+  margin-right: 10px;
+  border-radius: 10px;
+  box-shadow: 0 2px 4px rgba(2, 2, 2, 2); /* 그림자 효과를 추가합니다. */
+  text-indent: 10px;
+} 
+
+.user_chatInput{
+  padding: 10px;
+  width: 96%;
+  /* height: 10%; */
+  display: flex;
+  align-items: center;
+}
+
+.user_chatInput input{
+  width: 100%;
+  /* height: 50%; */
+  border-radius:10px ;
+}
+.user_chatInput img{
+  width: 40px;
+  height: 40px;
+}

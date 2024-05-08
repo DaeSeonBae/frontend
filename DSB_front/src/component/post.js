@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import '../component_style/post.css';
-import { Link, useNavigate } from 'react-router-dom';
+
 
 const Post = () => {
   const [showModal, setShowModal] = useState(false);
   const [selectedPost, setSelectedPost] = useState(null); // 선택된 게시물 데이터
   // const [commentText, setCommentText] = useState(''); // 댓글 내용
   const [comments] = useState([]); // 댓글 목록
-  const navigate = useNavigate();
+
 
   // 모달 열기
   const openModal = (index) => {
@@ -44,11 +44,6 @@ const Post = () => {
 
   const handleFontWeightChange = (event) => {
     setFontWeight(event.target.value);
-  };
-
-  const handleClick = () => {
-    // 버튼을 클릭하면 '/login' 경로로 이동합니다.
-    navigate('/login');
   };
 
   const [isModalOpen, setIsModalOpen] = useState(false); // 모달의 상태를 관리하는 변수
@@ -153,21 +148,7 @@ const Post = () => {
   return (
     <div>
       <div className="main_body">
-        <div className="first">
-          <div>
-            <div className="login_box1">
-              <div className="button_box">
-                <button className='login_button' onClick={handleClick}>
-                  로그인
-                </button>
-              </div>
-            </div>
-            <div className="login_box2">
-              <button><Link to='/signup' className='login_link'>회원가입</Link></button>
-              <button><Link to='/find_info' className='login_link'>아이디/비밀번호 찾기</Link></button>
-            </div>
-          </div>
-        </div>
+        
         <div className="middle">
           <div className="post_container">
             <div>
@@ -307,9 +288,6 @@ const Post = () => {
               </div>
             </div>
           )}
-        </div>
-        <div className="side">
-          side
         </div>
       </div>
     </div>
