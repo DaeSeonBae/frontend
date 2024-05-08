@@ -68,7 +68,6 @@
 }
 .nav-item>p:hover,.nav-item>a:hover{
   color:black;
-  background-image: url('../images/neon.svg'); /* 이미지 경로 설정 */
   /* background-size: cover; */
   background-size: 100px 25px;
 }
