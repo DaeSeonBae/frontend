@@ -1,0 +1,36 @@
+b {
+    display: block;
+    text-align: center;
+    color: #E65454;
+    font-size: 30px;
+    opacity: 0.6;
+    margin-top: 30px;
+}
+button {
+    width: 200px;
+    height: 30px;
+    display: block;
+    margin: 0 auto;
+    font-size: 20px;
+    border-radius: 5px;
+    color: rgba(0, 0, 0, 1);
+    border: 0;
+    background-color: rgba(520, 149, 149, 0.6);
+    cursor: pointer;
+    margin-top: 50px;
+    margin-bottom: 50px;
+}
+
+.image-container {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr); /* 3개의 열로 나열 */
+    gap: 20px; /* 이미지 간격 설정 */
+  }
+  
+.image-container img {
+    display: block;
+    margin: 0 auto;
+    width: 90%; /* 이미지 너비 100% */
+    height: auto; /* 이미지 높이 자동 조정 */
+    border-radius: 10px;
+}
