@@ -9,6 +9,7 @@ import Post from './component/post';
 import Footer from './component/footer';
 import Enrolment from './component/Enrolment';
 import Ai from './component/ai';
+import Calculate from './component/calculate';
 import { BrowserRouter as Router, Routes, Route} from 'react-router-dom';
 
 function App() {
@@ -40,6 +41,13 @@ function App() {
           <>
             <Navbar/>
             <Ai/>
+            <Footer/>
+          </>
+        }/>
+        <Route path='/calculate' element={
+          <>
+            <Navbar/>
+            <Calculate/>
             <Footer/>
           </>
         }/>
