@@ -21,14 +21,14 @@ const Enrolment = () => {
       <b>2024년 05월 10일 17시 10분 22초</b>
       <button onClick={handleClick}>수강 신청 하러 가기</button>
       <div className="image-container">
-        <img src={image1} alt="Image 1" />
-        <img src={image2} alt="Image 2" />
-        <img src={image3} alt="Image 3" />
-        <img src={image4} alt="Image 4" />
-        <img src={image5} alt="Image 5" />
-        <img src={image6} alt="Image 6" />
-        <img src={image7} alt="Image 7" />
-        <img src={image8} alt="Image 8" />
+        <img src={image1} alt=''/>
+        <img src={image2} alt=''/>
+        <img src={image3} alt=''/>
+        <img src={image4} alt=''/>
+        <img src={image5} alt=''/>
+        <img src={image6} alt=''/>
+        <img src={image7} alt=''/>
+        <img src={image8} alt=''/>
       </div>
     </div>
   );
