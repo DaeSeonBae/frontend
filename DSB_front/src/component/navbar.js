@@ -65,7 +65,11 @@ class Navbar extends React.Component {
               AI
             </Link>
           </div>
-          <div className='nav-item'><p>학점계산</p></div>
+          <div className='nav-item'>
+            <Link to='/calculate' className=''>
+              학점계산
+            </Link>
+          </div>
         </div>
         <div className="container3">
             <div className="icon-box" onClick={this.toggleDarkMode}>
