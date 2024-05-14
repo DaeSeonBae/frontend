@@ -66,3 +66,17 @@
   height: 90%;
   border: 1px solid red;
 }
+
+.average_box{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%; 
+}
+.grade_box{
+  margin-top:30px;
+  width: 50%;
+  height: 200px;
+  border: 1px solid black;
+}

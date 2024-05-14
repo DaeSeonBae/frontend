@@ -36,52 +36,78 @@ const Calculate = () => {
       // 그래프 옵션 설정
     }
   };
-// 초기 테이블 데이터
-const initialTableData = [
-  ['', '', '', false]
-];
 
-// 테이블 데이터와 사용자가 입력한 값을 상태로 관리
-const [tableData, setTableData] = useState(initialTableData);
+  // 초기 테이블 데이터
+  const initialTableData = [
+    ['', '', '', false]
+  ];
 
-// 항목 추가 버튼을 클릭했을 때 실행되는 함수
-const handleAddRow = () => {
-  const newRow = ['', '', '', false]; // 초기 체크박스 상태는 false로 설정
-  setTableData(prevData => [...prevData, newRow]);
-};
+  // 테이블 데이터와 사용자가 입력한 값을 상태로 관리
+  const [tableData, setTableData] = useState(initialTableData);
 
-// 항목 삭제 버튼을 클릭했을 때 실행되는 함수
-const handleDeleteRow = (index) => {
-  setTableData(prevData => prevData.filter((_, i) => i !== index));
-};
+  // 총합을 표시하는 위치 설정
+  const [totalSum, setTotalSum] = useState(0);
 
-// 입력값 변경 시 실행되는 함수
-const handleInputChange = (value, rowIndex, colIndex) => {
-  setTableData(prevData => {
-    const newData = [...prevData];
-    newData[rowIndex][colIndex] = value;
-    return newData;
-  });
-};
+  // 입력값 변경 시 실행되는 함수
+  const handleInputChange = (value, rowIndex, colIndex) => {
+    setTableData(prevData => {
+      const newData = [...prevData];
+      newData[rowIndex][colIndex] = value;
+      // 3번째 열의 값이 변경될 때마다 총합 다시 계산
+      if (colIndex === 2) {
+        updateTotalSum();
+      }
+      return newData;
+    });
+  };
 
-// 체크박스 상태 변경 시 실행되는 함수
-const handleCheckboxChange = (checked, rowIndex) => {
-  setTableData(prevData => {
-    const newData = [...prevData];
-    newData[rowIndex][3] = checked;
-    return newData;
-  });
-};
+  // 항목 추가 버튼을 클릭했을 때 실행되는 함수
+  const handleAddRow = () => {
+    const newRow = ['', '', '', false]; // 초기 체크박스 상태는 false로 설정
+    setTableData(prevData => [...prevData, newRow]);
+  };
 
-// 스크롤이 필요한지 확인하고 스타일을 업데이트하는 효과
-useEffect(() => {
-  const inputBox = document.querySelector('.input_box');
-  if (inputBox.scrollHeight > 450) {
-    inputBox.style.overflowY = 'auto';
-  } else {
-    inputBox.style.overflowY = 'visible';
-  }
-}, [tableData]); // tableData가 변경될 때마다 실행됨
+  // 총합을 업데이트하는 함수
+  const updateTotalSum = () => {
+    let sum = 0;
+    tableData.forEach(row => {
+      const grade = parseFloat(row[2]);
+      if (!isNaN(grade)) {
+        sum += grade;
+      }
+    });
+    setTotalSum(sum);
+  };
+
+  // 항목 삭제 버튼을 클릭했을 때 실행되는 함수
+  const handleDeleteRow = (index) => {
+    setTableData(prevData => prevData.filter((_, i) => i !== index));
+  };
+
+  // 체크박스 상태 변경 시 실행되는 함수
+  const handleCheckboxChange = (checked, rowIndex) => {
+    setTableData(prevData => {
+      const newData = [...prevData];
+      newData[rowIndex][3] = checked;
+      return newData;
+    });
+  };
+
+  // 스크롤이 필요한지 확인하고 스타일을 업데이트하는 효과
+  useEffect(() => {
+    const inputBox = document.querySelector('.input_box');
+    if (inputBox.scrollHeight > 450) {
+      inputBox.style.overflowY = 'auto';
+    } else {
+      inputBox.style.overflowY = 'visible';
+    }
+  }, [tableData]); // tableData가 변경될 때마다 실행됨
+
+  // 선택한 학기가 변경될 때마다 input_box 초기화
+  const handleSemesterChange = () => {
+    setTableData(initialTableData);
+    setTotalSum(0);
+  };
 
   return (
     <div className='main_body'>
@@ -89,7 +115,7 @@ useEffect(() => {
         <div className='inputscore_box'>
           <div className='top'>
             <h2>학점 계산기</h2>
-            <select className='grade'>
+            <select className='grade' onChange={handleSemesterChange}>
               <option value={1-1}>1-1</option>
               <option value={1-2}>1-2</option>
               <option value={2-1}>2-1</option>
@@ -132,7 +158,7 @@ useEffect(() => {
                         </td>
                       ))}
                       <td>
-                      <button onClick={() => handleDeleteRow(rowIndex)} style={{width: '20px', height: '20px',textAlign:'center'}}>X</button>
+                        <button onClick={() => handleDeleteRow(rowIndex)} style={{ width: '20px', height: '20px', textAlign: 'center' }}>X</button>
                       </td>
                     </tr>
                   ))}
@@ -143,8 +169,7 @@ useEffect(() => {
           </div>
           <div className='bottom'>
             <div>
-              {/* 각 학기별 성적을 입력하는 input 필드 */}
-              {Object.keys(grades).map(semester => (
+              {Object.keys(grades).map((semester, index) => (
                 <input
                   key={semester}
                   type='number'
@@ -153,6 +178,12 @@ useEffect(() => {
                   onChange={(e) => handleGradeChange(semester, e.target.value)}
                 />
               ))}
+              {/* 첫 번째 input 칸에 총합 표시 */}
+              <input
+                type='text'
+                value={totalSum}
+                disabled // 사용자 입력 방지
+              />
             </div>
           </div>
         </div>
@@ -164,7 +195,11 @@ useEffect(() => {
               {/* 그래프 표시 */}
               <ReactApexChart options={chartState.options} series={chartState.series} type="line" height={350} />
             </div>
-          <div id="html-dist"></div>
+            <div className="average_box">
+              <div className='grade_box'>
+                총 수강한 학기: , 평균 학점 :
+              </div>
+            </div>
           </div>
         </div>
       </div>
