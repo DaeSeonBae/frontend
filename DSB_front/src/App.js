@@ -10,6 +10,7 @@ import Footer from './component/footer';
 import Enrolment from './component/Enrolment';
 import Ai from './component/ai';
 import Calculate from './component/calculate';
+import Review from './component/review';
 import { BrowserRouter as Router, Routes, Route} from 'react-router-dom';
 
 function App() {
@@ -48,6 +49,13 @@ function App() {
           <>
             <Navbar/>
             <Calculate/>
+            <Footer/>
+          </>
+        }/>
+        <Route path='/review' element={
+          <>
+            <Navbar/>
+            <Review/>
             <Footer/>
           </>
         }/>

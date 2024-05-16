@@ -1,0 +1,43 @@
+.review_container {
+  width: 1000px;
+  height: 70%; /* 수정된 부분 */
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border: 1px solid black;
+  display: flex;
+  flex-direction: column; /* 수정된 부분 */
+  justify-content: flex-start; /* 수정된 부분 */
+  align-items: center;
+}
+
+.review_container input {
+  width: 500px;
+}
+
+.review_top {
+  width: 100%;
+  height: 110px;
+  /* border: 1px solid red; */
+}
+
+.option {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+}
+/* review_main */
+.review_main{
+  width: 100%;
+  height: 100%;
+}
+.review_item {
+  width: 100%;
+  height: 25%; /* 수정된 부분 */
+  border: 1px solid blue;
+}
+.item_top{
+  display: flex;
+  justify-content: space-between;
+}
