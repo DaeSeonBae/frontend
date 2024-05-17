@@ -1,0 +1,72 @@
+.logo {
+    text-align: center;
+    margin-top: 40px;
+}
+
+.card {
+    display: block;
+    margin: 0 auto;
+    width: 300px;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 3px 5px rgb(61, 61, 61);
+    background-color: white;
+}
+
+h3 {
+    margin-top: 1px;
+    text-align: center;
+}
+
+.buttons {
+    display: flex;
+    flex-direction: row;
+    gap: 15px;
+}
+
+.buttons button {
+    background-color: white;
+    color: black;
+    margin: 0;
+    padding: 0;
+    border-radius: 20px;
+    cursor: pointer;
+    font-size: 16px;
+    border: 1px solid black;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+.buttons button.selected {
+    background-color: #FA9595;
+}
+
+.buttons button:hover {
+    background-color: #FA9595;
+}
+
+.moveBtn {
+    display: flex;
+    flex-direction: row;
+}
+
+.moveBtn button {
+    background-color: white;
+    color: black;
+    width: 70px;
+    height: 30px;
+    border-radius: 10px;
+    cursor: pointer;
+    font-size: 16px;
+    border: 1px solid black;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+.moveBtn button:hover {
+    background-color: #FA9595;
+}
