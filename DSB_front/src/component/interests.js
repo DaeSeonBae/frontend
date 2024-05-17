@@ -10,11 +10,13 @@ const Interests = () => {
   const [selectedFirstBtn, setSelectedFirstBtn] = useState(null);
   const [selectedSecondtBtn, setSelectedSecondBtn] = useState(null);
   const [selectedThirdBtn, setSelectedThirdBtn] = useState(null);
+  const [isModalOpen, setIsModalOpen] = useState(false); //모달 오픈 여부
 
   //훅 사용
-  const navigate = useNavigate();
+  const nextNavigate = useNavigate();
+  const skipNavigate = useNavigate();
 
-  //버튼 클릭 시 실행되는 함수
+  //버튼 클릭 시 버튼의 이름이 저장됨
   const handleFirstBtnClick = (buttonName) => {
     setSelectedFirstBtn(buttonName);
   }
@@ -28,7 +30,23 @@ const Interests = () => {
   }
 
   const handleNextBtnClick = () => {
-    navigate('/'); //메인페이지로 이동
+    nextNavigate('/'); //메인페이지로 이동
+  }
+
+  //SKIP을 눌렀을 때 모달 오픈
+  const handleSkipBtnClick = () => {
+    setIsModalOpen(true);
+  }
+
+  //예를 눌렀을 때 모달 닫기 및 메인페이지로 이동
+  const handleConfirmSkip = () => {
+    skipNavigate('/');
+    setIsModalOpen(false);
+  }
+
+  //아니오를 눌렀을 때 모달 닫기
+  const handleCancelSkip = () => {
+    setIsModalOpen(false);
   }
 
   return (
@@ -71,8 +89,17 @@ const Interests = () => {
         </div>
         <div class="moveBtn">
           <button type="button" className='nextBtn' onClick={handleNextBtnClick}>다음</button>
-          <button type="button" className='skipBtn'>skip</button>
+          <button type="button" className='skipBtn' onClick={handleSkipBtnClick}>SKIP</button>
         </div>
+        {isModalOpen && (
+          <div class="modal">
+            <p>관심사 설정을 하지 않고 넘어가시겠습니까?(마이페이지에서 수정할 수 있습니다.)</p>
+            <div class="confirmBtn">
+              <button className='confirm' onClick={handleConfirmSkip}>예</button>
+              <button className='cancel' onClick={handleCancelSkip}>아니오</button>
+            </div>
+          </div>
+        )}
       </div>
     </div>
   );
