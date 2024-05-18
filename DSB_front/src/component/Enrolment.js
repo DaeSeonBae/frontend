@@ -19,7 +19,7 @@ const Enrolment = () => {
   return (
     <div>
       <b>2024년 05월 10일 17시 10분 22초</b>
-      <button onClick={handleClick}>수강 신청 하러 가기</button>
+      <button className='enrolment_btn' onClick={handleClick}>수강 신청 하러 가기</button>
       <div className="image-container">
         <img src={image1} alt=''/>
         <img src={image2} alt=''/>

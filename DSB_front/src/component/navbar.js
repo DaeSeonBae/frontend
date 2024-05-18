@@ -59,7 +59,11 @@ class Navbar extends React.Component {
               수강 신청
             </Link>
           </div>
-          <div className='nav-item'><p>강의평가</p></div>
+          <div className='nav-item'>
+            <Link to='/review' className=''>
+              강의 평가
+            </Link>
+          </div>
           <div className='nav-item'>
             <Link to='/ai' className=''>
               AI
