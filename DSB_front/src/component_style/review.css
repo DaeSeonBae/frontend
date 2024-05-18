@@ -1,0 +1,157 @@
+.main_body {
+  display: flex;
+  padding: 20px;
+}
+
+.review_container {
+  width: 100%;
+  transition: width 0.3s ease;
+}
+
+.review_container.shrink {
+  width: 60%; /* 필요한 값으로 조정 */
+}
+
+.review_top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.title h2 {
+  margin: 0;
+}
+
+.option {
+  display: flex;
+  gap: 10px;
+}
+
+.search input {
+  padding: 5px;
+  width: 150px;
+}
+
+.sort select {
+  padding: 5px;
+}
+
+.review_main {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.review_item {
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  padding: 10px;
+  cursor: pointer; /* 클릭 가능한 커서 추가 */
+}
+
+.review_item:hover {
+  background-color: #f0f0f0; /* 호버 효과 추가 */
+}
+
+.item_top, .item_middle, .item_bottom {
+  padding: 5px;
+}
+
+.item_top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.item_title h3 {
+  margin: 0;
+}
+
+.star {
+  color: yellow; /* 별 색상을 노란색으로 설정 */
+  font-size: 1.5em; /* 필요한 크기로 조정 */
+}
+
+.review_detail {
+  width: 40%; /* 필요한 값으로 조정 */
+  padding: 20px;
+  border-left: 1px solid #ccc;
+  transition: width 0.3s ease;
+  background-color: white;
+  border-radius: 10px;
+}
+
+.detail_top {
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.detail_top button {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 30px;
+  height: 30px;
+}
+
+.detail_top h3 {
+  margin: 0;
+}
+
+.detail_middle, .detail_bottom {
+  margin-top: 20px;
+}
+
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.modal_content {
+  background: #fff;
+  padding: 20px;
+  border-radius: 5px;
+  width: 400px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.modal_content input,
+.modal_content textarea {
+  width: 100%;
+  /* padding: 10px; */
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.modal_content textarea{
+  height: 400px;
+}
+
+.modal_content button {
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.modal_content button:first-of-type {
+  background-color: #4CAF50; /* 저장 버튼 색상 */
+  color: white;
+}
+
+.modal_content button:last-of-type {
+  background-color: #f44336; /* 취소 버튼 색상 */
+  color: white;
+}
