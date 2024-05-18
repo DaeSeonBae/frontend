@@ -136,7 +136,7 @@ const Review = () => {
       )}
       {isModalOpen && (
         <div className='modal'>
-          <div className='modal_content'>
+          <div className='review_modal_content'>
             <h3>강의평가 작성</h3>
             <input
               type='text'

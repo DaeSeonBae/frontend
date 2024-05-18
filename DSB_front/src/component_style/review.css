@@ -117,7 +117,7 @@
   align-items: center;
 }
 
-.modal_content {
+.review_modal_content {
   background: #fff;
   padding: 20px;
   border-radius: 5px;
@@ -127,31 +127,31 @@
   gap: 10px;
 }
 
-.modal_content input,
-.modal_content textarea {
+.review_modal_content input,
+.review_modal_content textarea {
   width: 100%;
   /* padding: 10px; */
   border: 1px solid #ccc;
   border-radius: 5px;
 }
 
-.modal_content textarea{
+.review_modal_content textarea{
   height: 400px;
 }
 
-.modal_content button {
+.review_modal_content button {
   padding: 10px;
   border: none;
   border-radius: 5px;
   cursor: pointer;
 }
 
-.modal_content button:first-of-type {
+.review_modal_content button:first-of-type {
   background-color: #4CAF50; /* 저장 버튼 색상 */
   color: white;
 }
 
-.modal_content button:last-of-type {
+.review_modal_content button:last-of-type {
   background-color: #f44336; /* 취소 버튼 색상 */
   color: white;
 }
