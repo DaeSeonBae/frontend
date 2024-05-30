@@ -53,7 +53,11 @@ class Navbar extends React.Component {
               <div className='sub-list'><p>재학생 게시판</p></div>
             </div>
           </div>
-          <div className='nav-item'><p>시간표</p></div>
+          <div className='nav-item'>
+            <Link to='/schedule' className=''>
+              시간표
+            </Link>
+          </div>
           <div className='nav-item'>
             <Link to='/enrolment' className=''>
               수강 신청

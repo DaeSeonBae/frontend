@@ -56,7 +56,7 @@ const Interests = () => {
           </Link>
         </h2>
       </div>
-      <div className="card">
+      <div className="interest_card">
         <h3>관심사 설정하기</h3>
         <div className="select-group">
           <h4>여가활동 및 취미생활</h4>
