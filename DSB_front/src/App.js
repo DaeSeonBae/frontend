@@ -11,6 +11,7 @@ import Enrolment from './component/Enrolment';
 import Ai from './component/ai';
 import Calculate from './component/calculate';
 import Review from './component/review';
+import TimeSchedule from './component/timeschedule';
 import { BrowserRouter as Router, Routes, Route} from 'react-router-dom';
 
 function App() {
@@ -56,6 +57,13 @@ function App() {
           <>
             <Navbar/>
             <Review/>
+            <Footer/>
+          </>
+        }/>
+        <Route path='/schedule' element={
+          <>
+            <Navbar/>
+            <TimeSchedule/>
             <Footer/>
           </>
         }/>
