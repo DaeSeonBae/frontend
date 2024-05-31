@@ -90,7 +90,7 @@ const Interests = () => {
           <button type="button" className='skipBtn' onClick={handleSkipBtnClick}>SKIP</button>
         </div>
         {isModalOpen && (
-          <div className="modal">
+          <div class="interest_modal">
             <p>관심사 설정을 하지 않고 넘어가시겠습니까?(마이페이지에서 수정할 수 있습니다.)</p>
             <div className="confirmBtn">
               <button className='confirm' onClick={handleConfirmSkip}>예</button>
