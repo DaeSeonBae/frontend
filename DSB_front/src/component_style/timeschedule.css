@@ -11,8 +11,13 @@
   margin: 10px;
   border: 1px solid green;
   display: flex;
-  justify-content: center;
+  flex-direction: column;
+  /* justify-content: center; */
   align-items: center;
+}
+
+.friend_box{
+  width: 200px;
 }
 /* timeschedule.css */
 
@@ -26,10 +31,12 @@
 .sc_table td {
   border: 1px solid black;
   padding: 8px;
+  height: 40px;
 }
 
 .sc_table th {
   background-color: #f2f2f2;
+  width: 100px;
 }
 
 .sc_table th:first-child,
@@ -50,7 +57,7 @@
 
 /* 하이라이트 클래스를 추가하여 색상 지정 */
 .highlight {
-  background-color: yellow; /* 원하는 색상으로 변경 가능 */
+  background-color: #ffffdd; /* 원하는 색상으로 변경 가능 */
 }
 
 
@@ -61,6 +68,9 @@
   height: 100%;
   margin: 10px;
   border: 1px solid green;
+  display: flex;
+  flex-direction: column;
+  /* justify-content: center; */
 }
 .sc_table{
   width: 100%;
@@ -77,7 +87,7 @@
   margin: 10px;
   border: 1px solid green;
   display: flex;
-  justify-content: center;
+  /* justify-content: center; */
   flex-direction: column;
 }
 
@@ -85,6 +95,7 @@
   width: 70%;
   border-radius: 5px;
   margin: 5px;
+  margin-top: 80px;
 }
 
 /* timeschedule.css */
@@ -100,13 +111,15 @@
   border: 1px solid #000000; /* 테두리 선 스타일 지정 */
   padding: 8px; /* 셀 안의 여백(padding) 지정 */
   text-align: center; /* 가운데 정렬 */
+  border-radius: 50px;
 }
 
 /* 표의 내용(tbody)에 대한 스타일 */
 .class_table tbody td {
-  border: 1px solid #000000; /* 테두리 선 스타일 지정 */
+  border: 1px solid #000000;
   padding: 8px; /* 셀 안의 여백(padding) 지정 */
   text-align: center; /* 가운데 정렬 */
+  border-radius: 50px;
 }
 
 /* 추가, 삭제 버튼에 대한 스타일 */
@@ -117,9 +130,12 @@
   border: none; /* 테두리 제거 */
   cursor: pointer; /* 마우스 커서를 손가락 모양으로 변경 */
   transition: background-color 0.3s; /* 배경색 변경 시 부드럽게 전환 */
+  border-radius: 50px;
 }
 
 .class_table button:hover {
   background-color: #0056b3; /* 마우스 오버 시 배경색 변경 */
 }
+
+
 
