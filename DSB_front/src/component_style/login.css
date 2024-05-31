@@ -5,6 +5,9 @@
   align-items: center;
   height: 100vh;
   background-color: grey;
+  background-image: url('../images/DSB_background.jpg');
+  background-size: cover;
+  background-repeat: no-repeat;
 }
 
 .card {
