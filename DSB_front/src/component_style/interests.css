@@ -72,7 +72,7 @@ h3 {
     background-color: #FA9595;
 }
 
-.modal {
+.interest_modal {
     /* 가운데 정렬 */
     position: fixed;
     top: 50%;
@@ -92,35 +92,35 @@ h3 {
     padding: 20px;
   }
   
-  .modal p {
+  .interest_modal p {
     margin-top: 50px;
     margin-bottom: 1px;
   }
 
-  .modal .confirmBtn {
+  .interest_modal .confirmBtn {
     display: flex;
     gap: 20px;
     border: none;
     cursor: pointer;
   } 
   
-  .modal button {
+  .interest_modal button {
     background-color: white;
     border: 1px solid black;
     font-size: 16px;
     border-radius: 8px;
   }
 
-  .modal .confirm {
+  .interest_modal .confirm {
     width: 40px;
     height: 30px;
   }
 
-  .modal .cancel {
+  .interest_modal .cancel {
     width: 70px;
     height: 30px;
   }
 
-  .modal button:hover {
+  .interest_modal button:hover {
     background-color: #FA9595;
   }
