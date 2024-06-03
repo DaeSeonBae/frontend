@@ -3,8 +3,7 @@ import '../component_style/calculate.css';
 import ReactApexChart from 'react-apexcharts';
 
 const Calculate = () => {
-  // 각 학기별 성적을 담을 상태
-  const [grades, setGrades] = useState({
+  const [grades] = useState({
     '1-1': '',
     '1-2': '',
     '2-1': '',
@@ -15,76 +14,60 @@ const Calculate = () => {
     '4-2': ''
   });
 
-  // 시리즈 데이터 업데이트
-  const seriesData = Object.keys(grades).map(semester => grades[semester] === '' ? 0 : parseFloat(grades[semester]));
+  const [currentSemester, setCurrentSemester] = useState('1-1');
+  const [tableData, setTableData] = useState([['', '', '', false]]);
+  const [averageGrades, setAverageGrades] = useState({
+    '1-1': 0,
+    '1-2': 0,
+    '2-1': 0,
+    '2-2': 0,
+    '3-1': 0,
+    '3-2': 0,
+    '4-1': 0,
+    '4-2': 0
+  });
 
-  // 입력된 성적을 업데이트하는 함수
-  const handleGradeChange = (semester, value) => {
-    setGrades(prevGrades => ({
-      ...prevGrades,
-      [semester]: value === '0' ? '' : value // 값이 '0'인 경우 빈 문자열로 변경
-    }));
-  };
-
-  // 그래프의 상태
-  const chartState = {
-    series: [{
-      name: "Desktops",
-      data: seriesData
-    }],
-    options: {
-      // 그래프 옵션 설정
-    }
-  };
-
-  // 초기 테이블 데이터
-  const initialTableData = [
-    ['', '', '', false]
-  ];
-
-  // 테이블 데이터와 사용자가 입력한 값을 상태로 관리
-  const [tableData, setTableData] = useState(initialTableData);
-
-  // 총합을 표시하는 위치 설정
-  const [totalSum, setTotalSum] = useState(0);
-
-  // 입력값 변경 시 실행되는 함수
   const handleInputChange = (value, rowIndex, colIndex) => {
     setTableData(prevData => {
       const newData = [...prevData];
       newData[rowIndex][colIndex] = value;
-      // 3번째 열의 값이 변경될 때마다 총합 다시 계산
       if (colIndex === 2) {
-        updateTotalSum();
+        updateAverage(newData);
       }
       return newData;
     });
   };
 
-  // 항목 추가 버튼을 클릭했을 때 실행되는 함수
   const handleAddRow = () => {
-    const newRow = ['', '', '', false]; // 초기 체크박스 상태는 false로 설정
+    const newRow = ['', '', '', false];
     setTableData(prevData => [...prevData, newRow]);
   };
 
-  // 총합을 업데이트하는 함수
-  const updateTotalSum = () => {
+  const updateAverage = (data) => {
     let sum = 0;
-    tableData.forEach(row => {
+    let count = 0;
+    data.forEach(row => {
       const grade = parseFloat(row[2]);
       if (!isNaN(grade)) {
         sum += grade;
+        count++;
       }
     });
-    setTotalSum(sum);
+    const average = count > 0 ? (sum / count) : 0;
+    setAverageGrades(prevGrades => ({
+      ...prevGrades,
+      [currentSemester]: average
+    }));
   };
 
-  // 항목 삭제 버튼을 클릭했을 때 실행되는 함수
   const handleDeleteRow = (index) => {
-    setTableData(prevData => prevData.filter((_, i) => i !== index));
+    setTableData(prevData => {
+      const newData = prevData.filter((_, i) => i !== index);
+      updateAverage(newData);
+      return newData;
+    });
   };
 
-  // 체크박스 상태 변경 시 실행되는 함수
   const handleCheckboxChange = (checked, rowIndex) => {
     setTableData(prevData => {
       const newData = [...prevData];
@@ -93,7 +76,6 @@ const Calculate = () => {
     });
   };
 
-  // 스크롤이 필요한지 확인하고 스타일을 업데이트하는 효과
   useEffect(() => {
     const inputBox = document.querySelector('.input_box');
     if (inputBox.scrollHeight > 450) {
@@ -101,12 +83,28 @@ const Calculate = () => {
     } else {
       inputBox.style.overflowY = 'visible';
     }
-  }, [tableData]); // tableData가 변경될 때마다 실행됨
+  }, [tableData]);
 
-  // 선택한 학기가 변경될 때마다 input_box 초기화
-  const handleSemesterChange = () => {
-    setTableData(initialTableData);
-    setTotalSum(0);
+  const handleSemesterChange = (event) => {
+    const newSemester = event.target.value;
+    setCurrentSemester(newSemester);
+    setTableData([['', '', '', false]]);
+  };
+
+  const chartState = {
+    series: [{
+      name: "Average Grades",
+      data: Object.values(averageGrades)
+    }],
+    options: {
+      chart: {
+        height: 350,
+        type: 'line'
+      },
+      xaxis: {
+        categories: Object.keys(averageGrades)
+      }
+    }
   };
 
   return (
@@ -115,15 +113,15 @@ const Calculate = () => {
         <div className='inputscore_box'>
           <div className='top'>
             <h2>학점 계산기</h2>
-            <select className='grade' onChange={handleSemesterChange}>
-              <option value={1-1}>1-1</option>
-              <option value={1-2}>1-2</option>
-              <option value={2-1}>2-1</option>
-              <option value={2-2}>2-2</option>
-              <option value={3-1}>3-1</option>
-              <option value={3-2}>3-2</option>
-              <option value={4-1}>4-1</option>
-              <option value={4-2}>4-2</option>
+            <select className='grade' onChange={handleSemesterChange} value={currentSemester}>
+              <option value="1-1">1-1</option>
+              <option value="1-2">1-2</option>
+              <option value="2-1">2-1</option>
+              <option value="2-2">2-2</option>
+              <option value="3-1">3-1</option>
+              <option value="3-2">3-2</option>
+              <option value="4-1">4-1</option>
+              <option value="4-2">4-2</option>
             </select>
           </div>
           <div className='mid'>
@@ -135,30 +133,42 @@ const Calculate = () => {
                     <th>학점</th>
                     <th>성적</th>
                     <th>전공</th>
+                    <th>삭제</th>
                   </tr>
                 </thead>
-                <tbody style={{ verticalAlign: 'middle' }}>
+                <tbody>
                   {tableData.map((row, rowIndex) => (
-                    <tr key={rowIndex} style={{ textAlign: 'center' }}>
-                      {row.map((item, colIndex) => (
-                        <td key={colIndex} style={{ padding: '10px' }}>
-                          {colIndex === 3 ? ( // 마지막 열일 때
-                            <input
-                              type="checkbox"
-                              checked={item}
-                              onChange={(e) => handleCheckboxChange(e.target.checked, rowIndex)}
-                            />
-                          ) : (
-                            <input
-                              type="text"
-                              value={item}
-                              onChange={(e) => handleInputChange(e.target.value, rowIndex, colIndex)}
-                            />
-                          )}
-                        </td>
-                      ))}
+                    <tr key={rowIndex}>
                       <td>
-                        <button onClick={() => handleDeleteRow(rowIndex)} style={{ width: '20px', height: '20px', textAlign: 'center' }}>X</button>
+                        <input
+                          type='text'
+                          value={row[0]}
+                          onChange={(e) => handleInputChange(e.target.value, rowIndex, 0)}
+                        />
+                      </td>
+                      <td>
+                        <input
+                          type='number'
+                          value={row[1]}
+                          onChange={(e) => handleInputChange(e.target.value, rowIndex, 1)}
+                        />
+                      </td>
+                      <td>
+                        <input
+                          type='number'
+                          value={row[2]}
+                          onChange={(e) => handleInputChange(e.target.value, rowIndex, 2)}
+                        />
+                      </td>
+                      <td>
+                        <input
+                          type='checkbox'
+                          checked={row[3]}
+                          onChange={(e) => handleCheckboxChange(e.target.checked, rowIndex)}
+                        />
+                      </td>
+                      <td>
+                        <button onClick={() => handleDeleteRow(rowIndex)}>x</button>
                       </td>
                     </tr>
                   ))}
@@ -168,23 +178,11 @@ const Calculate = () => {
             </div>
           </div>
           <div className='bottom'>
-            <div>
-              {Object.keys(grades).map((semester, index) => (
-                <input
-                  key={semester}
-                  type='number'
-                  step='0.1'
-                  value={grades[semester]}
-                  onChange={(e) => handleGradeChange(semester, e.target.value)}
-                />
-              ))}
-              {/* 첫 번째 input 칸에 총합 표시 */}
-              <input
-                type='text'
-                value={totalSum}
-                disabled // 사용자 입력 방지
-              />
-            </div>
+            <input
+              type='text'
+              value={averageGrades[currentSemester].toFixed(2)}
+              disabled
+            />
           </div>
         </div>
       </div>
@@ -192,12 +190,11 @@ const Calculate = () => {
         <div className='outscore_box'>
           <div>
             <div id="chart">
-              {/* 그래프 표시 */}
               <ReactApexChart options={chartState.options} series={chartState.series} type="line" height={350} />
             </div>
             <div className="average_box">
               <div className='grade_box'>
-                총 수강한 학기: , 평균 학점 :
+                총 수강한 학기: {Object.keys(grades).length}, 평균 학점 :
               </div>
             </div>
           </div>

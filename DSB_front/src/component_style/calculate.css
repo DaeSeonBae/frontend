@@ -30,12 +30,14 @@
   display: flex;
   flex-direction: column;
   list-style-type: none;
-  align-items: center;
-  justify-content: space-around;
+  /* align-items: center; */
+  /* justify-content: space-around; */
 }
 
 .input_box button {
   width: 30%;
+  align-self: center;
+  margin-top: 20px;
 }
 
 .table_header{
@@ -48,7 +50,11 @@
   width: 100%;
   height: 15%;
   border: 1px solid purple;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
+
 
 
 /* outBox */
