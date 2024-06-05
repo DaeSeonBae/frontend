@@ -5,13 +5,10 @@ import logoIcon from '../images/DSB_logo.png';
 
 function Signup() {
   const [formData, setFormData] = useState({
-    username: '',
-    school_email: '',
-    department: '',
-    name: '',
-    id: '',
+    email: '',
     password: '',
-    email_address: ''
+    department: '',
+    nickName: ''
   });
 
   const navigate = useNavigate();
@@ -26,22 +23,26 @@ function Signup() {
 
   const handleSignupClick = async () => {
     try {
-      const response = await fetch('http://3.36.127.187:8080/api/signup', {
+      const formDataToSend = new FormData();
+      formDataToSend.append('email', formData.email);
+      formDataToSend.append('password', formData.password);
+      formDataToSend.append('department', formData.department);
+      formDataToSend.append('nickName', formData.nickName);
+
+      const response = await fetch('http://127.0.0.1:8080/api/signup', {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(formData)
+        body: formDataToSend
       });
 
-      if (!response.ok) {
-        // 에러 처리
-        const errorData = await response.json();
-        alert(`회원가입 실패: ${errorData.message}`);
-        return;
-      }
+      const responseData = await response;
 
-      const responseData = await response.json();
+      console.log(responseData)
+      // if (!response.ok) {
+      //   // 에러 처리
+      //   alert(`회원가입 실패: ${responseData.message}`);
+      //   return;
+      // }
+
       console.log('API 응답 데이터:', responseData);
 
       // 회원가입 완료 알림
@@ -50,7 +51,6 @@ function Signup() {
       navigate('/interests');
     } catch (error) {
       console.error('API 호출 중 오류 발생:', error);
-      
       alert('회원가입 중 오류가 발생했습니다. 나중에 다시 시도해주세요.');
     }
   };
@@ -66,16 +66,6 @@ function Signup() {
           </h2>
           <h2>회원가입</h2>
           <form>
-            {/* <div className="input-group">
-              <input
-                type="text"
-                id="username"
-                name="username"
-                placeholder='학교'
-                value={formData.username}
-                onChange={handleInputChange}
-              />
-            </div> */}
             <div className="input-group">
               <input
                 type="text"
@@ -86,17 +76,6 @@ function Signup() {
                 onChange={handleInputChange}
               />
             </div>
-
-            {/* <div className="input-group">
-              <input
-                type="text"
-                id="id"
-                name="id"
-                placeholder='아이디'
-                value={formData.id}
-                onChange={handleInputChange}
-              />
-            </div> */}
             <div className="input-group">
               <input
                 type="password"
@@ -127,16 +106,6 @@ function Signup() {
                 onChange={handleInputChange}
               />
             </div>
-            {/* <div className="input-group">
-              <input
-                type="text"
-                id="email_address"
-                name="email_address"
-                placeholder='이메일주소'
-                value={formData.email_address}
-                onChange={handleInputChange}
-              />
-            </div> */}
             <button type="button" onClick={handleSignupClick}>회원가입</button>
           </form>
         </div>
