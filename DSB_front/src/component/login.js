@@ -1,38 +1,45 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
+import axios from 'axios';
 import '../component_style/login.css';
 import logoIcon from '../images/DSB_logo.png';
 
 function Login() {
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
+  const [formData, setFormData] = useState({
+    email: '',
+    password: ''
+  });
   const [error, setError] = useState(null);
   const navigate = useNavigate();
 
-  const handleLogin = async (e) => {
-    e.preventDefault();
-    setError(null);
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setFormData({
+      ...formData,
+      [name]: value
+    });
+  };
 
+  const handleLogin = async () => {
     try {
-      const response = await fetch('http://3.36.127.187:8080/api/login', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ username, password }),
+      const response = await axios.post('http://3.36.127.187:8080/api/login', {
+        email: formData.email,
+        password: formData.password
+      }, {
+        withCredentials: true // 추가 설정
       });
 
-      if (!response.ok) {
-        throw new Error('Network response was not ok');
+      if (!response.data.success) {
+        throw new Error(response.data.message || '로그인 실패');
       }
 
-      const data = await response.json();
+      console.log('API 응답 데이터:', response.data);
 
       // 로그인 성공 처리 (예: 토큰 저장, 홈 페이지로 리디렉션 등)
-      console.log(data);
-      // 예시로 홈 페이지로 리디렉션
+      alert('로그인 완료!!');
       navigate('/');
     } catch (error) {
+      console.error('API 호출 중 오류 발생:', error);
       setError('로그인 실패: ' + error.message);
     }
   };
@@ -46,15 +53,15 @@ function Login() {
               <img className='DSB_logo' src={logoIcon} alt='logoIcon' />
             </Link>
           </h2>
-          <form onSubmit={handleLogin}>
+          <form>
             <div className="input-group">
               <input
                 type="text"
-                id="username"
-                name="username"
-                placeholder='아이디를 입력하세요'
-                value={username}
-                onChange={(e) => setUsername(e.target.value)}
+                id="email"
+                name="email"
+                placeholder='이메일을 입력하세요'
+                value={formData.email}
+                onChange={handleInputChange}
               />
             </div>
             <div className="input-group">
@@ -63,8 +70,8 @@ function Login() {
                 id="password"
                 name="password"
                 placeholder='비밀번호를 입력하세요'
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
+                value={formData.password}
+                onChange={handleInputChange}
               />
             </div>
             <div className='check-box'>
@@ -79,8 +86,9 @@ function Login() {
                 <Link to='/find_info' className='login_link'>아이디/비밀번호 찾기</Link>
               </div>
             </div>
+            
             {error && <div className="error">{error}</div>}
-            <button type="submit">Login</button>
+            <button type="button" onClick={handleLogin}>Login</button>
           </form>
         </div>
       </div>

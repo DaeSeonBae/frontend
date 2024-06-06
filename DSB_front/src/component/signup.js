@@ -29,7 +29,7 @@ function Signup() {
       formDataToSend.append('department', formData.department);
       formDataToSend.append('nickName', formData.nickName);
 
-      const response = await fetch('http://127.0.0.1:8080/api/signup', {
+      const response = await fetch('http://3.36.127.187:8080/api/signup', {
         method: 'POST',
         body: formDataToSend
       });
@@ -49,8 +49,8 @@ function Signup() {
       alert('회원가입이 완료되었습니다');
       // 회원가입 성공 시 interests 페이지로 이동
       navigate('/interests');
-    } catch (error) {
-      console.error('API 호출 중 오류 발생:', error);
+    } catch (e) {
+      console.error('API 호출 중 오류 발생:', e);
       alert('회원가입 중 오류가 발생했습니다. 나중에 다시 시도해주세요.');
     }
   };

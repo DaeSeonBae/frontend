@@ -8,6 +8,7 @@
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
     "apexcharts": "^3.49.0",
+    "axios": "^1.7.2",
     "react": "^18.2.0",
     "react-apexcharts": "^1.4.1",
     "react-dom": "^18.2.0",
@@ -27,7 +28,7 @@
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build"
   },
-  "proxy": "http://127.0.0.1:8080",
+  "proxy": "http://3.36.127.187:8080/",
   "eslintConfig": {
     "extends": [
       "react-app",
