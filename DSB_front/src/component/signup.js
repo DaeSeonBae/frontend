@@ -29,7 +29,7 @@ function Signup() {
       formDataToSend.append('department', formData.department);
       formDataToSend.append('nickName', formData.nickName);
 
-      const response = await fetch('http://3.36.127.187:8080/api/signup', {
+      const response = await fetch('/api/signup', {
         method: 'POST',
         body: formDataToSend
       });
@@ -71,7 +71,7 @@ function Signup() {
                 type="text"
                 id="email"
                 name="email"
-                placeholder='학교 이메일 인증하기'
+                placeholder='이메일 입력하세요'
                 value={formData.email}
                 onChange={handleInputChange}
               />

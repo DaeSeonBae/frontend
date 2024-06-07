@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import axios from 'axios';
 import '../component_style/login.css';
 import logoIcon from '../images/DSB_logo.png';
 
@@ -22,20 +21,31 @@ function Login() {
 
   const handleLogin = async () => {
     try {
-      const response = await axios.post('http://3.36.127.187:8080/api/login', {
-        email: formData.email,
-        password: formData.password
-      }, {
-        withCredentials: true // 추가 설정
+      const formDataToSend = new FormData();
+      formDataToSend.append('email', formData.email);
+      formDataToSend.append('password', formData.password);
+
+      const response = await fetch('/api/login', {
+        method: 'POST',
+        body: formDataToSend,
+        headers: {
+          'Access-Control-Allow-Origin': '*',
+        },
+        mode: 'cors'
       });
 
-      if (!response.data.success) {
-        throw new Error(response.data.message || '로그인 실패');
+      if (!response.ok) {
+        const responseData = await response.json(); // JSON 응답 파싱
+        throw new Error(responseData.message || 'Network response was not ok');
       }
 
-      console.log('API 응답 데이터:', response.data);
+      const responseData = await response; // JSON 응답 파싱
+      console.log('API 응답 데이터:', responseData);
 
       // 로그인 성공 처리 (예: 토큰 저장, 홈 페이지로 리디렉션 등)
+      const { token, user } = responseData;
+      localStorage.setItem('token', token);
+      localStorage.setItem('user', JSON.stringify(user));
       alert('로그인 완료!!');
       navigate('/');
     } catch (error) {
@@ -87,7 +97,7 @@ function Login() {
               </div>
             </div>
             
-            {error && <div className="error">{error}</div>}
+            {error && <div className="error">{error}</div>} {/* 오류 메시지 표시 */}
             <button type="button" onClick={handleLogin}>Login</button>
           </form>
         </div>
