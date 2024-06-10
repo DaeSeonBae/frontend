@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import '../component_style/post.css';
 import '@fortawesome/fontawesome-free/css/all.min.css';
 
@@ -7,7 +7,48 @@ const Post = () => {
   const [selectedPost, setSelectedPost] = useState(null); // 선택된 게시물 인덱스
   const [isModalOpen, setIsModalOpen] = useState(false); // 글쓰기 모달 상태
   const [posts, setPosts] = useState([]); // 게시물 목록
-  const [likes, setLikes] = useState([]);
+  const [likes, setLikes] = useState([]); // 좋아요 목록
+
+  // 날짜 형식 변환 함수
+  const formatDate = (dateString) => {
+    const date = new Date(dateString);
+    return date.toISOString().split('T')[0];
+  };
+
+  // API에서 데이터 가져오기
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const token = localStorage.getItem('Authorization');
+        const response = await fetch('/api/board/view/1', {
+          method: 'GET',
+          mode: 'cors',
+          headers: {
+            'Authorization': token
+          }
+        });
+        const data = await response.json();
+  
+        // 게시물 객체 생성
+        const newPost = {
+          boardNumber: data.boardNumber,
+          title: { content: data.title },
+          script: { content: data.content },
+          date: { content: formatDate(data.writeDatetime) }, // 날짜 형식 변환
+          likes: data.favoriteCount,
+          comments: [], // 댓글 목록 초기화
+          writerEmail: data.writerEmail
+        };
+  
+        // 기존의 게시물 목록에 새로운 게시물 추가
+        setPosts([newPost]);
+      } catch (error) {
+        console.error('Error fetching data:', error);
+      }
+    };
+  
+    fetchData();
+  }, []);
 
   // 모달 열기
   const openModal = (index) => {
@@ -54,10 +95,10 @@ const Post = () => {
     const contentInput = event.target.elements.contentInput;
 
     const newPost = {
-      post_number: { content: (posts.length + 1).toString() },
+      post_number: (posts.length + 1).toString(),
       title: { content: titleInput.value.trim() },
-      date: { content: new Date().toISOString().slice(0, 10) },
-      name: { content: "User" },
+      date: { content: formatDate(new Date()) }, // 날짜 형식 변환
+      name: "User",
       script: { content: contentInput.value.trim() },
       comments: [] // 댓글 목록 초기화
     };
@@ -70,7 +111,7 @@ const Post = () => {
   const handleLikeClick = (index) => {
     const newLikes = [...likes];
     newLikes[index] += newLikes[index] === 0 ? 1 : -1; // 좋아요/좋아요 취소 토글
-    if(newLikes[index] < 0) newLikes[index] = 0; // 최소값 0 확인
+    if (newLikes[index] < 0) newLikes[index] = 0; // 최소값 0 확인
     setLikes(newLikes);
   };
 
