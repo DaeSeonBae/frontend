@@ -179,6 +179,7 @@
   border: solid black 3px;
   border-radius: 5px;
   display: flex;
+  flex-direction:column;
   justify-content: center;
   align-items: center;
   /* 기본 배경 색상 및 기타 스타일 */
@@ -186,10 +187,38 @@
   /* transition: 1s; */
 }
 
+.list_item_content{
+  width: 100%;
+  height: 80%;
+}
+
 .list_item:hover{
   /* border: 3px solid red; */
   box-shadow: 0 0 5px 5px black;
 }
+
+.like{
+  width: 100%;
+  height: 10% auto;
+  /* border: 1px solid black; */
+  display: flex;
+  justify-content: space-between;
+}
+
+.like i{
+  margin-right: 10px;
+  margin-left: 10px;
+}
+
+.like .fa-heart{
+  color: red;
+}
+
+.like .fa-comment{
+  color: grey;
+}
+
+
 
 /* modal=================================== */
 
@@ -230,6 +259,12 @@
   border-radius: 8px;
   background-color: #f9f9f9;
 }
+
+.post_box_top{
+  display: flex;
+  justify-content: space-between;
+}
+
 .postdata{
   padding: 10px;
 }
@@ -273,6 +308,7 @@
   width: 100%;
   margin-top: auto; /* 이 부분이 추가됩니다. */
   display: flex;
+
 }
 
 .comment-form textarea {

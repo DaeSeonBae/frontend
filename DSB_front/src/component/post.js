@@ -1,13 +1,13 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import '../component_style/post.css';
-
+import '@fortawesome/fontawesome-free/css/all.min.css';
 
 const Post = () => {
-  const [showModal, setShowModal] = useState(false);
-  const [selectedPost, setSelectedPost] = useState(null); // 선택된 게시물 데이터
-  // const [commentText, setCommentText] = useState(''); // 댓글 내용
-  const [comments] = useState([]); // 댓글 목록
-
+  const [showModal, setShowModal] = useState(false); // 모달 상태
+  const [selectedPost, setSelectedPost] = useState(null); // 선택된 게시물 인덱스
+  const [isModalOpen, setIsModalOpen] = useState(false); // 글쓰기 모달 상태
+  const [posts, setPosts] = useState([]); // 게시물 목록
+  const [likes, setLikes] = useState([]);
 
   // 모달 열기
   const openModal = (index) => {
@@ -20,135 +20,63 @@ const Post = () => {
     setShowModal(false);
   };
 
-  const [fontSize, setFontSize] = useState('16px'); // 기본값: 16px
-  const [fontColor, setFontColor] = useState('#000000'); // 기본값: 검정색
-  const [fontFamily, setFontFamily] = useState('Arial, sans-serif'); // 기본값: Arial
-  const [fontStyle, setFontStyle] = useState('normal'); // 기본값: 일반
-  const [fontWeight, setFontWeight] = useState('normal'); // 기본값: 보통
-
-  const handleFontSizeChange = (event) => {
-    setFontSize(event.target.value);
-  };
-
-  const handleFontColorChange = (event) => {
-    setFontColor(event.target.value);
-  };
-
-  const handleFontFamilyChange = (event) => {
-    setFontFamily(event.target.value);
-  };
-
-  const handleFontStyleChange = (event) => {
-    setFontStyle(event.target.value);
-  };
-
-  const handleFontWeightChange = (event) => {
-    setFontWeight(event.target.value);
-  };
-
-  const [isModalOpen, setIsModalOpen] = useState(false); // 모달의 상태를 관리하는 변수
-
-  // 모달을 열기 위한 이벤트 핸들러
+  // 글쓰기 모달 열기
   const openModal2 = () => {
     setIsModalOpen(true);
   };
 
-  // 모달을 닫기 위한 이벤트 핸들러
+  // 글쓰기 모달 닫기
   const closeModal2 = () => {
     setIsModalOpen(false);
   };
 
-  const handleSubmit = (event) => {
+  // 댓글 작성 핸들러
+  const handleCommentSubmit = (event) => {
     event.preventDefault(); // 기본 제출 동작 방지
-  
+
     const commentInput = event.target.elements.commentInput;
     const commentText = commentInput.value.trim(); // 입력된 댓글 내용
-  
+
     if (commentText !== '') { // 빈 댓글인지 확인
-      const commentList = document.querySelector('.comment-list');
-      const newComment = document.createElement('div');
-      newComment.classList.add('comment');
-      newComment.textContent = commentText;
-  
-      // 새 댓글을 마지막에 추가
-      commentList.appendChild(newComment);
-  
-      // 입력란 초기화
-      commentInput.value = '';
+      const newPosts = [...posts];
+      newPosts[selectedPost].comments.push(commentText); // 선택된 게시물에 댓글 추가
+
+      setPosts(newPosts); // 상태 업데이트
+      commentInput.value = ''; // 입력란 초기화
     }
   };
-  
-  const [currentTime, setCurrentTime] = useState(new Date());
 
-    // 페이지가 로드되거나 currentTime이 변경될 때마다 실행됨
-    useEffect(() => {
-        const intervalId = setInterval(() => {
-            setCurrentTime(new Date());
-        }, 1000);
+  // 게시물 작성 핸들러
+  const handlePostSubmit = (event) => {
+    event.preventDefault();
 
-        // 컴포넌트가 언마운트되면 setInterval을 정리
-        return () => clearInterval(intervalId);
-    }, [currentTime]);
-  
+    const titleInput = event.target.elements.titleInput;
+    const contentInput = event.target.elements.contentInput;
 
-  const postData = [
-    {
-      "post_number": {
-        "content": "1"
-      },
-      "title": {
-        "content": "Post Title 1"
-      },
-      "date": {
-        "content": "2024-04-12"
-      },
-      "name": {
-        "content": "John Doe"
-      },
-      "script": {
-        "content": "This is a sample script 1."
-      }
-    },
-    {
-      "post_number": {
-        "content": "2"
-      },
-      "title": {
-        "content": "Post Title 2"
-      },
-      "date": {
-        "content": "2024-04-12"
-      },
-      "name": {
-        "content": "John Doe"
-      },
-      "script": {
-        "content": "This is a sample script 2."
-      }
-    },
-    {
-      "post_number": {
-        "content": "3"
-      },
-      "title": {
-        "content": "Post Title 2"
-      },
-      "date": {
-        "content": "2024-04-12"
-      },
-      "name": {
-        "content": "John Doe"
-      },
-      "script": {
-        "content": "This is a sample script 2."
-      }
-    }
-  ];
+    const newPost = {
+      post_number: { content: (posts.length + 1).toString() },
+      title: { content: titleInput.value.trim() },
+      date: { content: new Date().toISOString().slice(0, 10) },
+      name: { content: "User" },
+      script: { content: contentInput.value.trim() },
+      comments: [] // 댓글 목록 초기화
+    };
+
+    setPosts([...posts, newPost]);
+    setLikes([...likes, 0]); // 새로운 게시물에 대한 좋아요 초기값 설정
+    closeModal2(); // 모달 닫기
+  };
+
+  const handleLikeClick = (index) => {
+    const newLikes = [...likes];
+    newLikes[index] += newLikes[index] === 0 ? 1 : -1; // 좋아요/좋아요 취소 토글
+    if(newLikes[index] < 0) newLikes[index] = 0; // 최소값 0 확인
+    setLikes(newLikes);
+  };
 
   return (
     <div>
       <div className="main_body">
-        
         <div className="middle">
           <div className="post_container">
             <div>
@@ -156,92 +84,30 @@ const Post = () => {
                 <h6 className="sub_name">게시판</h6>
                 <button onClick={openModal2}> 글쓰기 </button>
               </div>
+              {/* 글쓰기 모달 */}
               {isModalOpen && (
                 <div id="myModal" className="modal">
                   <div className="modal-content">
                     <div className="modal">
-                    
                       <div className="modal_content">
                         <div className='choiceOption'>
-
-                          <div className='postGroup'>
-                            <div className='postSelect'>
-                              <div className='postname'>
-                                자유게시판
+                          <form className='modal_form' onSubmit={handlePostSubmit}>
+                            <div className='postGroup'>
+                              <div className='postSelect'>
+                                <div className='postname'>
+                                  자유게시판
+                                </div>
+                                <span className="close" onClick={closeModal2}>&times;</span>
                               </div>
-                              {/* <form className='postForm'>
-                                <select>
-                                  <option value="" disabled selected>게시판을 고르세요</option>
-                                  <option value="HOT">HOT 게시판</option>
-                                  <option value="자유">자유 게시판</option>
-                                  <option value="교수님">교수님 게시판</option>
-                                  <option value="졸업생">졸업생 게시판</option>
-                                  <option value="재학생">재학생 게시판</option>
-                                </select>
-                              </form> */}
-                              {/* <div>{currentTime.toLocaleTimeString()}</div> */}
-                              {/* <button>Upload</button> */}
-                              <div className='helpBox'>
-                                <div>
-                                  {/* <span>글씨 크기: </span> */}
-                                  <select value={fontSize} onChange={handleFontSizeChange}>
-                                    <option value="12px">12px</option>
-                                    <option value="16px">16px</option>
-                                    <option value="20px">20px</option>
-                                  </select>
-                                </div>
-                                <div>
-                                  {/* <span>글씨 색깔: </span> */}
-                                  <input type="color" value={fontColor} onChange={handleFontColorChange} />
-                                </div>
-                                <div>
-                                  {/* <span>글씨 스타일: </span> */}
-                                  <select value={fontStyle} onChange={handleFontStyleChange}>
-                                    <option value="normal">보통</option>
-                                    <option value="italic">기울임</option>
-                                  </select>
-                                </div>
-                                <div>
-                                  {/* <span>글씨 두께: </span> */}
-                                  <select value={fontWeight} onChange={handleFontWeightChange}>
-                                    <option value="normal">보통</option>
-                                    <option value="bold">굵게</option>
-                                  </select>
-                                </div>
-                                <div>
-                                  {/* <span>글꼴: </span> */}
-                                  <select value={fontFamily} onChange={handleFontFamilyChange}>
-                                    <option value="Arial, sans-serif">Arial</option>
-                                    <option value="Helvetica, sans-serif">Helvetica</option>
-                                    <option value="Times New Roman, serif">Times New Roman</option>
-                                    <option value="Georgia, serif">Georgia</option>
-                                    <option value="Courier New, monospace">Courier New</option>
-                                  </select>
-                                </div>
+                              <div className='titleinput'>
+                                <input type="text" placeholder="제목을 입력하세요" name="titleInput" />
                               </div>
-                              <span className="close" onClick={closeModal2}>&times;</span>
                             </div>
-                            <div className='titleinput'>
-                              <input type="text" placeholder="제목을 입력하세요" />
+                            <div className='scriptBox'>
+                              <textarea id="postContent" rows="4" placeholder='내용을 작성하세요' name="contentInput"></textarea>
+                              <button type="submit">게시글 작성</button>
                             </div>
-
-                          </div>
-
-                          <div className='scriptBox'>
-                            {/* <label for="postContent">게시글 내용</label> */}
-                            <textarea id="postContent" rows="4" 
-                            style={{
-                              fontSize: fontSize,
-                              color: fontColor,
-                              fontFamily: fontFamily,
-                              fontStyle: fontStyle,
-                              fontWeight: fontWeight
-                            }}placeholder=' 내용을 작성하세요'>
-                              
-                            </textarea>
-                            <button type="submit">게시글 작성</button>
-                          </div>
-
+                          </form>
                         </div>
                       </div>
                     </div>
@@ -249,38 +115,50 @@ const Post = () => {
                 </div>
               )}
               <div className="list_box">
-                {/* 클릭 이벤트 추가 */}
-                {postData.map((post, index) => (
+                {/* 게시물 리스트 */}
+                {posts.map((post, index) => (
                   <div className="list_item" key={index} onClick={() => openModal(index)}>
-                    {post.post_number.content}
+                    <div className='list_item_content'>
+                      {post.title.content}
+                    </div>
+                    <div className='like'>
+                      <i className="fas fa-heart" style={{ color: 'red', cursor: 'pointer' }} onClick={(e) => {
+                        e.stopPropagation(); // 부모 요소로의 이벤트 전파(stopPropagation)를 막음
+                        handleLikeClick(index);
+                      }}>{likes[index]}
+                      </i>
+                      <i className="fas fa-comment">
+                        {posts[selectedPost].comments.length}  
+                      </i> {/* 댓글 아이콘 */}
+                    </div>
                   </div>
                 ))}
               </div>
             </div>
           </div>
-          {/* 모달 */}
+          {/* 게시물 모달 */}
           {showModal && selectedPost !== null && (
             <div className="modal">
               <div className="modal_content">
                 {/* 닫기 버튼 */}
                 <span className="close" onClick={closeModal}>&times;</span>
                 <div className='main_post_box'>
-                  <div className='postdata'>Title: {postData[selectedPost].title.content}</div>
-                  <div className='postdata'>Date: {postData[selectedPost].date.content}</div>
-                  <div className='postdata'>Name: {postData[selectedPost].name.content}</div>
-                  <div className='postdata'>Script: {postData[selectedPost].script.content}</div>
+                  <div className='post_box_top'>
+                    <div className='postdata'>제목: {posts[selectedPost].title.content}</div>
+                    <div className='postdata'>작성일: {posts[selectedPost].date.content}</div>
+                  </div>
+                  <div className='postdata'>내용: {posts[selectedPost].script.content}</div>
                 </div>
                 <div className="comment-container">
-                  {/* <h2>댓글</h2> */}
                   <div className="comment-list" id="commentList">
                     {/* 댓글 목록 출력 */}
-                    {comments.map((comment, index) => (
+                    {posts[selectedPost].comments.map((comment, index) => (
                       <div key={index} className="comment">
                         {comment}
                       </div>
                     ))}
                   </div>
-                  <form className="comment-form" onSubmit={handleSubmit}>
+                  <form className="comment-form" onSubmit={handleCommentSubmit}>
                     <textarea name="commentInput" placeholder="댓글을 입력하세요"></textarea>
                     <button type="submit">작성</button>
                   </form>
