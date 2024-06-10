@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import '../component_style/interests.css';
+import '../component_style/common.css';
 import logoIcon from '../images/DSB_logo.png';
 
 const Interests = () => {
