@@ -2,17 +2,17 @@
 b {
     display: block;
     text-align: center;
-    color: #E65454;
-    font-size: 30px;
-    opacity: 0.6;
+    color: rgba(520, 149, 149);
+    font-size: 48px;
+    opacity: 0.7;
     margin-top: 30px;
 }
 
 /* 수강 신청 하러 가기 버튼 */
 .enrolment_btn {
     /* 버튼 css*/
-    width: 200px;
-    height: 30px;
+    width: 300px;
+    height: 40px;
     display: block;
     margin: 0 auto;
     border: 0;
@@ -21,7 +21,9 @@ b {
     margin-top: 50px;
     margin-bottom: 50px;
     /* 글자 css*/
-    font-size: 20px;
+    font-size: 32px;
+    font-family: 'UHBEE ANN', sans-serif;
+    font-weight: 600;
     border-radius: 5px;
     color: rgba(0, 0, 0, 1);
 }
