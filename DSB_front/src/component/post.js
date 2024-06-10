@@ -37,7 +37,7 @@ const Post = () => {
     const commentInput = event.target.elements.commentInput;
     const commentText = commentInput.value.trim(); // 입력된 댓글 내용
 
-    if (commentText !== '') { // 빈 댓글인지 확인
+    if (commentText !== '' && selectedPost !== null) { // 빈 댓글인지 확인 및 선택된 게시물이 있는지 확인
       const newPosts = [...posts];
       newPosts[selectedPost].comments.push(commentText); // 선택된 게시물에 댓글 추가
 
@@ -100,11 +100,11 @@ const Post = () => {
                                 <span className="close" onClick={closeModal2}>&times;</span>
                               </div>
                               <div className='titleinput'>
-                                <input type="text" placeholder="제목을 입력하세요" name="titleInput" />
+                                <input type="text" placeholder="제목을 입력하세요" name="titleInput" required />
                               </div>
                             </div>
                             <div className='scriptBox'>
-                              <textarea id="postContent" rows="4" placeholder='내용을 작성하세요' name="contentInput"></textarea>
+                              <textarea id="postContent" rows="4" placeholder='내용을 작성하세요' name="contentInput" required></textarea>
                               <button type="submit">게시글 작성</button>
                             </div>
                           </form>
@@ -128,7 +128,7 @@ const Post = () => {
                       }}>{likes[index]}
                       </i>
                       <i className="fas fa-comment">
-                        {posts[selectedPost].comments.length}  
+                        {post.comments.length}
                       </i> {/* 댓글 아이콘 */}
                     </div>
                   </div>
@@ -137,7 +137,7 @@ const Post = () => {
             </div>
           </div>
           {/* 게시물 모달 */}
-          {showModal && selectedPost !== null && (
+          {showModal && selectedPost !== null && posts[selectedPost] && (
             <div className="modal">
               <div className="modal_content">
                 {/* 닫기 버튼 */}
