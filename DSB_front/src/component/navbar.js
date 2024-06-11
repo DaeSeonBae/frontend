@@ -1,9 +1,9 @@
 import React from 'react';
 import '../component_style/navbar.css';
-import DarkModeIcon from '../images/darkmode.svg';
-import LightModeIcon from '../images/lightmode.svg';
-import messageIcon from '../images/message.svg';
-import notificationIcon from '../images/notification.svg';
+// import DarkModeIcon from '../images/darkmode.svg';
+// import LightModeIcon from '../images/lightmode.svg';
+// import messageIcon from '../images/message.svg';
+// import notificationIcon from '../images/notification.svg';
 
 import logoIcon from '../images/DSB_logo.png';
 
@@ -23,10 +23,10 @@ class Navbar extends React.Component {
   }
 
   // 다크 모드 토글 함수
-  toggleDarkMode = () => {
-    this.setState({ isDarkMode: !this.state.isDarkMode });
-    document.body.classList.toggle('dark-mode');
-  };
+  // toggleDarkMode = () => {
+  //   this.setState({ isDarkMode: !this.state.isDarkMode });
+  //   document.body.classList.toggle('dark-mode');
+  // };
 
   render() {
     return (
@@ -38,9 +38,7 @@ class Navbar extends React.Component {
         </div>
         <div className='container2'>
           <div className='nav-item'>
-            <p>
               게시판
-            </p>
             <div className='nav-sub-item'>
               <div className='sub-list'><p>HOT 게시판</p></div>
               <div className='sub-list'>
@@ -80,14 +78,17 @@ class Navbar extends React.Component {
           </div>
         </div>
         <div className="container3">
-            <div className="icon-box" onClick={this.toggleDarkMode}>
+            {/* <div className="icon-box" onClick={this.toggleDarkMode}>
               {this.state.isDarkMode ?  <img src={LightModeIcon} alt='Light Mode' />:<img src={DarkModeIcon} alt="Dark Mode" />}
+            </div> */}
+            <div className="message" onClick={this.toggleFavorite}>
+              쪽지
             </div>
-            <div className="icon-box" onClick={this.toggleFavorite}>
-              <img src={messageIcon} alt='messageIcon'/>
+            <div className="notification" onClick={this.toggleLike}>
+              알림
             </div>
-            <div className="icon-box" onClick={this.toggleLike}>
-              <img src={notificationIcon} alt = 'notificationIcon'/>
+            <div className="profile" onClick={this.toggleProfile}>
+              프로필
             </div>
           </div>
 

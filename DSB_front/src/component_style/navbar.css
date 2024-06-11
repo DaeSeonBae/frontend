@@ -6,10 +6,6 @@
   height: 100px;
   position: relative;
   align-content: center;
-  border: solid 1px black;
-  /* border-radius: 5px; */
-  /* background-color: lightgrey; */
-  box-shadow: 5px;
   justify-content: center;
   max-width: 1980px;
   min-width: 768px;
@@ -23,7 +19,6 @@
 .container1 {
   flex-grow: 1;
   display: flex;
-  /* height: 140px; */
   align-items: center;
   justify-content: center;
   max-width: 15%;
@@ -36,119 +31,105 @@
   margin:20px;
   display: flex;
   align-items: center;
+  justify-content: center;
 }
 
 .Logo img {
   max-width: 100%;
   max-height: 100%;
-  display: block; /* 이미지를 블록 요소로 설정하여 가로 중앙 정렬을 수행합니다. */
-  margin: 0 auto; /* 가로 중앙으로 이미지를 정렬합니다. */
+  display: block; 
+  margin: 0 auto; 
 }
-
-/* nav_main */
 
 .container2 {
   height: 60px;
   margin: 20px;
   flex-grow: 1;
   display: flex;
-  justify-content: space-around;
+  justify-content: center;
   align-items: center;
-  max-width: 70%;
-  border-radius: 10px;
-  color: rgb(0, 0, 0);
-  background-color: rgb(247, 196, 196);
-  box-shadow: 0 2px 4px rgba(2, 2, 2, 2); /* 그림자 효과를 추가합니다. */
 }
 
 .nav-item {
+  font-size: 30px;
+  margin: 0 50px;
   position: relative;
   cursor: pointer;
-  height: 0px auto;
+  height: auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
 }
-.nav-item>p:hover,.nav-item>a:hover{
-  color:black;
-  /* background-size: cover; */
+
+.nav-item>p:hover, .nav-item>a:hover {
+  color: black;
   background-size: 100px 25px;
 }
 
-.nav-item:hover:before,
-.nav-item:hover:after {
+.nav-item::before,
+.nav-item::after {
   content: '';
   position: absolute;
-  width: 100%;
+  width: 0;
   height: 2px;
-  background-color: rgb(157, 157, 219); /* 변경 가능 */
+  background-color: rgb(157, 157, 219);
+  transition: width 0.5s;
 }
 
-.nav-item:before {
+.nav-item::before {
   top: 0;
   left: 0;
-  /* transition: width 1s; */
 }
 
-.nav-item:after {
+.nav-item::after {
   bottom: 0;
   right: 0;
-  /* transition: width 1s; */
 }
 
-.nav-item:hover:before {
+.nav-item:hover::before,
+.nav-item:hover::after {
   width: 100%;
-  /* transition: -50px; */
 }
 
-.nav-item:hover:after {
-  width: 100%;
-  /* transition-delay: 0.5s; */
-}
-
-.nav-sub-item{
+.nav-sub-item {
   color: inherit;
   display: none;
-  /* display: flex; */
   position: absolute;
-  align-items: center;
-  text-align: center;
   top: 100%;
-  left: 0;
   width: 140px;
-  /* background-color: antiquewhite; */
-}
-.sub-list:hover {
-  color: red; /* 호버 시 텍스트 색상을 변경합니다. */
-  transition: color 0.5s; /* 애니메이션 지속 시간을 설정합니다. */
+  z-index: 1000;
 }
 
-.sub-list{
+.sub-list {
   position: relative;
   margin: 10px;
+  font-size: 20px;
 }
 
 .sub-list::after {
-  content: ''; /* 가상 요소를 생성합니다. */
-  position: absolute; /* 위치를 절대적으로 설정합니다. */
-  left: 0; /* 왼쪽 끝에 위치하도록 설정합니다. */
-  bottom: -5px; /* 밑에 위치하도록 설정합니다. */
-  width: 100%; /* 가로 길이를 100%로 설정합니다. */
-  height: 0; /* 밑줄의 높이를 0으로 초기화합니다. */
-  background-color: rgb(179, 75, 75); /* 밑줄의 색상을 설정합니다. */
-  transition: width 0.5s; /* 밑줄의 높이가 변할 때의 애니메이션을 설정합니다. */
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: -5px;
+  width: 0;
+  height: 0;
+  background-color: rgb(179, 75, 75);
+  transition: width 0.5s;
 }
 
 .sub-list:hover::after {
-  height: 2px; /* 호버 시에 밑줄의 높이를 변경하여 밑줄이 나타나도록 합니다. */
+  width: 100%;
+  height: 2px;
 }
 
-.nav-item:hover .nav-sub-item{
+.nav-item:hover .nav-sub-item {
   display: block;
 }
-.nav-item:hover .sub-list{
+.nav-item:hover .sub-list {
   color: inherit;
   display: block;
 }
-
-/* icon */
 
 .container3 {
   flex-grow: 1;
@@ -157,12 +138,18 @@
   justify-content: center;
   max-width: 15%;
   border-radius: 10px;
-}
-.icon-box{
-  padding: 8px;
+  font-size: 30px;
 }
 
-.dark-mode {
-  background-color: #999595;
-  color: #fff;
+.message {
+  margin-right: 30px;
 }
+
+.notification {
+  margin-right: 30px;
+}
+
+.profile {
+  margin-right: 30px;
+}
+
