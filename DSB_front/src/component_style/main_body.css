@@ -32,8 +32,14 @@
 }
 
 .login_button{
-  width: 200px;
-  height: 40px;
+  margin-top: 10%;
+  width: 180px;
+  height: 30px;
+  font-size: 32px;
+  border-radius: 5px;
+  border: none;
+  color: white;
+  opacity: 0.6;
 }
 
 .login_box2{
@@ -42,6 +48,28 @@
   align-items: center;
   padding: 5px;
   white-space: nowrap;
+}
+
+.join{
+  width: 65px;
+  height: 20px;
+  border-radius: 2px;
+  border: none;
+  opacity: 0.6;
+
+}
+
+.findAccount{
+  width: 115px;
+  height: 20px;
+  border-radius: 2px;
+  border: none;
+  opacity: 0.6;
+}
+
+.login_link{
+  font-size: 18px;
+  color: white;
 }
 
 /* ================================================================= */

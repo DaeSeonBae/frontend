@@ -49,13 +49,13 @@ function MainBody() {
               <div className="login_box1">
                 <div className="button_box">
                   <button className='login_button' onClick={() => navigate('/login')}>
-                    로그인
+                    대선배 로그인
                   </button>
                 </div>
               </div>
               <div className="login_box2">
-                <button><Link to='/signup' className='login_link'>회원가입</Link></button>
-                <button><Link to='/find_info' className='login_link'>아이디/비밀번호 찾기</Link></button>
+                <button className='join'><Link to='/signup' className='login_link'>회원가입</Link></button>
+                <button className='findAccount'><Link to='/find_info' className='login_link'>아이디/비밀번호 찾기</Link></button>
               </div>
             </div>
           )}
