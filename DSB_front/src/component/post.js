@@ -1,13 +1,43 @@
 import React, { useState, useEffect } from 'react';
 import '../component_style/post.css';
 import '@fortawesome/fontawesome-free/css/all.min.css';
+import { Carousel } from 'react-responsive-carousel';
+import 'react-responsive-carousel/lib/styles/carousel.min.css';
 
 const Post = () => {
-  const [showModal, setShowModal] = useState(false); // 모달 상태
-  const [selectedPost, setSelectedPost] = useState(null); // 선택된 게시물 인덱스
-  const [isModalOpen, setIsModalOpen] = useState(false); // 글쓰기 모달 상태
-  const [posts, setPosts] = useState([]); // 게시물 목록
-  const [likes, setLikes] = useState([]); // 좋아요 목록
+  const [showModal, setShowModal] = useState(false);
+  const [selectedPost, setSelectedPost] = useState(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [posts, setPosts] = useState([]);
+  const [likes, setLikes] = useState([]);
+  const [imagePreview, setImagePreview] = useState([]);
+
+  // 이미지 업로드 핸들러
+  const handleImageUpload = (event) => {
+    const files = event.target.files;
+    const imagePreviews = [];
+
+    for (let i = 0; i < files.length; i++) {
+      const file = files[i];
+      if (file) {
+        const reader = new FileReader();
+        reader.onloadend = () => {
+          imagePreviews.push(reader.result);
+          if (imagePreviews.length === files.length) {
+            setImagePreview(imagePreviews);
+          }
+        };
+        reader.readAsDataURL(file);
+      }
+    }
+  };
+
+  // 이미지 삭제 핸들러
+  const handleImageDelete = (index) => {
+    const newImagePreviews = [...imagePreview];
+    newImagePreviews.splice(index, 1);
+    setImagePreview(newImagePreviews);
+  };
 
   // 날짜 형식 변환 함수
   const formatDate = (dateString) => {
@@ -15,12 +45,19 @@ const Post = () => {
     return date.toISOString().split('T')[0];
   };
 
+  // 제한된 색상 목록에서 랜덤 색상 선택 함수
+  const colors = ['#FFEEDD', '#FFFFDD', '#EEFFDD', '#DDFFFF', '#DDDDFF','#FFDDFF'];
+  const getRandomColor = () => {
+    const randomIndex = Math.floor(Math.random() * colors.length);
+    return colors[randomIndex];
+  };
+
   // API에서 데이터 가져오기
   useEffect(() => {
     const fetchData = async () => {
       try {
         const token = localStorage.getItem('Authorization');
-        const response = await fetch('/api/board/view/1', {
+        const response = await fetch('/api/board/list', {
           method: 'GET',
           mode: 'cors',
           headers: {
@@ -29,19 +66,19 @@ const Post = () => {
         });
         const data = await response.json();
   
-        // 게시물 객체 생성
-        const newPost = {
-          boardNumber: data.boardNumber,
-          title: { content: data.title },
-          script: { content: data.content },
-          date: { content: formatDate(data.writeDatetime) }, // 날짜 형식 변환
-          likes: data.favoriteCount,
-          comments: [], // 댓글 목록 초기화
-          writerEmail: data.writerEmail
-        };
+        const newPosts = data.map(post => ({
+          boardNumber: post.boardNumber,
+          title: { content: post.title },
+          script: { content: post.content },
+          date: { content: formatDate(post.writeDatetime) },
+          likes: post.favoriteCount,
+          comments: [],
+          writerEmail: post.writerEmail,
+          imageKeys: post.imageKeys || []
+        }));
   
-        // 기존의 게시물 목록에 새로운 게시물 추가
-        setPosts([newPost]);
+        setPosts(newPosts);
+        setLikes(newPosts.map(post => post.likes));
       } catch (error) {
         console.error('Error fetching data:', error);
       }
@@ -52,7 +89,7 @@ const Post = () => {
 
   // 모달 열기
   const openModal = (index) => {
-    setSelectedPost(index); // 클릭한 list_item의 인덱스 저장
+    setSelectedPost(index);
     setShowModal(true);
   };
 
@@ -73,45 +110,103 @@ const Post = () => {
 
   // 댓글 작성 핸들러
   const handleCommentSubmit = (event) => {
-    event.preventDefault(); // 기본 제출 동작 방지
+    event.preventDefault();
 
     const commentInput = event.target.elements.commentInput;
-    const commentText = commentInput.value.trim(); // 입력된 댓글 내용
+    const commentText = commentInput.value.trim();
 
-    if (commentText !== '' && selectedPost !== null) { // 빈 댓글인지 확인 및 선택된 게시물이 있는지 확인
+    if (commentText !== '' && selectedPost !== null) {
       const newPosts = [...posts];
-      newPosts[selectedPost].comments.push(commentText); // 선택된 게시물에 댓글 추가
+      newPosts[selectedPost].comments.push(commentText);
 
-      setPosts(newPosts); // 상태 업데이트
-      commentInput.value = ''; // 입력란 초기화
+      setPosts(newPosts);
+      commentInput.value = '';
     }
   };
 
-  // 게시물 작성 핸들러
-  const handlePostSubmit = (event) => {
+  const handlePostSubmit = async (event) => {
     event.preventDefault();
-
+  
     const titleInput = event.target.elements.titleInput;
     const contentInput = event.target.elements.contentInput;
-
+  
+    const title = titleInput.value.trim();
+    const content = contentInput.value.trim();
+  
+    if (title === '' || content === '') {
+      alert('제목과 내용을 모두 입력해주세요.');
+      return;
+    }
+  
+    const imageKeys = [];
+  
+    if (imagePreview.length > 0) {
+      for (let i = 0; i < imagePreview.length; i++) {
+        const imageKey = `image_${Date.now()}_${i}`;
+        localStorage.setItem(imageKey, imagePreview[i]);
+        imageKeys.push(imageKey);
+      }
+    }
+  
     const newPost = {
       post_number: (posts.length + 1).toString(),
-      title: { content: titleInput.value.trim() },
-      date: { content: formatDate(new Date()) }, // 날짜 형식 변환
+      title: { content: title },
+      date: { content: formatDate(new Date()) },
       name: "User",
-      script: { content: contentInput.value.trim() },
-      comments: [] // 댓글 목록 초기화
+      script: { content: content },
+      comments: [],
+      imageKeys: imageKeys
     };
-
-    setPosts([...posts, newPost]);
-    setLikes([...likes, 0]); // 새로운 게시물에 대한 좋아요 초기값 설정
-    closeModal2(); // 모달 닫기
+  
+    try {
+      const token = localStorage.getItem('Authorization');
+  
+      if (!token) {
+        alert('인증 토큰이 없습니다. 로그인 상태를 확인해주세요.');
+        return;
+      }
+  
+      const response = await fetch('/api/board', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': token
+        },
+        body: JSON.stringify({
+          title: title,
+          content: content
+        }),
+        mode: 'cors'
+      });
+  
+      if (response.ok) {
+        setPosts([...posts, newPost]);
+        setLikes([...likes, 0]);
+        closeModal2();
+      } else {
+        console.error('Failed to post data to server:', response.statusText);
+      }
+    } catch (error) {
+      console.error('Error posting data to server:', error);
+    }
   };
+
+  const getImagesFromLocalStorage = (imageKeys) => {
+    if (!imageKeys || !Array.isArray(imageKeys)) {
+      return [];
+    }
+    
+    const images = imageKeys.map(key => localStorage.getItem(key));
+    
+    // 이미지가 로컬 스토리지에 없는 경우 필터링
+    return images.filter(image => image !== null);
+  };
+  
 
   const handleLikeClick = (index) => {
     const newLikes = [...likes];
-    newLikes[index] += newLikes[index] === 0 ? 1 : -1; // 좋아요/좋아요 취소 토글
-    if (newLikes[index] < 0) newLikes[index] = 0; // 최소값 0 확인
+    newLikes[index] += newLikes[index] === 0 ? 1 : -1;
+    if (newLikes[index] < 0) newLikes[index] = 0;
     setLikes(newLikes);
   };
 
@@ -125,63 +220,74 @@ const Post = () => {
                 <h6 className="sub_name">게시판</h6>
                 <button onClick={openModal2}> 글쓰기 </button>
               </div>
-              {/* 글쓰기 모달 */}
               {isModalOpen && (
-                <div id="myModal" className="modal">
-                  <div className="modal-content">
-                    <div className="modal">
-                      <div className="modal_content">
-                        <div className='choiceOption'>
-                          <form className='modal_form' onSubmit={handlePostSubmit}>
-                            <div className='postGroup'>
-                              <div className='postSelect'>
-                                <div className='postname'>
-                                  자유게시판
-                                </div>
-                                <span className="close" onClick={closeModal2}>&times;</span>
-                              </div>
-                              <div className='titleinput'>
-                                <input type="text" placeholder="제목을 입력하세요" name="titleInput" required />
-                              </div>
+                <div className="modal">
+                  <div className="modal_content">
+                    <div className='choiceOption'>
+                      <form className='modal_form' onSubmit={handlePostSubmit}>
+                        <div className='postGroup'>
+                          <div className='postSelect'>
+                            <div className='postname'>
+                              자유게시판
                             </div>
-                            <div className='scriptBox'>
-                              <textarea id="postContent" rows="4" placeholder='내용을 작성하세요' name="contentInput" required></textarea>
-                              <button type="submit">게시글 작성</button>
-                            </div>
-                          </form>
+                            <button type="submit">게시글 작성</button>
+                            <span className="close" onClick={closeModal2}>&times;</span>
+                          </div>
+                          <div className='titleinput'>
+                            <input type="text" placeholder="제목을 입력하세요" name="titleInput" required />                          
+                          </div>
                         </div>
-                      </div>
+                        <div className='scriptBox'>
+                          <textarea className="post_Content" rows="4" placeholder='내용을 작성하세요' name="contentInput" required></textarea>
+                        </div>
+                        <div className='img_input'>
+                          <input 
+                            type="file" 
+                            accept="image/*" 
+                            style={{ display: 'none' }} 
+                            id="imgUpload" 
+                            onChange={handleImageUpload} 
+                            multiple
+                          />
+                          <label htmlFor="imgUpload" className='img_upload'>이미지</label>
+                          <div className='img_Preview'>
+                            {imagePreview && imagePreview.map((preview, index) => (
+                              <div key={index} className="img_preview_item">
+                                <img src={preview} alt={`preview-${index}`} className="img_preview_thumbnail" />
+                                <button onClick={() => handleImageDelete(index)} className="img_delete_button">&times;</button>
+                              </div>
+                            ))}
+                          </div>
+                        </div>
+                      </form>
                     </div>
                   </div>
                 </div>
               )}
               <div className="list_box">
-                {/* 게시물 리스트 */}
                 {posts.map((post, index) => (
-                  <div className="list_item" key={index} onClick={() => openModal(index)}>
+                  <div className="list_item" key={index} onClick={() => openModal(index)} style={{ backgroundColor: getRandomColor() }}>
                     <div className='list_item_content'>
                       {post.title.content}
                     </div>
                     <div className='like'>
-                      <i className="fas fa-heart" style={{ color: 'red', cursor: 'pointer' }} onClick={(e) => {
-                        e.stopPropagation(); // 부모 요소로의 이벤트 전파(stopPropagation)를 막음
+                      <i className="fas fa-heart" style={{ color: 'red', cursor:'pointer' }} onClick={(e) => {
+                        e.stopPropagation();
                         handleLikeClick(index);
                       }}>{likes[index]}
                       </i>
                       <i className="fas fa-comment">
                         {post.comments.length}
-                      </i> {/* 댓글 아이콘 */}
+                      </i>
                     </div>
                   </div>
                 ))}
               </div>
             </div>
           </div>
-          {/* 게시물 모달 */}
           {showModal && selectedPost !== null && posts[selectedPost] && (
             <div className="modal">
               <div className="modal_content">
-                {/* 닫기 버튼 */}
                 <span className="close" onClick={closeModal}>&times;</span>
                 <div className='main_post_box'>
                   <div className='post_box_top'>
@@ -189,10 +295,16 @@ const Post = () => {
                     <div className='postdata'>작성일: {posts[selectedPost].date.content}</div>
                   </div>
                   <div className='postdata'>내용: {posts[selectedPost].script.content}</div>
+                  <div className='post_images'>
+                    <Carousel>
+                      {getImagesFromLocalStorage(posts[selectedPost].imageKeys).map((image, index) => (
+                        <img key={index} src={image} alt='' className='post_image'/>
+                      ))}
+                    </Carousel>
+                  </div>
                 </div>
                 <div className="comment-container">
                   <div className="comment-list" id="commentList">
-                    {/* 댓글 목록 출력 */}
                     {posts[selectedPost].comments.map((comment, index) => (
                       <div key={index} className="comment">
                         {comment}
@@ -214,3 +326,4 @@ const Post = () => {
 };
 
 export default Post;
+
