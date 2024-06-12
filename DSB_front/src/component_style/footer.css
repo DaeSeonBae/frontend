@@ -1,18 +1,29 @@
-
 .footer-container {
   /* background-color: rgb(235, 230, 230); */
   height: 80px;
   width: 100%;
   display: flex;
-  justify-content: center;
+  justify-content: space-around;
   align-items: center;
   text-align: center;
   bottom: 10px;
   left: 50%;
 }
 
-.rule{
-  font-size: 10px;
-  margin-top: 10px;
+.footer-box {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  width: 15%;
+}
+
+.announcement, .inquiry, .daeseonbae {
+  font-size: 20px;
+  margin-top: 20%;
   letter-spacing: 2px;
+}
+
+.inquiry {
+  color: inherit;
+  text-decoration: none; /* 기본 링크 스타일 제거 */
 }
