@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import '../component_style/Enrolment.css';
 import image1 from '../images/1.jpg';
 import image2 from '../images/2.jpg';
@@ -12,13 +12,33 @@ import image8 from '../images/8.jpg';
 
 const Enrolment = () => {
 
+  const [currentTime, setCurrentTime] = useState(new Date());
+
+  useEffect(() => {
+    const intervalId = setInterval(() => {
+      setCurrentTime(new Date());
+    }, 1000);
+
+    return () => clearInterval(intervalId);
+  }, []);
+
   const handleClick = () => {
     window.location.href = 'https://sugang.hsu.ac.kr/';
   };
 
+  const formatTime = (date) => {
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, '0');
+    const day = String(date.getDate()).padStart(2, '0');
+    const hours = String(date.getHours()).padStart(2, '0');
+    const minutes = String(date.getMinutes()).padStart(2, '0');
+    const seconds = String(date.getSeconds()).padStart(2, '0');
+    return `${year}년 ${month}월 ${day}일 ${hours}시 ${minutes}분 ${seconds}초`;
+  };
+
   return (
     <div>
-      <b>2024년 05월 10일 17시 10분 22초</b>
+      <b>{formatTime(currentTime)}</b>
       <button onClick={handleClick}>수강 신청 하러 가기</button>
       <div className="image-container">
         <img src={image1} alt=''/>
