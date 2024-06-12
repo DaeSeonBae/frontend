@@ -1,3 +1,7 @@
+/* 아이콘 */
+@import '@fortawesome/fontawesome-free/css/all.min.css';
+
+
 body {
   background-image: url('./images/DSB_background.jpg');
   background-size: cover;

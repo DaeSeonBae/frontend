@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
+import {jwtDecode} from 'jwt-decode'; // jsonwebtoken 라이브러리 import
 import '../component_style/login.css';
 import logoIcon from '../images/DSB_logo.png';
 
@@ -24,7 +25,7 @@ function Login() {
       const formDataToSend = new FormData();
       formDataToSend.append('email', formData.email);
       formDataToSend.append('password', formData.password);
-
+  
       const response = await fetch('/api/login', {
         method: 'POST',
         body: formDataToSend,
@@ -33,27 +34,38 @@ function Login() {
         },
         mode: 'cors'
       });
-
+  
       if (!response.ok) {
-        const responseData = await response.json(); // JSON 응답 파싱
-        throw new Error(responseData.message || 'Network response was not ok');
+        const errorText = await response.text();
+        throw new Error(`Network response was not ok: ${errorText}`);
       }
+  
+      // 응답 헤더에서 토큰 추출
+      const authToken = response.headers.get('Authorization');
+      if (authToken) {
+        console.log('토큰:', authToken);
+        localStorage.setItem('Authorization', authToken);
 
-      const responseData = await response; // JSON 응답 파싱
-      console.log('API 응답 데이터:', responseData);
+        // JWT를 해석하여 사용자 정보 추출
+        const decodedToken = jwtDecode(authToken);
+        console.log('해석된 JWT:', decodedToken);
 
-      // 로그인 성공 처리 (예: 토큰 저장, 홈 페이지로 리디렉션 등)
-      const { token, user } = responseData;
-      localStorage.setItem('token', token);
-      localStorage.setItem('user', JSON.stringify(user));
-      alert('로그인 완료!!');
-      navigate('/');
+        // 사용자 정보를 로컬 스토리지에 저장
+        localStorage.setItem('user', JSON.stringify(decodedToken));
+
+        // 로그인 성공 처리
+        alert('로그인 완료!!');
+        navigate('/');
+      } else {
+        throw new Error('Authorization header not found');
+      }
     } catch (error) {
       console.error('API 호출 중 오류 발생:', error);
       setError('로그인 실패: ' + error.message);
     }
   };
-
+  
+  
   return (
     <div>
       <div className="container">
