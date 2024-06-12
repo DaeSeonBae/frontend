@@ -106,7 +106,7 @@ function Signup() {
                 onChange={handleInputChange}
               />
             </div>
-            <button type="button" onClick={handleSignupClick}>회원가입</button>
+            <button type="button" className='signupBtn' onClick={handleSignupClick}>회원가입</button>
           </form>
         </div>
       </div>

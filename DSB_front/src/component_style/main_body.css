@@ -67,7 +67,12 @@
   opacity: 0.6;
 }
 
-.login_link{
+.join > .login_link{
+  font-size: 18px;
+  color: white;
+}
+
+.findAccount > .login_link{
   font-size: 18px;
   color: white;
 }

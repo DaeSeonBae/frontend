@@ -56,17 +56,20 @@
 }
 
 button[type="button"] {
-  width: 100%;
-  padding: 10px;
-  background-color: #4DCB00;
+  width: 300px;
+  height: 30px;
+  padding: 3px;
+  background-color: #FA9595;
   color: white;
   border: none;
   border-radius: 4px;
   cursor: pointer;
+  opacity: 0.7;
+  font-size: 20px;
 }
 
 button[type="button"]:hover {
-  background-color: #0B994A;
+  background-color: #FF5656;
 }
 
 .login_link{

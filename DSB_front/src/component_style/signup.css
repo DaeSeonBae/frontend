@@ -33,8 +33,8 @@
   margin-bottom: 5px;
 }
 
-.input-group input {
-  width: 90%;
+.card .input-group input {
+  width: 100%;
   padding: 8px;
   border: 1px solid #ccc;
   border-radius: 4px;
@@ -51,18 +51,21 @@
   margin: 5px;
 }
 
-button[type="button"] {
-  width: 100%;
-  padding: 10px;
-  background-color: #4DCB00;
+.signupBtn[type="button"] {
+  width: 300px;
+  height: 30px;
+  padding: 3px;
+  background-color: #FA9595;
   color: white;
   border: none;
   border-radius: 4px;
   cursor: pointer;
+  opacity: 0.7;
+  font-size: 20px;
 }
 
-button[type="button"]:hover {
-  background-color: #0B994A;
+.signupBtn[type="button"]:hover {
+  background-color: #FF5656;
 }
 
 .login_link{

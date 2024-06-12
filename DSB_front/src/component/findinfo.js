@@ -21,7 +21,7 @@ function Findinfo() {
             <div class="input-group">
               <input type="password" id="password" name="password" placeholder='이름을 입력하세요'/>
             </div>
-              <button type="button">찾기</button>
+              <button type="button">아이디 찾기</button>
           </form>
         </div>
         <div class="card">
@@ -36,7 +36,7 @@ function Findinfo() {
             <div class="input-group">
               <input type="password" id="password" name="password" placeholder='인증번호를 입력하세요'/>
             </div>
-              <button type="button">찾기</button>
+              <button type="button">비밀번호 찾기</button>
           </form>
         </div>
       </div>
