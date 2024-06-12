@@ -42,7 +42,7 @@ class Navbar extends React.Component {
             <div className='nav-sub-item'>
               <div className='sub-list'><p>HOT 게시판</p></div>
               <div className='sub-list'>
-                <Link to='/post' className=''>
+                <Link to='/post' style={{textDecoration:'none'}} className=''>
                   자유 게시판
                 </Link>
               </div>
@@ -52,27 +52,27 @@ class Navbar extends React.Component {
             </div>
           </div>
           <div className='nav-item'>
-            <Link to='/schedule' className=''>
+            <Link to='/#' style={{textDecoration:'none'}} className=''>
               시간표
             </Link>
           </div>
           <div className='nav-item'>
-            <Link to='/enrolment' className=''>
+            <Link to='/enrolment' style={{textDecoration:'none'}} className=''>
               수강 신청
             </Link>
           </div>
           <div className='nav-item'>
-            <Link to='/review' className=''>
+            <Link to='/#' style={{textDecoration:'none'}} className=''>
               강의 평가
             </Link>
           </div>
           <div className='nav-item'>
-            <Link to='/ai' className=''>
+            <Link to='/ai' style={{textDecoration:'none'}} className=''>
               AI
             </Link>
           </div>
           <div className='nav-item'>
-            <Link to='/calculate' className=''>
+            <Link to='/calculate' style={{textDecoration:'none'}} className=''>
               학점계산
             </Link>
           </div>

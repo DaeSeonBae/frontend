@@ -67,6 +67,10 @@
   background-size: 100px 25px;
 }
 
+Link{
+  text-decoration-line: none;
+}
+
 .nav-item::before,
 .nav-item::after {
   content: '';
