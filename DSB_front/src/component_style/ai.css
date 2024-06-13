@@ -7,7 +7,9 @@
   flex-direction: column;
   justify-content: center; /* 수평 가운데 정렬 */
   align-items: center; /* 수직 가운데 정렬 */
+  font-size: 28px;
 }
+
 .ai_chatbox {
   width: 96%;
   height: 96%;
@@ -29,6 +31,7 @@
   flex-direction: column;
 }
 .ai_name{
+  font-size: 32px;
   /* border: 1px solid black; */
   width: 40%;
   height: 30px;
@@ -38,7 +41,7 @@
 }
 .ai_message{
   border: 1px solid black;
-  width: 40%;
+  width: 50%;
   height: 0px auto;
   align-self: flex-start;
   margin-left: 15px;
@@ -54,6 +57,7 @@
 }
 
 .user{
+  font-size: 32px;
   /* border: 1px solid black; */
   width: 40%;
   height: 30px;
@@ -85,6 +89,8 @@
   width: 100%;
   /* height: 50%; */
   border-radius:10px ;
+  font-family: 'UHBEE ANN';
+  font-size: 28px;
 }
 .user_chatInput img{
   width: 40px;

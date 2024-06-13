@@ -51,7 +51,7 @@
 }
 
 .nav-item {
-  font-size: 30px;
+  font-size: 35px;
   margin: 0 50px;
   position: relative;
   cursor: pointer;
@@ -107,7 +107,7 @@ Link{
 
 .sub-list {
   position: relative;
-  margin: 10px;
+  margin: 5px;
   font-size: 20px;
 }
 
@@ -142,7 +142,7 @@ Link{
   justify-content: center;
   max-width: 15%;
   border-radius: 10px;
-  font-size: 30px;
+  font-size: 35px;
 }
 
 .message {
