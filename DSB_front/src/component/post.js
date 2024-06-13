@@ -154,7 +154,7 @@ const Post = () => {
             <div>
               <div className="sub_header">
                 <h6 className="sub_name">게시판</h6>
-                <button onClick={openModal2}> 글쓰기 </button>
+                <button className='write' onClick={openModal2}> 글쓰기 </button>
               </div>
               {isModalOpen && (
                 <div id="myModal" className="modal">
@@ -216,6 +216,7 @@ const Post = () => {
                                     <option value="Times New Roman, serif">Times New Roman</option>
                                     <option value="Georgia, serif">Georgia</option>
                                     <option value="Courier New, monospace">Courier New</option>
+                                    <option value="UHBEE ANN">UHBEE ANN</option>
                                   </select>
                                 </div>
                               </div>

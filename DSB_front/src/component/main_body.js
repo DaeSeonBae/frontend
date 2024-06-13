@@ -99,8 +99,7 @@ function MainBody() {
             </div>
           )}
         </div>
-        <div className="side">
-          side
+        <div className='side'>
         </div>
       </div>
     </div>

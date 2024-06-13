@@ -20,7 +20,7 @@ const Ai = () => {
   return (
     <div className='main_body'>
       <div className='ai_container'>
-        <h3>대선배 AI</h3>
+        <h1>대선배 AI</h1>
         <div className='ai_chatcontainer'>
           <div className='ai_chatbox'>
             <div className='ai_output'>

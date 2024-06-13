@@ -108,6 +108,7 @@
 
 .sub_name{
   padding:5px;
+  font-size: 36px;
 }
 
 .list_box {
@@ -144,8 +145,6 @@
   margin: 10px;
   width: 15%;
   height: 700px;
-  border: solid black 1px;
-  border-radius: 5px;
   justify-content: center;
   align-items: center;
   flex-direction: column;
