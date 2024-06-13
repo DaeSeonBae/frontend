@@ -17,12 +17,14 @@
   border-radius: 10px;
   display: flex;
   flex-direction: column;
-  background-color: rgba(250, 149, 149, 0.6);
-
+  /* background-color: white; */
   margin-top: 10px;
-
   font-family: 'UhBee ann';
   box-shadow: 0 2px 4px rgba(2, 2, 2, 2); /* 그림자 효과를 추가합니다. */
+
+  max-height: 700px;
+  overflow-y: auto;
+  padding: 10px; 
 }
 
 .ai_output{
@@ -41,8 +43,14 @@
 }
 .ai_message{
   border: 1px solid black;
+
   width: 50%;
   height: 0px auto;
+
+  background-color: lightpink;
+  width: 40%;
+  height: 25px auto;
+
   align-self: flex-start;
   margin-left: 15px;
   border-radius: 10px;
@@ -68,8 +76,9 @@
 
 .user_message{
   border: 1px solid black;
+  background-color: white;
   width: 40%;
-  height: 30px auto;
+  height: 25px;
   align-self: flex-end;
   margin-right: 10px;
   border-radius: 10px;
@@ -87,6 +96,7 @@
 
 .user_chatInput input{
   width: 100%;
+  height: 30px;
   /* height: 50%; */
   border-radius:10px ;
   font-family: 'UHBEE ANN';
