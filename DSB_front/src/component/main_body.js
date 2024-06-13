@@ -125,6 +125,7 @@ function MainBody() {
         <div className='side'>
         </div>
       </div>
+    <hr/>
     </div>
   );
 }

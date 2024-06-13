@@ -329,7 +329,7 @@ const Post = () => {
                             <div className='postname'>
                               자유게시판
                             </div>
-                            <button type="submit">게시글 작성</button>
+                            <button className='postWrite' type="submit">게시글 작성</button>
                             <span className="close" onClick={closeModal2}>&times;</span>
                           </div>
                           <div className='titleinput'>

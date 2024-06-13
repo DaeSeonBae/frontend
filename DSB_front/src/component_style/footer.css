@@ -1,6 +1,6 @@
 .footer-container {
   /* background-color: rgb(235, 230, 230); */
-  height: 80px;
+  height: 60px;
   width: 100%;
   display: flex;
   justify-content: space-around;
@@ -19,7 +19,6 @@
 
 .announcement, .inquiry, .daeseonbae {
   font-size: 18px;
-  margin-top: 20%;
   letter-spacing: 2px;
 }
 
