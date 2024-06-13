@@ -183,7 +183,7 @@
   width: 16%;
   height: 180px;
   border: solid black 3px;
-  background-color: lightblue;
+  /* background-color: lightblue; */
   border-radius: 5px;
   display: flex;
   flex-direction:column;
@@ -192,11 +192,17 @@
   /* 기본 배경 색상 및 기타 스타일 */
   /* 기본 배경 색상 */
   /* transition: 1s; */
+  /* background-image: url('../images/post_img3.png');
+  background-size: cover;
+  background-position: center;  */
 }
 
 .list_item_content{
   width: 90%;
   height: 80%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .list_item:hover{
