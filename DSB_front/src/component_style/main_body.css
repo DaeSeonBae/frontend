@@ -190,3 +190,8 @@
   align-items: center;
   flex-direction: column;
 }
+
+hr{
+  margin-top: 5%;
+  margin-bottom: 0;
+}

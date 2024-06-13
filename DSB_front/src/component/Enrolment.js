@@ -50,6 +50,7 @@ const Enrolment = () => {
         <img src={image7} alt=''/>
         <img src={image8} alt=''/>
       </div>
+      <hr/>
     </div>
   );
 };

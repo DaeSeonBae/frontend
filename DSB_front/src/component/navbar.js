@@ -52,29 +52,27 @@ class Navbar extends React.Component {
             </div>
           </div>
           <div className='nav-item'>
-            <Link to='/#' style={{textDecoration:'none'}} className=''>
+            <Link to='/#' style={{textDecoration:'none', color:'black'}} className=''>
               시간표
             </Link>
-            <p>시간표</p>
           </div>
           <div className='nav-item'>
-            <Link to='/enrolment' style={{textDecoration:'none'}} className=''>
+            <Link to='/enrolment' style={{textDecoration:'none', color:'black'}} className=''>
               수강 신청
             </Link>
           </div>
           <div className='nav-item'>
-            <Link to='/#' style={{textDecoration:'none'}} className=''>
+            <Link to='/#' style={{textDecoration:'none', color:'black'}} className=''>
               강의 평가
-            </Link> */
-            <p>강의 평가</p>
+            </Link>
           </div>
           <div className='nav-item'>
-            <Link to='/ai' style={{textDecoration:'none'}} className=''>
+            <Link to='/ai' style={{textDecoration:'none', color:'black'}} className=''>
               AI
             </Link>
           </div>
           <div className='nav-item'>
-            <Link to='/calculate' style={{textDecoration:'none'}} className=''>
+            <Link to='/calculate' style={{textDecoration:'none', color:'black'}} className=''>
               학점계산
             </Link>
           </div>
