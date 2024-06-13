@@ -34,8 +34,8 @@
 .login_button{
   margin-top: 10%;
   width: 180px;
-  height: 30px;
-  font-size: 32px;
+  height: 35px;
+  font-size: 30px;
   border-radius: 5px;
   border: none;
   color: white;
@@ -51,17 +51,16 @@
 }
 
 .join{
-  width: 65px;
-  height: 20px;
+  width: 75px;
+  height: 25px;
   border-radius: 2px;
   border: none;
   opacity: 0.6;
-
 }
 
 .findAccount{
   width: 115px;
-  height: 20px;
+  height: 25px;
   border-radius: 2px;
   border: none;
   opacity: 0.6;
@@ -85,13 +84,55 @@
 }
 
 .banner {
-  height: 400px;
-  border: solid black 1px;
+  height: 350px;
+  border: solid #7A3E12 7px;
   display: flex;
   justify-content: center;
   align-items: center;
   text-align: center;
-  border-radius: 5px;
+  border-radius: 7px;
+  position: relative;
+  overflow: hidden; /* 추가: 슬라이드들이 영역을 넘지 않도록 함 */
+  background: url('../images/background.jpg') no-repeat center center; /* 배경 이미지 설정 */
+}
+
+.slider-wrapper {
+  display: flex;
+  transition: transform 0.5s ease-in-out;
+}
+
+.slide {
+  min-width: 100%;
+  box-sizing: border-box;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.slide img {
+  width: 900px;
+  height: 250px;
+  border-radius: 10px;
+}
+
+.prev, .next {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background-color: rgba(0, 0, 0, 0.5);
+  color: #fff;
+  border: none;
+  padding: 10px;
+  cursor: pointer;
+  border-radius: 50%;
+}
+
+.prev {
+  left: 10px;
+}
+
+.next {
+  right: 10px;
 }
 
 .sub_header{
@@ -108,7 +149,7 @@
 
 .sub_name{
   padding:5px;
-  font-size: 36px;
+  font-size: 28px;
 }
 
 .list_box {

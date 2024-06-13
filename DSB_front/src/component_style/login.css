@@ -45,7 +45,7 @@
   padding: 8px;
   border: 1px solid #ccc;
   border-radius: 4px;
-  font-family: 'UHBEE ANN';
+  font-family: '나눔하나손글씨';
   font-size: 20px;
 }
 
@@ -71,14 +71,14 @@
 
 .loginBtn[type="button"] {
   width: 300px;
-  height: 30px;
+  height: 35px;
   padding: 1px;
   background-color: #FA9595;
   color: white;
   border: none;
   border-radius: 4px;
   cursor: pointer;
-  font-size: 25px;
+  font-size: 24px;
   opacity: 0.7;
 }
 

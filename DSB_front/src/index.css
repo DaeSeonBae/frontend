@@ -1,6 +1,6 @@
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'UHBEE ANN', 'Segoe UI', 'Roboto', 'Oxygen',
+  font-family: -apple-system, BlinkMacSystemFont, '나눔하나손글씨', 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
     sans-serif;
   -webkit-font-smoothing: antialiased;
@@ -13,6 +13,6 @@ code {
 }
 
 @font-face {
-  font-family: "UHBEE ANN";
-  src: url("./fonts/UHBEE\ ANN.TTF");
+  font-family: "나눔하나손글씨";
+  src: url("./fonts/나눔손글씨\ 하나손글씨.TTF");
 }

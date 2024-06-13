@@ -51,7 +51,7 @@
 }
 
 .nav-item {
-  font-size: 35px;
+  font-size: 28px;
   margin: 0 50px;
   position: relative;
   cursor: pointer;
@@ -96,6 +96,11 @@ Link{
   width: 100%;
 }
 
+.enrolment, .ai, .calculate{
+  text-decoration: none;
+  color: black;
+}
+
 .nav-sub-item {
   color: inherit;
   display: none;
@@ -127,6 +132,11 @@ Link{
   height: 2px;
 }
 
+.post{
+  text-decoration: none;
+  color: black;
+}
+
 .nav-item:hover .nav-sub-item {
   display: block;
 }
@@ -142,7 +152,7 @@ Link{
   justify-content: center;
   max-width: 15%;
   border-radius: 10px;
-  font-size: 35px;
+  font-size: 28px;
 }
 
 .message {
