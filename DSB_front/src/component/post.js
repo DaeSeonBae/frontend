@@ -8,9 +8,12 @@ const Post = () => {
   const [showModal, setShowModal] = useState(false);
   const [selectedPost, setSelectedPost] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isEditModalOpen, setIsEditModalOpen] = useState(false); // 수정 모달 상태
   const [posts, setPosts] = useState([]);
   const [likes, setLikes] = useState([]);
   const [imagePreview, setImagePreview] = useState([]);
+  const [editTitle, setEditTitle] = useState(''); // 수정할 제목
+  const [editContent, setEditContent] = useState(''); // 수정할 내용
 
   // 이미지 업로드 핸들러
   const handleImageUpload = (event) => {
@@ -108,6 +111,19 @@ const Post = () => {
     setIsModalOpen(false);
   };
 
+  // 수정 모달 열기
+  const openEditModal = (index) => {
+    setSelectedPost(index);
+    setEditTitle(posts[index].title.content);
+    setEditContent(posts[index].script.content);
+    setIsEditModalOpen(true);
+  };
+
+  // 수정 모달 닫기
+  const closeEditModal = () => {
+    setIsEditModalOpen(false);
+  };
+
   // 댓글 작성 핸들러
   const handleCommentSubmit = (event) => {
     event.preventDefault();
@@ -124,6 +140,7 @@ const Post = () => {
     }
   };
 
+  // 게시물 작성 핸들러
   const handlePostSubmit = async (event) => {
     event.preventDefault();
   
@@ -191,6 +208,87 @@ const Post = () => {
     }
   };
 
+  // 게시물 수정 핸들러
+  const handleEditSubmit = async (event) => {
+    event.preventDefault();
+    console.log(posts[selectedPost].boardNumber)
+    
+    if (editTitle === '' || editContent === '') {
+      alert('제목과 내용을 모두 입력해주세요.');
+      return;
+    }
+    
+    const updatedPost = {
+      ...posts[selectedPost],
+      title: { content: editTitle },
+      script: { content: editContent },
+    };
+
+    try {
+      const token = localStorage.getItem('Authorization');
+  
+      if (!token) {
+        alert('인증 토큰이 없습니다. 로그인 상태를 확인해주세요.');
+        return;
+      }
+  
+      const response = await fetch(`/api/board/${posts[selectedPost].boardNumber}`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': token
+        },
+        body: JSON.stringify({
+          title: editTitle,
+          content: editContent
+        }),
+        mode: 'cors'
+      });
+  
+      if (response.ok) {
+        const updatedPosts = [...posts];
+        updatedPosts[selectedPost] = updatedPost;
+        setPosts(updatedPosts);
+        closeEditModal();
+      } else {
+        console.error('Failed to update data on server:', response.statusText);
+      }
+    } catch (error) {
+      console.error('Error updating data on server:', error);
+    }
+  };
+
+  // 게시물 삭제 핸들러
+  const handleDelete = async (index) => {
+    try {
+      const token = localStorage.getItem('Authorization');
+  
+      if (!token) {
+        alert('인증 토큰이 없습니다. 로그인 상태를 확인해주세요.');
+        return;
+      }
+  
+      const response = await fetch(`/api/board/${posts[index].boardNumber}`, {
+        method: 'DELETE',
+        headers: {
+          'Authorization': token
+        },
+        mode: 'cors'
+      });
+  
+      if (response.ok) {
+        const updatedPosts = [...posts];
+        updatedPosts.splice(index, 1);
+        setPosts(updatedPosts);
+        setShowModal(false);
+      } else {
+        console.error('Failed to delete data on server:', response.statusText);
+      }
+    } catch (error) {
+      console.error('Error deleting data on server:', error);
+    }
+  };
+
   const getImagesFromLocalStorage = (imageKeys) => {
     if (!imageKeys || !Array.isArray(imageKeys)) {
       return [];
@@ -201,7 +299,6 @@ const Post = () => {
     // 이미지가 로컬 스토리지에 없는 경우 필터링
     return images.filter(image => image !== null);
   };
-  
 
   const handleLikeClick = (index) => {
     const newLikes = [...likes];
@@ -218,7 +315,9 @@ const Post = () => {
             <div>
               <div className="sub_header">
                 <h6 className="sub_name">게시판</h6>
-                <button onClick={openModal2}> 글쓰기 </button>
+                <div>
+                  <button onClick={openModal2}> 글쓰기 </button>
+                </div>
               </div>
               {isModalOpen && (
                 <div className="modal">
@@ -258,6 +357,46 @@ const Post = () => {
                               </div>
                             ))}
                           </div>
+                        </div>
+                      </form>
+                    </div>
+                  </div>
+                </div>
+              )}
+              {isEditModalOpen && (
+                <div className="modal">
+                  <div className="modal_content">
+                    <div className='choiceOption'>
+                      <form className='modal_form' onSubmit={handleEditSubmit}>
+                        <div className='postGroup'>
+                          <div className='postSelect'>
+                            <div className='postname'>
+                              게시물 수정
+                            </div>
+                            <button type="submit">저장</button>
+                            <span className="close" onClick={closeEditModal}>&times;</span>
+                          </div>
+                          <div className='titleinput'>
+                            <input 
+                              type="text" 
+                              placeholder="제목을 입력하세요" 
+                              name="editTitle" 
+                              value={editTitle} 
+                              onChange={(e) => setEditTitle(e.target.value)} 
+                              required 
+                            />                          
+                          </div>
+                        </div>
+                        <div className='scriptBox'>
+                          <textarea 
+                            className="post_Content" 
+                            rows="4" 
+                            placeholder='내용을 작성하세요' 
+                            name="editContent" 
+                            value={editContent} 
+                            onChange={(e) => setEditContent(e.target.value)} 
+                            required
+                          ></textarea>
                         </div>
                       </form>
                     </div>
@@ -316,6 +455,10 @@ const Post = () => {
                     <button type="submit">작성</button>
                   </form>
                 </div>
+                <div className='post_actions'>
+                  <button onClick={() => openEditModal(selectedPost)}>수정</button>
+                  <button onClick={() => handleDelete(selectedPost)}>삭제</button>
+                </div>
               </div>
             </div>
           )}
@@ -326,4 +469,3 @@ const Post = () => {
 };
 
 export default Post;
-
