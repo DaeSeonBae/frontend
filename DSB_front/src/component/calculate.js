@@ -132,7 +132,7 @@ const Calculate = () => {
                     <th>과목명</th>
                     <th>학점</th>
                     <th>성적</th>
-                    <th>전공</th>
+                    <th>전공</th> 
                     <th>삭제</th>
                   </tr>
                 </thead>
@@ -168,13 +168,13 @@ const Calculate = () => {
                         />
                       </td>
                       <td>
-                        <button onClick={() => handleDeleteRow(rowIndex)}>x</button>
+                        <button className='deleteBtn' onClick={() => handleDeleteRow(rowIndex)}>x</button>
                       </td>
                     </tr>
                   ))}
                 </tbody>
               </table>
-              <button onClick={handleAddRow}>항목 추가</button>
+              <button className='plusBtn' onClick={handleAddRow}>항목 추가</button>
             </div>
           </div>
           <div className='bottom'>

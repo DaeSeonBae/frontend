@@ -216,7 +216,7 @@ const Post = () => {
                                     <option value="Times New Roman, serif">Times New Roman</option>
                                     <option value="Georgia, serif">Georgia</option>
                                     <option value="Courier New, monospace">Courier New</option>
-                                    <option value="UHBEE ANN">UHBEE ANN</option>
+                                    <option value="나눔하나손글씨">나눔하나손글씨</option>
                                   </select>
                                 </div>
                               </div>

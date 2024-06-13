@@ -57,7 +57,7 @@
 
 button[type="button"] {
   width: 300px;
-  height: 30px;
+  height: 35px;
   padding: 3px;
   background-color: #FA9595;
   color: white;
@@ -65,7 +65,7 @@ button[type="button"] {
   border-radius: 4px;
   cursor: pointer;
   opacity: 0.7;
-  font-size: 20px;
+  font-size: 24px;
 }
 
 button[type="button"]:hover {

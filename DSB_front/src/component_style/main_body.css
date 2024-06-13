@@ -35,7 +35,7 @@
   margin-top: 10%;
   width: 180px;
   height: 30px;
-  font-size: 32px;
+  font-size: 30px;
   border-radius: 5px;
   border: none;
   color: white;
@@ -51,17 +51,16 @@
 }
 
 .join{
-  width: 65px;
-  height: 20px;
+  width: 70px;
+  height: 25px;
   border-radius: 2px;
   border: none;
   opacity: 0.6;
-
 }
 
 .findAccount{
-  width: 115px;
-  height: 20px;
+  width: 120px;
+  height: 25px;
   border-radius: 2px;
   border: none;
   opacity: 0.6;
@@ -108,7 +107,7 @@
 
 .sub_name{
   padding:5px;
-  font-size: 36px;
+  font-size: 28px;
 }
 
 .list_box {

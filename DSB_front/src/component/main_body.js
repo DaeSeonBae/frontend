@@ -63,7 +63,6 @@ function MainBody() {
         <div className="middle">
           <div className="banner">
             <div className="banner_item">
-              banner
             </div>
           </div>
           <div>
