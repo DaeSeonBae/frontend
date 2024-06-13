@@ -28,17 +28,15 @@ const Ai = () => {
       setUserInput('');
 
       try {
-        const token = localStorage.getItem('Authorization'); // 인증 토큰을 로컬 스토리지에서 가져옴
+        const token = localStorage.getItem('Authorization');
 
         const response = await fetch('/api/ai', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
-            'Authorization': token // 토큰을 헤더에 추가
+            'Authorization': token
           },
-          body: JSON.stringify({ 
-            query: userMessage 
-          }), // query로 요청
+          body: JSON.stringify({ query: userMessage }),
           mode: 'cors'
         });
 
@@ -47,20 +45,41 @@ const Ai = () => {
         }
 
         const responseData = await response.json();
-        const parsedData = JSON.parse(responseData.response); // JSON 문자열을 파싱하여 JavaScript 객체로 변환
 
-        setChatMessages((prevMessages) => [
-          ...prevMessages,
-          { sender: 'ai', message: formatResponse(parsedData), timestamp: new Date().toLocaleTimeString() },
-        ]);
+        if (responseData.response.includes('error')) {
+          // 응답 메시지에 'error'가 포함된 경우, 다시 질문하도록 처리
+          setChatMessages((prevMessages) => [
+            ...prevMessages,
+            {
+              sender: 'ai',
+              message: "죄송합니다. 질문을 이해하지 못했습니다. 다시 질문해주시겠습니까?",
+              timestamp: new Date().toLocaleTimeString(),
+            },
+          ]);
+        } else {
+          const parsedData = JSON.parse(responseData.response);
+          setChatMessages((prevMessages) => [
+            ...prevMessages,
+            { sender: 'ai', message: formatResponse(parsedData), timestamp: new Date().toLocaleTimeString() },
+          ]);
+        }
       } catch (error) {
         console.error('Error:', error);
-        setChatMessages((prevMessages) => [
-          ...prevMessages,
-          { sender: 'ai', message: 'Error: Unable to fetch response from server.', timestamp: new Date().toLocaleTimeString() },
-        ]);
+        handleErrorMessage();
       }
     }
+  };
+
+  const handleErrorMessage = () => {
+    const timestamp = new Date().toLocaleTimeString();
+    setChatMessages((prevMessages) => [
+      ...prevMessages,
+      {
+        sender: 'ai',
+        message: "죄송합니다. 질문을 이해하지 못했습니다. 다시 질문해주시겠습니까?",
+        timestamp: timestamp,
+      },
+    ]);
   };
 
   const fetchStoredMessages = useCallback(async () => {
@@ -72,7 +91,8 @@ const Ai = () => {
         headers: {
           'Content-Type': 'application/json',
           'Authorization': token
-        }
+        },
+        mode: 'cors'
       });
   
       if (!response.ok) {
@@ -80,7 +100,6 @@ const Ai = () => {
       }
   
       const responseData = await response.json();
-      console.log(responseData);
   
       const newMessages = responseData.map((msg) => {
         try {
@@ -103,16 +122,17 @@ const Ai = () => {
         }
       }).flat();
   
-      setChatMessages(newMessages); // 기존 메시지 대신에 새로운 메시지 배열로 설정
+      setChatMessages(newMessages);
   
     } catch (error) {
       console.error('Error fetching stored messages:', error);
+      handleErrorMessage(); // 네트워크 에러 발생 시 메시지를 보여주는 함수 호출
     }
   }, []);
-  
+
   useEffect(() => {
     fetchStoredMessages();
-  }, [fetchStoredMessages]);  
+  }, [fetchStoredMessages]);
 
   return (
     <div className='main_body'>
