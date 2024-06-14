@@ -50,6 +50,23 @@
   white-space: nowrap;
 }
 
+.user_info p {
+  font-size: 28px;
+  text-align: center;
+}
+
+.logout_button{
+  text-align: center;
+  margin-left: 25%;
+  width: 100px;
+  height: 30px;
+  font-size: 24px;
+  border-radius: 5px;
+  border: none;
+  color: white;
+  opacity: 0.6;
+}
+
 .join{
   width: 75px;
   height: 25px;
