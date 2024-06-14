@@ -3,6 +3,7 @@ import '../component_style/post.css';
 import '@fortawesome/fontawesome-free/css/all.min.css';
 import { Carousel } from 'react-responsive-carousel';
 import 'react-responsive-carousel/lib/styles/carousel.min.css';
+import PostList from './PostList'; // Import the new component
 
 const Post = () => {
   const [showModal, setShowModal] = useState(false);
@@ -55,7 +56,7 @@ const Post = () => {
     return colors[randomIndex];
   };
 
-  // API에서 데이터 가져오기
+  // 게시글 리스트 API에서 데이터 가져오기
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -68,7 +69,7 @@ const Post = () => {
           }
         });
         const data = await response.json();
-  
+
         const newPosts = data.map(post => ({
           boardNumber: post.boardNumber,
           title: { content: post.title },
@@ -79,14 +80,14 @@ const Post = () => {
           writerEmail: post.writerEmail,
           imageKeys: post.imageKeys || []
         }));
-  
+
         setPosts(newPosts);
         setLikes(newPosts.map(post => post.likes));
       } catch (error) {
         console.error('Error fetching data:', error);
       }
     };
-  
+
     fetchData();
   }, []);
 
@@ -124,39 +125,64 @@ const Post = () => {
     setIsEditModalOpen(false);
   };
 
-  // 댓글 작성 핸들러
-  const handleCommentSubmit = (event) => {
-    event.preventDefault();
+ // 댓글 작성 핸들러
+const handleCommentSubmit = async (event) => {
+  event.preventDefault();
 
-    const commentInput = event.target.elements.commentInput;
-    const commentText = commentInput.value.trim();
+  const commentInput = event.target.elements.commentInput;
+  const commentText = commentInput.value.trim();
 
-    if (commentText !== '' && selectedPost !== null) {
-      const newPosts = [...posts];
-      newPosts[selectedPost].comments.push(commentText);
+  if (commentText !== '' && selectedPost !== null) {
+    try {
+      const token = localStorage.getItem('Authorization');
+      const response = await fetch(`/api/board/comment/${posts[selectedPost].boardNumber}`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': token
+        },
+        body: JSON.stringify({
+          content: commentText
+        }),
+        mode: 'cors'
+      });
 
-      setPosts(newPosts);
-      commentInput.value = '';
+      if (response.ok) {
+        // 서버에서 성공적으로 처리되었을 때, 클라이언트 상태 업데이트
+        const newPosts = [...posts];
+        newPosts[selectedPost].comments.push(commentText);
+        setPosts(newPosts);
+        commentInput.value = ''; // 입력 필드 초기화
+      } else {
+        console.error('Failed to post comment:', response.statusText);
+        // 실패 처리 로직 추가
+      }
+    } catch (error) {
+      console.error('Error posting comment:', error);
+      // 에러 처리 로직 추가
     }
-  };
+  } else {
+    console.error('No comment text or selected post');
+  }
+};
 
   // 게시물 작성 핸들러
   const handlePostSubmit = async (event) => {
     event.preventDefault();
-  
+
     const titleInput = event.target.elements.titleInput;
     const contentInput = event.target.elements.contentInput;
-  
+
     const title = titleInput.value.trim();
     const content = contentInput.value.trim();
-  
+
     if (title === '' || content === '') {
       alert('제목과 내용을 모두 입력해주세요.');
       return;
     }
-  
+
     const imageKeys = [];
-  
+
     if (imagePreview.length > 0) {
       for (let i = 0; i < imagePreview.length; i++) {
         const imageKey = `image_${Date.now()}_${i}`;
@@ -164,7 +190,7 @@ const Post = () => {
         imageKeys.push(imageKey);
       }
     }
-  
+
     const newPost = {
       post_number: (posts.length + 1).toString(),
       title: { content: title },
@@ -174,15 +200,15 @@ const Post = () => {
       comments: [],
       imageKeys: imageKeys
     };
-  
+
     try {
       const token = localStorage.getItem('Authorization');
-  
+
       if (!token) {
         alert('인증 토큰이 없습니다. 로그인 상태를 확인해주세요.');
         return;
       }
-  
+
       const response = await fetch('/api/board', {
         method: 'POST',
         headers: {
@@ -195,7 +221,7 @@ const Post = () => {
         }),
         mode: 'cors'
       });
-  
+
       if (response.ok) {
         setPosts([...posts, newPost]);
         setLikes([...likes, 0]);
@@ -211,13 +237,13 @@ const Post = () => {
   // 게시물 수정 핸들러
   const handleEditSubmit = async (event) => {
     event.preventDefault();
-    console.log(posts[selectedPost].boardNumber)
-    
+    console.log(posts[selectedPost].boardNumber);
+
     if (editTitle === '' || editContent === '') {
       alert('제목과 내용을 모두 입력해주세요.');
       return;
     }
-    
+
     const updatedPost = {
       ...posts[selectedPost],
       title: { content: editTitle },
@@ -226,12 +252,12 @@ const Post = () => {
 
     try {
       const token = localStorage.getItem('Authorization');
-  
+
       if (!token) {
         alert('인증 토큰이 없습니다. 로그인 상태를 확인해주세요.');
         return;
       }
-  
+
       const response = await fetch(`/api/board/${posts[selectedPost].boardNumber}`, {
         method: 'PUT',
         headers: {
@@ -244,7 +270,7 @@ const Post = () => {
         }),
         mode: 'cors'
       });
-  
+
       if (response.ok) {
         const updatedPosts = [...posts];
         updatedPosts[selectedPost] = updatedPost;
@@ -262,12 +288,12 @@ const Post = () => {
   const handleDelete = async (index) => {
     try {
       const token = localStorage.getItem('Authorization');
-  
+
       if (!token) {
         alert('인증 토큰이 없습니다. 로그인 상태를 확인해주세요.');
         return;
       }
-  
+
       const response = await fetch(`/api/board/${posts[index].boardNumber}`, {
         method: 'DELETE',
         headers: {
@@ -275,7 +301,7 @@ const Post = () => {
         },
         mode: 'cors'
       });
-  
+
       if (response.ok) {
         const updatedPosts = [...posts];
         updatedPosts.splice(index, 1);
@@ -293,9 +319,9 @@ const Post = () => {
     if (!imageKeys || !Array.isArray(imageKeys)) {
       return [];
     }
-    
+
     const images = imageKeys.map(key => localStorage.getItem(key));
-    
+
     // 이미지가 로컬 스토리지에 없는 경우 필터링
     return images.filter(image => image !== null);
   };
@@ -315,7 +341,7 @@ const Post = () => {
             <div>
               <div className="sub_header">
                 <h6 className="sub_name">게시판</h6>
-                <div>
+                <div className='create_button'>
                   <button onClick={openModal2}> 글쓰기 </button>
                 </div>
               </div>
@@ -403,25 +429,13 @@ const Post = () => {
                   </div>
                 </div>
               )}
-              <div className="list_box">
-                {posts.map((post, index) => (
-                  <div className="list_item" key={index} onClick={() => openModal(index)} style={{ backgroundColor: getRandomColor() }}>
-                    <div className='list_item_content'>
-                      {post.title.content}
-                    </div>
-                    <div className='like'>
-                      <i className="fas fa-heart" style={{ color: 'red', cursor:'pointer' }} onClick={(e) => {
-                        e.stopPropagation();
-                        handleLikeClick(index);
-                      }}>{likes[index]}
-                      </i>
-                      <i className="fas fa-comment">
-                        {post.comments.length}
-                      </i>
-                    </div>
-                  </div>
-                ))}
-              </div>
+              <PostList
+                posts={posts}
+                openModal={openModal}
+                handleLikeClick={handleLikeClick}
+                likes={likes}
+                getRandomColor={getRandomColor}
+              />
             </div>
           </div>
           {showModal && selectedPost !== null && posts[selectedPost] && (
