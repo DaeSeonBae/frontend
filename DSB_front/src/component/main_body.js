@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import '../component_style/main_body.css';
+import Post from '../component/post';
 
 function MainBody() {
   const [showModal, setShowModal] = useState(false);
@@ -15,10 +16,10 @@ function MainBody() {
     }
   }, []);
 
-  // 모달 열기
-  const openModal = () => {
-    setShowModal(true);
-  };
+  // // 모달 열기
+  // const openModal = () => {
+  //   setShowModal(true);
+  // };
 
   // 모달 닫기
   const closeModal = () => {
@@ -66,18 +67,10 @@ function MainBody() {
               banner
             </div>
           </div>
-          <div>
-            <div className="sub_header">
-              <h6 className="sub_name">HOT 게시판</h6>
-            </div>
-            <div className="list_box">
-              {/* 클릭 이벤트 추가 */}
-              {[...Array(10)].map((_, index) => (
-                <div className="list_item" key={index} onClick={openModal}>
-                  {index + 1}
-                </div>
-              ))}
-            </div>
+          <div className='list_box'>
+            <Post className='post_data'>
+
+            </Post>
           </div>
           {/* 모달 */}
           {showModal && (
