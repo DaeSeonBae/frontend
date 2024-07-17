@@ -87,8 +87,10 @@ class Navbar extends React.Component {
             <div className="notification" onClick={this.toggleLike}>
               알림
             </div>
-            <div className="profile" onClick={this.toggleProfile}>
+            <div className="profile">
+            <Link to='/myPage' style={{textDecoration:'none', color:'black'}} className=''>
               프로필
+            </Link>
             </div>
           </div>
 

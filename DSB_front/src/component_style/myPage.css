@@ -1,0 +1,118 @@
+/* 전체 컨테이너(카드 모양)*/
+.mypage-container {
+    margin: 20px auto; /* 상하 여백을 추가하여 nav와 footer와의 간격 확보 */
+    padding: 5px;
+    border: 1px solid white;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+/* 카드 스타일 */
+.card {
+    display: block;
+    margin: 15px auto; /* 추가 여백 */
+    width: 600px; /* 카드의 너비를 줄임 */
+    height: auto; /* 높이를 내용에 맞게 자동 조정 */
+    align-content: center;
+    flex-direction: column;
+    justify-content: center;
+    background: white;
+}
+  
+.card h2 {
+    text-align: left;
+    margin: 0;
+    margin-bottom: 5px;
+}
+
+/* 내 정보 */
+.user-info {
+    display: block;
+    align-items: center;
+    padding-bottom: 5px;
+}
+
+/* 프로필 사진 */
+.profile-picture {
+    width: 50px;
+    height: 50px;
+    background-color: #ddd;
+    border-radius: 50%;
+    margin-right: 20px;
+}
+
+/* 내정보 안에 있는 div들 글자 크기 설정*/
+.user-details {
+    font-size: 16px;
+}
+
+/* 계정, 나의 활동, 기타, 관리 padding 설정*/
+.account-info,
+.activity,
+.etc,
+.myPage-footer {
+    padding: 10px 0;
+}
+
+/* 계정 */
+.account-info .info-group {
+    display: flex;
+}
+
+.account-info .info {
+    display: block;
+    font-size: 16px;
+    width: 90px;
+    height: 30px;
+    padding: 5px;
+    margin-top: 0;
+    margin-right: 5px;
+    background-color: white;
+    color: black;
+    border: 1px solid black;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+/* 나의 활동 */
+.account-info label {
+    display: block;
+    margin-bottom: 5px;
+}
+  
+.activity table {
+    width: 100%;
+    border-collapse: collapse;
+}
+  
+.activity th,
+.activity td {
+    padding: 8px;
+    text-align: left;
+}
+  
+.activity th {
+    cursor: pointer;
+}
+
+/* 나의 활동 카테고리 밑줄 */
+.activity th.active {
+    text-decoration: underline;
+    text-decoration-color: red;
+    text-decoration-style: solid;
+}
+
+/*회원탈퇴, 로그아웃 버튼 */
+.myPage-footer button {
+    display: inline;
+    margin: 5px;
+    font-size: 16px;
+    width: 100px;
+    height: 30px;
+    text-align: center;
+    background-color: white;
+    color: black;
+    border: 1px solid black;
+    border-radius: 5px;
+    cursor: pointer;
+}

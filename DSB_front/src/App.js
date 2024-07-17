@@ -9,6 +9,7 @@ import Post from './component/post';
 import Footer from './component/footer';
 import Enrolment from './component/Enrolment';
 import Ai from './component/ai';
+import MyPage from './component/myPage';
 
 import Calculate from './component/calculate';
 import Review from './component/review';
@@ -69,6 +70,13 @@ function App() {
           <>
             <Navbar/>
             <TimeSchedule/>
+            <Footer/>
+          </>
+        }/>
+        <Route path='/myPage' element={
+          <>
+            <Navbar/>
+            <MyPage/>
             <Footer/>
           </>
         }/>
