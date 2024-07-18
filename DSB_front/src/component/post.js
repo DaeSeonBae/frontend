@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import '../component_style/post.css';
 import '@fortawesome/fontawesome-free/css/all.min.css';
 import { Carousel } from 'react-responsive-carousel';
@@ -15,6 +15,7 @@ const Post = () => {
   const [imagePreview, setImagePreview] = useState([]);
   const [editTitle, setEditTitle] = useState(''); // 수정할 제목
   const [editContent, setEditContent] = useState(''); // 수정할 내용
+  const [liked, setLiked] = useState([]); // 각 게시물이 좋아요 눌렸는지 여부를 저장
 
   // 이미지 업로드 핸들러
   const handleImageUpload = (event) => {
@@ -69,28 +70,41 @@ const Post = () => {
           }
         });
         const data = await response.json();
-
-        const newPosts = data.map(post => ({
-          boardNumber: post.boardNumber,
-          title: { content: post.title },
-          script: { content: post.content },
-          date: { content: formatDate(post.writeDatetime) },
-          likes: post.favoriteCount,
-          comments: [],
-          writerEmail: post.writerEmail,
-          imageKeys: post.imageKeys || []
+  
+        const postsWithComments = await Promise.all(data.map(async (post) => {
+          const commentsResponse = await fetch(`/api/board/comment/${post.boardNumber}`, {
+            method: 'GET',
+            headers: {
+              'Authorization': token
+            },
+            mode: 'cors'
+          });
+          const commentsData = await commentsResponse.json();
+  
+          return {
+            boardNumber: post.boardNumber,
+            title: { content: post.title },
+            script: { content: post.content },
+            date: { content: formatDate(post.writeDatetime) },
+            likes: post.favoriteCount,
+            comments: commentsData.map(comment => comment.content),
+            writerEmail: post.writerEmail,
+            imageKeys: post.imageKeys || []
+          };
         }));
-
-        setPosts(newPosts);
-        setLikes(newPosts.map(post => post.likes));
+  
+        setPosts(postsWithComments);
+        setLikes(postsWithComments.map(post => post.likes));
+        setLiked(postsWithComments.map(() => false));
       } catch (error) {
         console.error('Error fetching data:', error);
       }
     };
-
+  
     fetchData();
   }, []);
-
+  
+  
   // 모달 열기
   const openModal = (index) => {
     setSelectedPost(index);
@@ -126,45 +140,46 @@ const Post = () => {
   };
 
  // 댓글 작성 핸들러
-const handleCommentSubmit = async (event) => {
-  event.preventDefault();
+  const handleCommentSubmit = async (event) => {
+    event.preventDefault();
 
-  const commentInput = event.target.elements.commentInput;
-  const commentText = commentInput.value.trim();
+    const commentInput = event.target.elements.commentInput;
+    const commentText = commentInput.value.trim();
 
-  if (commentText !== '' && selectedPost !== null) {
-    try {
-      const token = localStorage.getItem('Authorization');
-      const response = await fetch(`/api/board/comment/${posts[selectedPost].boardNumber}`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': token
-        },
-        body: JSON.stringify({
-          content: commentText
-        }),
-        mode: 'cors'
-      });
+    if (commentText !== '' && selectedPost !== null) {
+      try {
+        const token = localStorage.getItem('Authorization');
+        const response = await fetch(`/api/board/comment/${posts[selectedPost].boardNumber}`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': token
+          },
+          body: JSON.stringify({
+            content: commentText
+          }),
+          mode: 'cors'
+        });
 
-      if (response.ok) {
-        // 서버에서 성공적으로 처리되었을 때, 클라이언트 상태 업데이트
-        const newPosts = [...posts];
-        newPosts[selectedPost].comments.push(commentText);
-        setPosts(newPosts);
-        commentInput.value = ''; // 입력 필드 초기화
-      } else {
-        console.error('Failed to post comment:', response.statusText);
-        // 실패 처리 로직 추가
+        if (response.ok) {
+          // 서버에서 성공적으로 처리되었을 때, 클라이언트 상태 업데이트
+          const newPosts = [...posts];
+          newPosts[selectedPost].comments.push(commentText);
+          setPosts(newPosts);
+          commentInput.value = ''; // 입력 필드 초기화
+          console.log('success');
+        } else {
+          console.error('Failed to post comment:', response.statusText);
+          // 실패 처리 로직 추가
+        }
+      } catch (error) {
+        console.error('Error posting comment:', error);
+        // 에러 처리 로직 추가
       }
-    } catch (error) {
-      console.error('Error posting comment:', error);
-      // 에러 처리 로직 추가
+    } else {
+      console.error('No comment text or selected post');
     }
-  } else {
-    console.error('No comment text or selected post');
-  }
-};
+  };
 
   // 게시물 작성 핸들러
   const handlePostSubmit = async (event) => {
@@ -326,12 +341,49 @@ const handleCommentSubmit = async (event) => {
     return images.filter(image => image !== null);
   };
 
-  const handleLikeClick = (index) => {
-    const newLikes = [...likes];
-    newLikes[index] += newLikes[index] === 0 ? 1 : -1;
-    if (newLikes[index] < 0) newLikes[index] = 0;
-    setLikes(newLikes);
-  };
+  // 좋아요 버튼 클릭 핸들러
+  const handleLikeClick = useCallback(async (index) => {
+    try {
+      const token = localStorage.getItem('Authorization');
+      if (!token) {
+        alert('인증 토큰이 없습니다. 로그인 상태를 확인해주세요.');
+        return;
+      }
+
+      const method = liked[index] ? 'DELETE' : 'POST';
+      const response = await fetch(`/api/board/favorite/${posts[index].boardNumber}`, {
+        method: method,
+        headers: {
+          'Authorization': token,
+          'Content-Type': 'application/json'
+        },
+        mode: 'cors'
+      });
+
+      if (response.ok) {
+        setLikes((prevLikes) => {
+          const newLikes = [...prevLikes];
+          newLikes[index] = liked[index] ? prevLikes[index] - 1 : prevLikes[index] + 1;
+          return newLikes;
+        });
+
+        setLiked((prevLiked) => {
+          const newLiked = [...prevLiked];
+          newLiked[index] = !prevLiked[index];
+          return newLiked;
+        });
+
+        // 상태 업데이트 후 페이지 새로고침
+        window.location.reload();
+      } else {
+        const errorText = await response.text();
+        console.error('Failed to like the post:', response.status, response.statusText, errorText);
+      }
+    } catch (error) {
+      console.error('Error liking post:', error);
+    }
+  }, [liked, posts]);
+  
 
   return (
     <div>
