@@ -1,6 +1,6 @@
-/* 전체 컨테이너(카드 모양)*/
+/* 전체 컨테이너(카드 모양) */
 .mypage-container {
-    margin: 20px auto; /* 상하 여백을 추가하여 nav와 footer와의 간격 확보 */
+    margin: 10px auto; /* 상하 여백을 추가하여 nav와 footer와의 간격 확보 */
     padding: 5px;
     border: 1px solid white;
     border-radius: 10px;
@@ -10,7 +10,7 @@
 /* 카드 스타일 */
 .card {
     display: block;
-    margin: 15px auto; /* 추가 여백 */
+    margin: 10px auto; /* 추가 여백 */
     width: 600px; /* 카드의 너비를 줄임 */
     height: auto; /* 높이를 내용에 맞게 자동 조정 */
     align-content: center;
@@ -22,31 +22,16 @@
 .card h2 {
     text-align: left;
     margin: 0;
-    margin-bottom: 5px;
+    margin-bottom: 10px;
 }
 
 /* 내 정보 */
 .user-info {
     display: block;
     align-items: center;
-    padding-bottom: 5px;
 }
 
-/* 프로필 사진 */
-.profile-picture {
-    width: 50px;
-    height: 50px;
-    background-color: #ddd;
-    border-radius: 50%;
-    margin-right: 20px;
-}
-
-/* 내정보 안에 있는 div들 글자 크기 설정*/
-.user-details {
-    font-size: 16px;
-}
-
-/* 계정, 나의 활동, 기타, 관리 padding 설정*/
+/* 계정, 나의 활동, 기타, 관리 padding 설정 */
 .account-info,
 .activity,
 .etc,
@@ -57,14 +42,16 @@
 /* 계정 */
 .account-info .info-group {
     display: flex;
+    justify-content: space-between; /* 내부 요소들을 양 끝에 배치 */
+    align-items: center;
 }
 
 .account-info .info {
     display: block;
     font-size: 16px;
-    width: 90px;
+    width: auto; /* 자동 너비 조정 */
     height: 30px;
-    padding: 5px;
+    padding: 5px 10px; /* 좌우 패딩 추가 */
     margin-top: 0;
     margin-right: 5px;
     background-color: white;
@@ -79,30 +66,68 @@
     display: block;
     margin-bottom: 5px;
 }
-  
-.activity table {
-    width: 100%;
-    border-collapse: collapse;
-}
-  
-.activity th,
-.activity td {
-    padding: 8px;
-    text-align: left;
-}
-  
-.activity th {
-    cursor: pointer;
+
+/* 이름, 학과, 이메일 구분 스타일링 */
+.account-info .detail-item {
+    margin-bottom: 10px;
 }
 
-/* 나의 활동 카테고리 밑줄 */
-.activity th.active {
+/* 구분 선 스타일링 */
+.account-info .divider {
+    border-top: 1px solid #ddd;
+    margin: 10px 0;
+}
+
+/* 게시물 제목과 내용을 가로 정렬 */
+.post-item {
+    border-bottom: 1px solid #ccc; /* 각 게시물 사이에 구분선 추가 */
+    padding: 10px 0;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+  
+.post-title,
+.post-content {
+    width: 48%; /* 제목과 내용을 48%씩 차지하도록 설정 */
+}
+
+.activity {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.activity h2 {
+    text-align: left;
+    width: 100%;
+    padding-left: 10px; /* 왼쪽 여백 추가 */
+}
+
+.activity-categories {
+    display: flex;
+    width: 100%;
+    justify-content: space-around;
+    margin-bottom: 10px;
+}
+
+.activity-category {
+    cursor: pointer;
+    padding: 10px;
+    text-align: center;
+}
+
+.activity-category.active {
     text-decoration: underline;
     text-decoration-color: red;
     text-decoration-style: solid;
 }
 
-/*회원탈퇴, 로그아웃 버튼 */
+.activity-content {
+    width: 100%;
+}
+
+/* 회원탈퇴, 로그아웃 버튼 */
 .myPage-footer button {
     display: inline;
     margin: 5px;

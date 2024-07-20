@@ -5,6 +5,12 @@ import '../component_style/myPage.css';
 const MyPage = () => {
   const [selectedCategory, setSelectedCategory] = useState('');
   const [userInfo, setUserInfo] = useState(null);
+  const [isEditing, setIsEditing] = useState(false);
+  const [editName, setEditName] = useState('');
+  const [editDepartment, setEditDepartment] = useState('');
+  const [posts, setPosts] = useState([]);
+  const [comments, setComments] = useState([]);
+  const [likes, setLikes] = useState([]);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -15,6 +21,7 @@ const MyPage = () => {
           throw new Error('Authorization token not found');
         }
 
+        // 사용자 정보 가져오기
         const response = await fetch('/api/user-info', {
           headers: {
             Authorization: authToken,
@@ -28,6 +35,52 @@ const MyPage = () => {
 
         const userData = await response.json();
         setUserInfo(userData);
+
+        // 사용자 게시물 가져오기
+        const postResponse = await fetch('/api/board/list', {
+          headers: {
+            Authorization: authToken,
+            'Content-Type': 'application/json'
+          }
+        });
+
+        if (!postResponse.ok) {
+          throw new Error('Failed to fetch user posts');
+        }
+
+        const userPosts = await postResponse.json();
+        setPosts(userPosts);
+
+        // 사용자 댓글 가져오기
+        const commentResponse = await fetch('/api/user/comment', {
+          headers: {
+            Authorization: authToken,
+            'Content-Type': 'application/json'
+          }
+        });
+
+        if (!commentResponse.ok) {
+          throw new Error('Failed to fetch user comments');
+        }
+
+        const userComments = await commentResponse.json();
+        setComments(userComments);
+
+        // 사용자 좋아요 목록 가져오기
+        const likeResponse = await fetch('/api/user/like-board', {
+          headers: {
+            Authorization: authToken,
+            'Content-Type': 'application/json'
+          }
+        });
+
+        if (!likeResponse.ok) {
+          throw new Error('Failed to fetch user likes');
+        }
+
+        const userLikes = await likeResponse.json();
+        setLikes(userLikes);
+
       } catch (error) {
         console.error('Error fetching user info:', error);
         // 예외 처리 필요 (예: 사용자에게 오류 메시지 보여주기)
@@ -44,17 +97,44 @@ const MyPage = () => {
   const renderCategoryContent = () => {
     switch (selectedCategory) {
       case '게시물':
-        return <div>내가 올린 게시물 내용</div>;
-      case '좋아요':
-        return <div>좋아요 받은 게시물 내용</div>;
+        return (
+          <div className="content">
+            {posts.map(post => (
+              <div key={post.id} className="post-item">
+                <div className="post-title">
+                  <strong>제목:</strong> {post.title}
+                </div>
+                <div className="post-content">
+                  <strong>내용:</strong> {post.content}
+                </div>
+              </div>
+            ))}
+          </div>
+        );
       case '댓글':
-        return <div>댓글 쓴 게시물 및 댓글 내용</div>;
-      case '제재 내역':
-        return <div>제재 내역 내용</div>;
-      case '관심사':
-        return <div>내가 설정한 관심사 내용</div>;
-      case '알림':
-        return <div>알림 내용</div>;
+        return (
+          <div className="content">
+            {comments.map(comment => (
+              <div key={comment.id} className="post-item">
+                <div className="post-content">
+                  <strong>댓글 내용:</strong> {comment.content}
+                </div>
+              </div>
+            ))}
+          </div>
+        );
+      case '좋아요':
+        return (
+          <div className="content">
+            {likes.map(like => (
+              <div key={like.id} className="post-item">
+                <div className="post-title">
+                  <strong>좋아요 제목:</strong> {like.title}
+                </div>
+              </div>
+            ))}
+          </div>
+        );
       default:
         return <div>카테고리를 선택하세요</div>;
     }
@@ -69,32 +149,56 @@ const MyPage = () => {
       <div className='card'>
         <div className='user-info'>
           <h1>내정보</h1>
-          <div className='profile-picture'></div>
-          {userInfo && (
-            <div className='user-details'>
-              <div className='name'>{userInfo.name} / {userInfo.nickname}</div>
-              <div className='university'>{userInfo.university}</div>
-            </div>
-          )}
         </div>
         <hr/>
 
         <div className='account-info'>
           <div className='info-group'>
             <h2>계정</h2>
-            <button className='info'>정보 수정</button>
+            {isEditing ? (
+              <button className='info'>저장</button>
+            ) : (
+              <button className='info'>정보 수정</button>
+            )}
           </div>
           {userInfo && (
             <>
-              <div>
-                <label>이름</label> {userInfo.nickname}
-              </div>
-              <div>
-                <label>학과</label> {userInfo.department}
-              </div>
-              <div>
-                <label>이메일</label> {userInfo.email}
-              </div>
+              {isEditing ? (
+                <>
+                  <div className='detail-item'>
+                    <label>이름</label>
+                    <input
+                      type='text'
+                      value={editName}
+                      onChange={(e) => setEditName(e.target.value)}
+                    />
+                  </div>
+                  <hr className='divider' />
+                  <div className='detail-item'>
+                    <label>학과</label>
+                    <input
+                      type='text'
+                      value={editDepartment}
+                      onChange={(e) => setEditDepartment(e.target.value)}
+                    />
+                  </div>
+                  <hr className='divider' />
+                </>
+              ) : (
+                <>
+                  <div className='detail-item'>
+                    <label>이름</label> <span>{userInfo.nickname}</span>
+                  </div>
+                  <hr className='divider' />
+                  <div className='detail-item'>
+                    <label>학과</label> <span>{userInfo.department}</span>
+                  </div>
+                  <hr className='divider' />
+                  <div className='detail-item'>
+                    <label>이메일</label> <span>{userInfo.email}</span>
+                  </div>
+                </>
+              )}
             </>
           )}
           <div>
@@ -105,23 +209,17 @@ const MyPage = () => {
 
         <div className='activity'>
           <h2>나의 활동</h2>
-          <table>
-            <thead>
-              <tr>
-                <th className={getClassName('게시물')} onClick={() => handleClickCategory('게시물')}>게시물</th>
-                <th className={getClassName('좋아요')} onClick={() => handleClickCategory('좋아요')}>좋아요</th>
-                <th className={getClassName('댓글')} onClick={() => handleClickCategory('댓글')}>댓글</th>
-                <th className={getClassName('제재 내역')} onClick={() => handleClickCategory('제재 내역')}>제재 내역</th>
-                <th className={getClassName('관심사')} onClick={() => handleClickCategory('관심사')}>관심사</th>
-                <th className={getClassName('알림')} onClick={() => handleClickCategory('알림')}>알림</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td colSpan="6">{renderCategoryContent()}</td>
-              </tr>
-            </tbody>
-          </table>
+          <div className='activity-categories'>
+            <div className={`activity-category ${getClassName('게시물')}`} onClick={() => handleClickCategory('게시물')}>게시물</div>
+            <div className={`activity-category ${getClassName('좋아요')}`} onClick={() => handleClickCategory('좋아요')}>좋아요</div>
+            <div className={`activity-category ${getClassName('댓글')}`} onClick={() => handleClickCategory('댓글')}>댓글</div>
+            <div className={`activity-category ${getClassName('제재 내역')}`} onClick={() => handleClickCategory('제재 내역')}>제재 내역</div>
+            <div className={`activity-category ${getClassName('관심사')}`} onClick={() => handleClickCategory('관심사')}>관심사</div>
+            <div className={`activity-category ${getClassName('알림')}`} onClick={() => handleClickCategory('알림')}>알림</div>
+          </div>
+          <div className='activity-content'>
+            {renderCategoryContent()}
+          </div>
         </div>
         <hr/>
 
