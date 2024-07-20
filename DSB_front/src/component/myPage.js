@@ -11,6 +11,7 @@ const MyPage = () => {
   const [posts, setPosts] = useState([]);
   const [comments, setComments] = useState([]);
   const [likes, setLikes] = useState([]);
+  const [interests, setInterests] = useState({});
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -37,7 +38,7 @@ const MyPage = () => {
         setUserInfo(userData);
 
         // 사용자 게시물 가져오기
-        const postResponse = await fetch('/api/board/list', {
+        const postResponse = await fetch('/user/board/list', {
           headers: {
             Authorization: authToken,
             'Content-Type': 'application/json'
@@ -81,6 +82,26 @@ const MyPage = () => {
         const userLikes = await likeResponse.json();
         setLikes(userLikes);
 
+        // 사용자 관심사 가져오기
+        const interestsResponse = await fetch('/api/user-info', {
+          headers: {
+            Authorization: authToken,
+            'Content-Type': 'application/json'
+          }
+        });
+
+        if (!interestsResponse.ok) {
+          throw new Error('Failed to fetch user interests');
+        }
+
+        const userInterests = await interestsResponse.json();
+        setInterests({
+          leisure: userInterests.leisure,
+          study: userInterests.study,
+          majorFields1: userInterests.majorFields1,
+          majorFields2: userInterests.majorFields2,
+        });
+
       } catch (error) {
         console.error('Error fetching user info:', error);
         // 예외 처리 필요 (예: 사용자에게 오류 메시지 보여주기)
@@ -104,8 +125,9 @@ const MyPage = () => {
                 <div className="post-title">
                   <strong>제목:</strong> {post.title}
                 </div>
-                <div className="post-content">
-                  <strong>내용:</strong> {post.content}
+                <div className="post-details">
+                  <span><strong>좋아요 수:</strong> {post.favoriteCount}</span>
+                  <span><strong>댓글 수:</strong> {post.commentCount}</span>
                 </div>
               </div>
             ))}
@@ -133,6 +155,25 @@ const MyPage = () => {
                 </div>
               </div>
             ))}
+          </div>
+        );
+      case '관심사':
+        return (
+          <div className="content">
+            <div className="interest-item">
+              <div className="interest-title">
+                <strong>여가활동 및 취미생활:</strong> {interests.leisure}
+              </div>
+              <div className="interest-title">
+                <strong>학업:</strong> {interests.study}
+              </div>
+              <div className="interest-title">
+                <strong>주요 관심 분야 1:</strong> {interests.majorFields1}
+              </div>
+              <div className="interest-title">
+                <strong>주요 관심 분야 2:</strong> {interests.majorFields2}
+              </div>
+            </div>
           </div>
         );
       default:

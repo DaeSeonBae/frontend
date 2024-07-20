@@ -1,127 +1,129 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 90vh;
+}
+
 .logo {
-    text-align: center;
-    margin-top: 40px;
+  text-align: center;
+  margin-top: 20px;
 }
 
 .interest_card {
-    display: block;
-    margin: 0 auto;
-    width: 600px;
-    height: 550px;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 3px 5px rgb(61, 61, 61);
-    background-color: white;
+  width: 450px;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 3px 5px rgb(61, 61, 61);
+  background-color: white;
 }
 
 h3 {
-    margin-top: 1px;
-    text-align: center;
+  margin-top: 1px;
+  text-align: center;
 }
 
 .buttons {
-    display: flex;
-    flex-direction: row;
-    gap: 15px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  justify-content: center;
+  padding: 10px;
 }
 
 .buttons button {
-    background-color: white;
-    color: black;
-    margin: 0;
-    padding: 0;
-    border-radius: 20px;
-    cursor: pointer;
-    font-size: 16px;
-    border: 1px solid black;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
+  background-color: white;
+  color: black;
+  padding: 10px 15px;
+  border-radius: 20px;
+  cursor: pointer;
+  font-size: 14px;
+  border: 1px solid black;
+  text-align: center;
+  white-space: nowrap;
 }
 
 .buttons button.selected {
-    background-color: #FA9595;
+  background-color: #FA9595;
 }
 
 .buttons button:hover {
-    background-color: #FA9595;
+  background-color: #FA9595;
 }
 
 .moveBtn {
-    display: flex;
-    flex-direction: row;
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  margin-top: 20px;
 }
 
 .moveBtn button {
-    background-color: white;
-    color: black;
-    width: 70px;
-    height: 30px;
-    margin-top: 30px;
-    margin-left: 150px;
-    border-radius: 10px;
-    cursor: pointer;
-    font-size: 16px;
-    border: 1px solid black;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
+  background-color: white;
+  color: black;
+  padding: 10px 15px;
+  border-radius: 10px;
+  cursor: pointer;
+  font-size: 14px;
+  border: 1px solid black;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
 }
 
 .moveBtn button:hover {
-    background-color: #FA9595;
+  background-color: #FA9595;
 }
 
 .interest_modal {
-    /* 가운데 정렬 */
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    width: 320px;
-    height: 100px;
-    background-color: white;
-    border: 1px solid black;
-    border-radius: 8px;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-    padding: 20px;
-  }
-  
-  .interest_modal p {
-    margin-top: 10px;
-    margin-bottom: 15px;
-  }
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 320px;
+  height: 100px;
+  background-color: white;
+  border: 1px solid black;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+}
 
-  .interest_modal .confirmBtn {
-    display: flex;
-    gap: 20px;
-    border: none;
-    cursor: pointer;
-  } 
-  
-  .interest_modal button {
-    background-color: white;
-    border: 1px solid black;
-    font-size: 16px;
-    border-radius: 8px;
-  }
+.interest_modal p {
+  margin-top: 10px;
+  margin-bottom: 15px;
+}
 
-  .interest_modal .confirm {
-    width: 40px;
-    height: 30px;
-  }
+.interest_modal .confirmBtn {
+  display: flex;
+  gap: 20px;
+  border: none;
+  cursor: pointer;
+} 
 
-  .interest_modal .cancel {
-    width: 70px;
-    height: 30px;
-  }
+.interest_modal button {
+  background-color: white;
+  border: 1px solid black;
+  font-size: 16px;
+  border-radius: 8px;
+}
 
-  .interest_modal button:hover {
-    background-color: #FA9595;
-  }
+.interest_modal .confirm {
+  width: 40px;
+  height: 30px;
+}
+
+.interest_modal .cancel {
+  width: 70px;
+  height: 30px;
+}
+
+.interest_modal button:hover {
+  background-color: #FA9595;
+}
