@@ -3,6 +3,7 @@ on:
   push:
     branches:
       - main
+  workflow_dispatch:
 # 위의 이벤트가 트리거되면 실행할 목록입니다.
 jobs:
   build:
