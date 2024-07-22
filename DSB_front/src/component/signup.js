@@ -29,6 +29,12 @@ function Signup() {
   };
 
   const handleSendEmail = async () => {
+    const emailPattern = /^[a-zA-Z0-9._%+-]+@vision\.hoseo\.edu$/;
+    if (!emailPattern.test(formData.email)) {
+      alert('유효하지 않은 이메일 형식입니다. 이메일은 @vision.hoseo.edu 형식이어야 합니다.');
+      return;
+    }
+
     try {
       const response = await fetch('/api/email', {
         method: 'POST',
