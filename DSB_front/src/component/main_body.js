@@ -23,9 +23,9 @@ function MainBody() {
   }, []);
 
   // 모달 열기
-  const openModal = () => {
-    setShowModal(true);
-  };
+  // const openModal = () => {
+  //   setShowModal(true);
+  // };
 
   // 모달 닫기
   const closeModal = () => {
