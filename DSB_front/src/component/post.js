@@ -16,6 +16,10 @@ const Post = () => {
   const [editTitle, setEditTitle] = useState(''); // 수정할 제목
   const [editContent, setEditContent] = useState(''); // 수정할 내용
   const [liked, setLiked] = useState([]); // 각 게시물이 좋아요 눌렸는지 여부를 저장
+  const [selectedCommentIndex, setSelectedCommentIndex] = useState(null);
+  const [editComment, setEditComment] = useState('');
+  
+
 
   // 이미지 업로드 핸들러
   const handleImageUpload = (event) => {
@@ -81,13 +85,15 @@ const Post = () => {
           });
           const commentsData = await commentsResponse.json();
   
+          console.log('Comments Data:', commentsData);
+  
           return {
             boardNumber: post.boardNumber,
             title: { content: post.title },
             script: { content: post.content },
             date: { content: formatDate(post.writeDatetime) },
             likes: post.favoriteCount,
-            comments: commentsData.map(comment => comment.content),
+            comments: commentsData, // 각 댓글 객체 전체를 포함
             writerEmail: post.writerEmail,
             imageKeys: post.imageKeys || []
           };
@@ -103,7 +109,6 @@ const Post = () => {
   
     fetchData();
   }, []);
-  
   
   // 모달 열기
   const openModal = (index) => {
@@ -181,6 +186,81 @@ const Post = () => {
     }
   };
 
+  // 댓글 수정 핸들러
+  const handleCommentEdit = (index) => {
+    console.log('Edit comment at index:', index); // 인덱스를 콘솔에 출력
+    // console.log(comments[selectedCommentIndex]);
+    setSelectedCommentIndex(index);
+    setEditComment(posts[selectedPost].comments[index].content);
+
+  };
+  
+
+// 댓글 수정 제출 핸들러
+const handleCommentEditSubmit = async (event) => {
+  event.preventDefault();
+  if (selectedCommentIndex === null || selectedPost === null) return;
+
+  const comment = posts[selectedPost].comments[selectedCommentIndex];
+  const commentId = comment.commentNumber;
+  const boardId = posts[selectedPost].boardNumber;
+
+  if (!commentId) return;
+
+  try {
+    const token = localStorage.getItem('Authorization');
+    const response = await fetch(`/api/board/comment?commentId=${commentId}&boardId=${boardId}`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': token
+      },
+      body: JSON.stringify({ content: editComment }),
+      mode: 'cors'
+    });
+    window.location.reload()
+    if (response.ok) {
+      const updatedComment = await response.json();
+      const updatedPosts = [...posts];
+      updatedPosts[selectedPost].comments[selectedCommentIndex] = updatedComment;
+      setPosts(updatedPosts);
+      setSelectedCommentIndex(null);
+      console.log('success');
+    } else {
+      console.error('Failed to edit comment:', response.statusText);
+    }
+  } catch (error) {
+    console.error('Error editing comment:', error);
+  }
+};
+
+
+
+// 댓글 삭제 핸들러
+const handleCommentDelete = async (index) => {
+  try {
+    const token = localStorage.getItem('Authorization');
+    const commentId = posts[selectedPost].comment[selectedCommentIndex].commentId;
+    const response = await fetch(`/api/board/comment?commentId=${commentId}&boardId=${posts[selectedPost].boardNumber}`, {
+      method: 'DELETE',
+      headers: {
+        'Authorization': token
+      },
+      mode: 'cors'
+    });
+
+    if (response.ok) {
+      const newPosts = [...posts];
+      newPosts[selectedPost].comments.splice(index, 1);
+      setPosts(newPosts);
+    } else {
+      console.error('Failed to delete comment:', response.statusText);
+    }
+  } catch (error) {
+    console.error('Error deleting comment:', error);
+  }
+};
+
   // 게시물 작성 핸들러
   const handlePostSubmit = async (event) => {
     event.preventDefault();
@@ -196,25 +276,16 @@ const Post = () => {
       return;
     }
 
-    const imageKeys = [];
+    const formData = new FormData();
+    formData.append('title', title);
+    formData.append('content', content);
 
     if (imagePreview.length > 0) {
       for (let i = 0; i < imagePreview.length; i++) {
         const imageKey = `image_${Date.now()}_${i}`;
-        localStorage.setItem(imageKey, imagePreview[i]);
-        imageKeys.push(imageKey);
+        formData.append('images', imagePreview[i], imageKey);
       }
     }
-
-    const newPost = {
-      post_number: (posts.length + 1).toString(),
-      title: { content: title },
-      date: { content: formatDate(new Date()) },
-      name: "User",
-      script: { content: content },
-      comments: [],
-      imageKeys: imageKeys
-    };
 
     try {
       const token = localStorage.getItem('Authorization');
@@ -227,17 +298,23 @@ const Post = () => {
       const response = await fetch('/api/board', {
         method: 'POST',
         headers: {
-          'Content-Type': 'application/json',
           'Authorization': token
         },
-        body: JSON.stringify({
-          title: title,
-          content: content
-        }),
+        body: formData,
         mode: 'cors'
       });
 
       if (response.ok) {
+        const newPost = {
+          post_number: (posts.length + 1).toString(),
+          title: { content: title },
+          date: { content: formatDate(new Date()) },
+          name: "User",
+          script: { content: content },
+          comments: [],
+          imageKeys: [] // 서버에서 이미지를 저장한 후 반환된 키를 저장해야 합니다.
+        };
+        
         setPosts([...posts, newPost]);
         setLikes([...likes, 0]);
         closeModal2();
@@ -248,7 +325,6 @@ const Post = () => {
       console.error('Error posting data to server:', error);
     }
   };
-
   // 게시물 수정 핸들러
   const handleEditSubmit = async (event) => {
     event.preventDefault();
@@ -259,11 +335,17 @@ const Post = () => {
       return;
     }
 
-    const updatedPost = {
-      ...posts[selectedPost],
-      title: { content: editTitle },
-      script: { content: editContent },
-    };
+    const formData = new FormData();
+    formData.append('title', editTitle);
+    formData.append('content', editContent);
+
+    // 필요한 경우 이미지 데이터를 추가합니다.
+    if (imagePreview.length > 0) {
+      for (let i = 0; i < imagePreview.length; i++) {
+        const imageKey = `image_${Date.now()}_${i}`;
+        formData.append('images', imagePreview[i], imageKey);
+      }
+    }
 
     try {
       const token = localStorage.getItem('Authorization');
@@ -276,19 +358,20 @@ const Post = () => {
       const response = await fetch(`/api/board/${posts[selectedPost].boardNumber}`, {
         method: 'PUT',
         headers: {
-          'Content-Type': 'application/json',
           'Authorization': token
         },
-        body: JSON.stringify({
-          title: editTitle,
-          content: editContent
-        }),
+        body: formData,
         mode: 'cors'
       });
 
       if (response.ok) {
         const updatedPosts = [...posts];
-        updatedPosts[selectedPost] = updatedPost;
+        updatedPosts[selectedPost] = {
+          ...updatedPosts[selectedPost],
+          title: { content: editTitle },
+          script: { content: editContent },
+          // 이미지 키도 업데이트 해야 할 수 있습니다.
+        };
         setPosts(updatedPosts);
         closeEditModal();
       } else {
@@ -383,7 +466,6 @@ const Post = () => {
       console.error('Error liking post:', error);
     }
   }, [liked, posts]);
-  
 
   return (
     <div>
@@ -481,6 +563,34 @@ const Post = () => {
                   </div>
                 </div>
               )}
+              {selectedCommentIndex !== null && (
+                <div className="modal">
+                  <div className="modal_content">
+                    <span className="close" onClick={() => setSelectedCommentIndex(null)}>&times;</span>
+                    <div className='choiceOption'>
+                      <form className='modal_form' onSubmit={handleCommentEditSubmit}>
+                        <div className='postGroup'>
+                          <div className='postSelect'>
+                            <div className='postname'>
+                              댓글 수정
+                            </div>
+                            <button type="submit">저장</button>
+                          </div>
+                          <div className='titleinput'>
+                            <textarea
+                              value={editComment}
+                              onChange={(e) => setEditComment(e.target.value)}
+                              rows="4"
+                              placeholder='내용을 수정하세요'
+                              required
+                            ></textarea>
+                          </div>
+                        </div>
+                      </form>
+                    </div>
+                  </div>
+                </div>
+              )}
               <PostList
                 posts={posts}
                 openModal={openModal}
@@ -512,7 +622,11 @@ const Post = () => {
                   <div className="comment-list" id="commentList">
                     {posts[selectedPost].comments.map((comment, index) => (
                       <div key={index} className="comment">
-                        {comment}
+                        {comment.content}
+                        <div className="comment-actions">
+                          <button onClick={() => handleCommentEdit(index)}>수정</button>
+                          <button onClick={() => handleCommentDelete(index)}>삭제</button>
+                        </div>
                       </div>
                     ))}
                   </div>
@@ -521,6 +635,7 @@ const Post = () => {
                     <button type="submit">작성</button>
                   </form>
                 </div>
+
                 <div className='post_actions'>
                   <button onClick={() => openEditModal(selectedPost)}>수정</button>
                   <button onClick={() => handleDelete(selectedPost)}>삭제</button>
@@ -534,4 +649,4 @@ const Post = () => {
   );
 };
 
-export default Post;
+export default Post; 
