@@ -84,20 +84,19 @@ const Post = () => {
             mode: 'cors'
           });
           const commentsData = await commentsResponse.json();
-  
-          console.log('Comments Data:', commentsData);
-  
+        
           return {
             boardNumber: post.boardNumber,
             title: { content: post.title },
             script: { content: post.content },
             date: { content: formatDate(post.writeDatetime) },
             likes: post.favoriteCount,
-            comments: commentsData, // 각 댓글 객체 전체를 포함
+            comments: commentsData, // 여기에 댓글 데이터 확인
             writerEmail: post.writerEmail,
             imageKeys: post.imageKeys || []
           };
         }));
+        
   
         setPosts(postsWithComments);
         setLikes(postsWithComments.map(post => post.likes));
@@ -196,71 +195,101 @@ const Post = () => {
   };
   
 
-// 댓글 수정 제출 핸들러
-const handleCommentEditSubmit = async (event) => {
-  event.preventDefault();
-  if (selectedCommentIndex === null || selectedPost === null) return;
+  // 댓글 수정 제출 핸들러
+  const handleCommentEditSubmit = async (event) => {
+    event.preventDefault();
+    if (selectedCommentIndex === null || selectedPost === null) return;
 
-  const comment = posts[selectedPost].comments[selectedCommentIndex];
-  const commentId = comment.commentNumber;
-  const boardId = posts[selectedPost].boardNumber;
+    const comment = posts[selectedPost].comments[selectedCommentIndex];
+    const commentId = comment.commentNumber;
+    const boardId = posts[selectedPost].boardNumber;
 
-  if (!commentId) return;
+    console.log('comment : ',comment)
+    console.log('commentId : ',commentId)
+    console.log('boardId : ',boardId)
 
-  try {
-    const token = localStorage.getItem('Authorization');
-    const response = await fetch(`/api/board/comment?commentId=${commentId}&boardId=${boardId}`, {
-      method: 'PUT',
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': token
-      },
-      body: JSON.stringify({ content: editComment }),
-      mode: 'cors'
-    });
-    window.location.reload()
-    if (response.ok) {
-      const updatedComment = await response.json();
-      const updatedPosts = [...posts];
-      updatedPosts[selectedPost].comments[selectedCommentIndex] = updatedComment;
-      setPosts(updatedPosts);
-      setSelectedCommentIndex(null);
-      console.log('success');
-    } else {
-      console.error('Failed to edit comment:', response.statusText);
+    if (!commentId) return;
+
+    try {
+      const token = localStorage.getItem('Authorization');
+      const response = await fetch(`/api/board/comment?commentId=${commentId}&boardId=${boardId}`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': token
+        },
+        body: JSON.stringify({ content: editComment }),
+        mode: 'cors'
+      });
+      window.location.reload()
+      if (response.ok) {
+        const updatedComment = await response.json();
+        const updatedPosts = [...posts];
+        updatedPosts[selectedPost].comments[selectedCommentIndex] = updatedComment;
+        setPosts(updatedPosts);
+        setSelectedCommentIndex(null);
+        console.log('success');
+      } else {
+        console.error('Failed to edit comment:', response.statusText);
+      }
+    } catch (error) {
+      console.error('Error editing comment:', error);
     }
-  } catch (error) {
-    console.error('Error editing comment:', error);
-  }
-};
+  };
 
-
-
-// 댓글 삭제 핸들러
-const handleCommentDelete = async (index) => {
-  try {
-    const token = localStorage.getItem('Authorization');
-    const commentId = posts[selectedPost].comment[selectedCommentIndex].commentId;
-    const response = await fetch(`/api/board/comment?commentId=${commentId}&boardId=${posts[selectedPost].boardNumber}`, {
-      method: 'DELETE',
-      headers: {
-        'Authorization': token
-      },
-      mode: 'cors'
-    });
-
-    if (response.ok) {
-      const newPosts = [...posts];
-      newPosts[selectedPost].comments.splice(index, 1);
-      setPosts(newPosts);
-    } else {
-      console.error('Failed to delete comment:', response.statusText);
+  // 댓글 삭제 핸들러
+  const handleCommentDelete = async (index) => {
+    if (selectedPost === null) {
+      console.error('선택된 게시물이 없습니다.');
+      return;
     }
-  } catch (error) {
-    console.error('Error deleting comment:', error);
-  }
-};
-
+  
+    const comment = posts[selectedPost].comments[index];
+    if (!comment) {
+      console.error('선택한 댓글을 찾을 수 없습니다.');
+      return;
+    }
+  
+    const commentId = comment.commentNumber;
+    const boardId = posts[selectedPost].boardNumber;
+  
+    if (!commentId || !boardId) {
+      console.error('commentId 또는 boardId를 찾을 수 없습니다.');
+      return;
+    }
+  
+    try {
+      const token = localStorage.getItem('Authorization');
+      if (!token) {
+        console.error('토큰을 찾을 수 없습니다.');
+        return;
+      }
+  
+      const response = await fetch(`/api/board/comment?commentId=${commentId}&boardId=${boardId}`, {
+        method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': token,
+        },
+        // body: JSON.stringify({ content: "" }),
+        mode: 'cors'
+      });
+  
+      if (response.ok) {
+        const newPosts = [...posts];
+        newPosts[selectedPost].comments.splice(index, 1);
+        setPosts(newPosts);
+        console.log('댓글이 성공적으로 삭제되었습니다.');
+      } else {
+        const errorText = await response.text(); // 상세 오류 메시지 확인
+        console.error('Failed to delete comment:', response.status, response.statusText, errorText);
+      }
+    } catch (error) {
+      console.error('Error deleting comment:', error);
+    }
+  };
+  
+  
   // 게시물 작성 핸들러
   const handlePostSubmit = async (event) => {
     event.preventDefault();
@@ -325,6 +354,7 @@ const handleCommentDelete = async (index) => {
       console.error('Error posting data to server:', error);
     }
   };
+
   // 게시물 수정 핸들러
   const handleEditSubmit = async (event) => {
     event.preventDefault();
