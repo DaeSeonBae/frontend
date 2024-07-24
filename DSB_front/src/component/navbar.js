@@ -52,7 +52,7 @@ class Navbar extends React.Component {
             </div>
           </div>
           <div className='nav-item'>
-            <Link to='/#' style={{textDecoration:'none', color:'black'}} className=''>
+            <Link to='/schedule' style={{textDecoration:'none', color:'black'}} className=''>
               시간표
             </Link>
           </div>
@@ -62,7 +62,7 @@ class Navbar extends React.Component {
             </Link>
           </div>
           <div className='nav-item'>
-            <Link to='/#' style={{textDecoration:'none', color:'black'}} className=''>
+            <Link to='/review' style={{textDecoration:'none', color:'black'}} className=''>
               강의 평가
             </Link>
           </div>
