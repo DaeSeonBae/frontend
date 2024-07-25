@@ -103,6 +103,13 @@ const Calculate = () => {
       },
       xaxis: {
         categories: Object.keys(averageGrades)
+      },
+      yaxis: {
+        labels: {
+          formatter: function (value) {
+            return value.toFixed(2); // 소수점 두 자리까지 포맷팅
+          }
+        }
       }
     }
   };
