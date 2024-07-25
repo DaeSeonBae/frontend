@@ -14,6 +14,7 @@ function Signup() {
   const [emailSent, setEmailSent] = useState(false);
   const [authCode, setAuthCode] = useState('');
   const [isEmailVerified, setIsEmailVerified] = useState(false);
+  const [verificationMessage, setVerificationMessage] = useState('');
   const navigate = useNavigate();
 
   const handleInputChange = (e) => {
@@ -52,7 +53,6 @@ function Signup() {
       }
 
       setEmailSent(true);
-      alert('인증 코드가 이메일로 전송되었습니다.');
     } catch (e) {
       console.error('이메일 전송 중 오류 발생:', e);
       alert('이메일 전송 중 오류가 발생했습니다. 나중에 다시 시도해주세요.');
@@ -73,12 +73,12 @@ function Signup() {
       });
 
       if (!response.ok) {
-        alert(`인증 실패: ${response.statusText}`);
+        setVerificationMessage('인증번호가 틀립니다.');
         return;
       }
 
       setIsEmailVerified(true);
-      alert('이메일 인증이 완료되었습니다.');
+      setVerificationMessage('인증되었습니다.');
     } catch (e) {
       console.error('인증 중 오류 발생:', e);
       alert('인증 중 오류가 발생했습니다. 나중에 다시 시도해주세요.');
@@ -136,21 +136,21 @@ function Signup() {
             </Link>
           </h2>
           <h2>회원가입</h2>
-          <div className="input-group">
-            <input
-              type="text"
-              id="email"
-              name="email"
-              placeholder='이메일 입력하세요'
-              value={formData.email}
-              onChange={handleInputChange}
-              disabled={isEmailVerified}
-            />
-            {!isEmailVerified && (
-              <button type="button" onClick={handleSendEmail}>이메일 인증하기</button>
-            )}
-          </div>
-          {emailSent && !isEmailVerified && (
+          <form>
+            <div className="input-group">
+              <input
+                type="text"
+                id="email"
+                name="email"
+                placeholder='이메일 입력하세요'
+                value={formData.email}
+                onChange={handleInputChange}
+                disabled={isEmailVerified}
+              />
+              {!isEmailVerified && (
+                <button type="button" onClick={handleSendEmail}>이메일 인증하기</button>
+              )}
+            </div>
             <div className="input-group">
               <input
                 type="text"
@@ -161,43 +161,42 @@ function Signup() {
                 onChange={handleAuthCodeChange}
               />
               <button type="button" onClick={handleVerifyCode}>인증 확인</button>
+              {verificationMessage && (
+                <p>{verificationMessage}</p>
+              )}
             </div>
-          )}
-          {isEmailVerified && (
-            <form>
-              <div className="input-group">
-                <input
-                  type="password"
-                  id="password"
-                  name="password"
-                  placeholder='비밀번호를 입력하세요'
-                  value={formData.password}
-                  onChange={handleInputChange}
-                />
-              </div>
-              <div className="input-group">
-                <input
-                  type="text"
-                  id="department"
-                  name="department"
-                  placeholder='학과'
-                  value={formData.department}
-                  onChange={handleInputChange}
-                />
-              </div>
-              <div className="input-group">
-                <input
-                  type="text"
-                  id="nickName"
-                  name="nickName"
-                  placeholder='이름'
-                  value={formData.nickName}
-                  onChange={handleInputChange}
-                />
-              </div>
-              <button type="button" className='signupBtn' onClick={handleSignupClick}>회원가입</button>
-            </form>
-          )}
+            <div className="input-group">
+              <input
+                type="password"
+                id="password"
+                name="password"
+                placeholder='비밀번호를 입력하세요'
+                value={formData.password}
+                onChange={handleInputChange}
+              />
+            </div>
+            <div className="input-group">
+              <input
+                type="text"
+                id="department"
+                name="department"
+                placeholder='학과'
+                value={formData.department}
+                onChange={handleInputChange}
+              />
+            </div>
+            <div className="input-group">
+              <input
+                type="text"
+                id="nickName"
+                name="nickName"
+                placeholder='이름'
+                value={formData.nickName}
+                onChange={handleInputChange}
+              />
+            </div>
+            <button type="button" className='signupBtn' onClick={handleSignupClick}>회원가입</button>
+          </form>
         </div>
       </div>
     </div>
