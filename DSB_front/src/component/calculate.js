@@ -98,7 +98,7 @@ const Calculate = () => {
     }],
     options: {
       chart: {
-        height: 350,
+        height: 700, // 차트의 높이를 800으로 설정
         type: 'line'
       },
       xaxis: {
@@ -189,6 +189,7 @@ const Calculate = () => {
             </div>
           </div>
           <div className='bottom'>
+            <div> 평균 </div>
             <input
               type='text'
               value={averageGrades[currentSemester].toFixed(2)}
@@ -201,12 +202,12 @@ const Calculate = () => {
         <div className='outscore_box'>
           <div>
             <div id="chart">
-              <ReactApexChart options={chartState.options} series={chartState.series} type="line" height={350} />
-            </div>
-            <div className="average_box">
-              <div className='grade_box'>
-                총 수강한 학기: {Object.keys(grades).length}, 평균 학점 :
-              </div>
+              <ReactApexChart 
+                options={chartState.options} 
+                series={chartState.series} 
+                type="line" 
+                height={600} // 차트 높이를 800으로 설정
+              />
             </div>
           </div>
         </div>
