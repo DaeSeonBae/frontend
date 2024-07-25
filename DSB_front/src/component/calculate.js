@@ -108,7 +108,7 @@ const Calculate = () => {
   };
 
   return (
-    <div className='main_body'>
+    <div className='main_body_c'>
       <div className='inputscore'>
         <div className='inputscore_box'>
           <div className='top'>
@@ -126,7 +126,7 @@ const Calculate = () => {
           </div>
           <div className='mid'>
             <div className='input_box'>
-              <table>
+              <table className='cal_info'>
                 <thead>
                   <tr>
                     <th>과목명</th>
@@ -144,6 +144,7 @@ const Calculate = () => {
                           type='text'
                           value={row[0]}
                           onChange={(e) => handleInputChange(e.target.value, rowIndex, 0)}
+                          style={{ width: '100px', height: '30px' }} // 원하는 크기로 설정
                         />
                       </td>
                       <td>
@@ -151,6 +152,7 @@ const Calculate = () => {
                           type='number'
                           value={row[1]}
                           onChange={(e) => handleInputChange(e.target.value, rowIndex, 1)}
+                          style={{ width: '100px', height: '30px' }}
                         />
                       </td>
                       <td>
@@ -158,6 +160,7 @@ const Calculate = () => {
                           type='number'
                           value={row[2]}
                           onChange={(e) => handleInputChange(e.target.value, rowIndex, 2)}
+                          style={{ width: '100px', height: '30px' }}
                         />
                       </td>
                       <td>
@@ -165,6 +168,7 @@ const Calculate = () => {
                           type='checkbox'
                           checked={row[3]}
                           onChange={(e) => handleCheckboxChange(e.target.checked, rowIndex)}
+                          style={{ transform: 'scale(0.8)' }} // 체크박스 크기 조정
                         />
                       </td>
                       <td>
