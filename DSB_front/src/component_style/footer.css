@@ -1,13 +1,14 @@
 .footer-container {
-  /* background-color: rgb(235, 230, 230); */
+  /* background-color: rgb(235, 230, 230); 필요에 따라 배경색을 추가 */
   height: 60px;
   width: 100%;
   display: flex;
   justify-content: space-around;
   align-items: center;
   text-align: center;
-  bottom: 10px;
-  left: 50%;
+  position: fixed; /* 화면 아래에 고정 */
+  bottom: 0;
+  left: 0; /* 화면의 왼쪽 끝에 맞춤 */
 }
 
 .footer-box {

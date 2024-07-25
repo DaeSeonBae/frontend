@@ -5,7 +5,8 @@ import banner_1 from '../images/banner_1.gif';
 import banner_2 from '../images/banner_2.jpg';
 import banner_3 from '../images/banner_3.jpg';
 
-import Post from '../component/post';
+// import Post from '../component/post';
+import HotPost from '../component/hotPost';
 
 
 function MainBody() {
@@ -95,7 +96,7 @@ function MainBody() {
 
           <div>
             <div className='list_box'>
-              <Post className='post_data' />
+              <HotPost className='post_data' />
             </div>
 
             {/* 모달 */}
