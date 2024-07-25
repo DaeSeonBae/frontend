@@ -40,7 +40,11 @@ class Navbar extends React.Component {
           <div className='nav-item'>
               게시판
             <div className='nav-sub-item'>
-              <div className='sub-list'><p>HOT 게시판</p></div>
+              <div className='sub-list'>
+                <Link to='/hotpost' style={{textDecoration:'none'}} className=''>
+                  hot 게시판
+                </Link>
+              </div>
               <div className='sub-list'>
                 <Link to='/post' style={{textDecoration:'none'}} className=''>
                   자유 게시판

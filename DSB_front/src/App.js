@@ -6,6 +6,7 @@ import Login from './component/login';
 import Signup from './component/signup';
 import Findinfo from './component/findinfo';
 import Post from './component/post';
+import HotPost from './component/hotPost';
 import Footer from './component/footer';
 import Enrolment from './component/Enrolment';
 import Ai from './component/ai';
@@ -34,6 +35,13 @@ function App() {
           <>
             <Navbar />
             <Post />
+            <Footer/>
+          </>
+        }/>\
+        <Route path='/hotpost' element={
+          <>
+            <Navbar />
+            <HotPost />
             <Footer/>
           </>
         }/>
