@@ -38,7 +38,7 @@ function MainBody() {
     localStorage.removeItem('token');
     localStorage.removeItem('user');
     setIsLoggedIn(false);
-    navigate('/login');
+    window.location.reload();
   };
 
   // 슬라이드 이동 함수
