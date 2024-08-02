@@ -108,6 +108,8 @@ Link{
   top: 100%;
   width: 140px;
   z-index: 1000;
+  background-color: rgba(255,255,255,0.8);
+  border-radius: 5px;
 }
 
 .sub-list {
@@ -119,16 +121,21 @@ Link{
 .sub-list::after {
   content: '';
   position: absolute;
-  left: 0;
-  bottom: -5px;
+  left: 50%; /* 부모 요소의 가운데를 기준으로 */
+  bottom: -5px; /* 요소의 하단에 위치시키기 위해 */
   width: 0;
-  height: 0;
-  background-color: rgb(179, 75, 75);
-  transition: width 0.5s;
+  height: 2px; /* 밑줄의 두께 */
+  background-color: black; /* 밑줄의 색상 */
+  transform: translateX(-50%); /* 가운데 정렬 */
+  transition: width 0.3s ease; /* 애니메이션 추가 */
+}
+
+.sub-list :hover{
+  color: pink !important;
 }
 
 .sub-list:hover::after {
-  width: 100%;
+  width: 80%;
   height: 2px;
 }
 
@@ -153,6 +160,7 @@ Link{
   max-width: 15%;
   border-radius: 10px;
   font-size: 28px;
+  gap: 20px;
 }
 
 .message {
@@ -166,4 +174,29 @@ Link{
 .profile {
   margin-right: 30px;
 }
+
+.note, .alarm, .profile {
+  position: relative;
+}
+
+.note_list, .alarm_list {
+  height: 100px;
+  display: none; /* 기본적으로 숨김 */
+  position: absolute;
+  left: 0;
+  top: 100%; /* 부모 요소 아래에 위치 */
+  width: 100%;
+  background-color: #f0f0f0;
+  padding: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  z-index: 1;
+}
+
+.note:hover .note_list, .alarm:hover .alarm_list {
+  display: block; /* 호버 시 보이도록 설정 */
+  background-color: white;
+}
+
+
+
 

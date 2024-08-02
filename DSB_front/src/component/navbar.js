@@ -41,18 +41,34 @@ class Navbar extends React.Component {
               게시판
             <div className='nav-sub-item'>
               <div className='sub-list'>
-                <Link to='/hotpost' style={{textDecoration:'none'}} className=''>
+                <Link to='/hotpost' style={{textDecoration:'none', color: 'black'}} className=''>
                   hot 게시판
                 </Link>
               </div>
               <div className='sub-list'>
-                <Link to='/post' style={{textDecoration:'none'}} className=''>
+                <Link
+                  to='/post'
+                  style={{ textDecoration: 'none', color: 'black' }} // 원하는 색상으로 변경
+                  className=''
+                >
                   자유 게시판
                 </Link>
               </div>
-              <div className='sub-list'><p>교수님 게시판</p></div>
-              <div className='sub-list'><p>졸업생 게시판</p></div>
-              <div className='sub-list'><p>재학생 게시판</p></div>
+              <div className='sub-list'>
+                <Link to='/#' style={{textDecoration:'none', color: 'black'}} className=''>
+                  교수님 게시판
+                </Link>
+              </div>
+              <div className='sub-list'>
+                <Link to='/#' style={{textDecoration:'none', color: 'black'}} className=''>
+                  졸업생 게시판
+                </Link>  
+              </div>
+              <div className='sub-list'>
+                <Link to='/#' style={{textDecoration:'none', color: 'black'}} className=''>
+                  재학생 게시판
+                </Link>  
+              </div>
             </div>
           </div>
           <div className='nav-item'>
@@ -82,20 +98,26 @@ class Navbar extends React.Component {
           </div>
         </div>
         <div className="container3">
-            {/* <div className="icon-box" onClick={this.toggleDarkMode}>
-              {this.state.isDarkMode ?  <img src={LightModeIcon} alt='Light Mode' />:<img src={DarkModeIcon} alt="Dark Mode" />}
-            </div> */}
+          <div className='note'>
             <div className="message" onClick={this.toggleFavorite}>
               쪽지
             </div>
+            <div className='note_list'>
+              쪽지 리스트
+            </div>
+          </div>
+          <div className='alarm'>
             <div className="notification" onClick={this.toggleLike}>
               알림
             </div>
-            <div className="profile" onClick={this.toggleProfile}>
-              프로필
+            <div className='alarm_list'>
+              알림 리스트
             </div>
           </div>
-
+          <div className="profile" onClick={this.toggleProfile}>
+            프로필
+          </div>
+        </div>
       </nav>
     );
   }
