@@ -110,7 +110,7 @@ const TimeSchedule = () => {
   };
 
   return (
-    <div className='main_body'>
+    <div className='main_body_time'>
       <div className='schedule_container'>
       <div className='sc_first'>
           <div className='friend_box'>
@@ -167,6 +167,7 @@ const TimeSchedule = () => {
           </div>
         </div>
         <div className='sc_end'>
+          <h2>과목 검색</h2>
           <input type='text' placeholder='과목을 입력해주세요'></input>
           <div className='class_table'>
             <p>과목 종류</p>
