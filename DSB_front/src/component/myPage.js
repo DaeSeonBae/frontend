@@ -80,7 +80,24 @@ const MyPage = () => {
         }
 
         const userLikes = await likeResponse.json();
-        setLikes(userLikes);
+        // 각 좋아요 게시글의 제목을 가져오기
+        const likeWithTitles = await Promise.all(userLikes.map(async (like) => {
+          const postResponse = await fetch(`/api/posts/${like.boardnumber}`, {
+            headers: {
+              Authorization: authToken,
+              'Content-Type': 'application/json'
+            }
+          });
+
+          if (!postResponse.ok) {
+            throw new Error(`Failed to fetch post with id: ${like.boardnumber}`);
+          }
+
+          const postData = await postResponse.json();
+          return { ...like, title: postData.title };
+        }));
+
+        setLikes(likeWithTitles);
 
         // 사용자 관심사 가져오기
         const interestsResponse = await fetch('/api/user-info', {
@@ -162,16 +179,7 @@ const MyPage = () => {
           <div className="content">
             <div className="interest-item">
               <div className="interest-title">
-                <strong>여가활동 및 취미생활:</strong> {interests.leisure}
-              </div>
-              <div className="interest-title">
-                <strong>학업:</strong> {interests.study}
-              </div>
-              <div className="interest-title">
-                <strong>주요 관심 분야 1:</strong> {interests.majorFields1}
-              </div>
-              <div className="interest-title">
-                <strong>주요 관심 분야 2:</strong> {interests.majorFields2}
+                <strong>선택한 관심사:</strong> {interests.leisure}
               </div>
             </div>
           </div>
