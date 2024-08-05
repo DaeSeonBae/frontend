@@ -3,35 +3,57 @@
   height: 100%;
   display: flex; /* Use flexbox */
   justify-content: center; /* Center horizontally */
-  align-items: center; /* Center vertically */
+  gap: 20px;
+  
 }
 
 .message_box {
-  padding-top: 100px;
+  margin-top: 100px;
+  padding: 10px;
   width: 20%;
-  height: auto; /* Adjust height to the content */
+  height: 100%; /* Full height */
+  overflow-y: auto; /* Enable scrolling if content overflows */
   text-align: center; /* Center text horizontally */
+  border: 1px solid black;
+  background-color: rgba(255, 255, 255, 0.5);
+  border-radius: 5px;
+}
+
+.message_list {
+  border: 1px solid black;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
+  cursor: pointer;
+  margin-bottom: 10px;
+  background-color: rgb(185, 242, 223);
+  transition: background-color 0.5s ease;
+}
+
+.message_list:hover{
+  background-color: grey;
+  
 }
 
 .message_detail {
   width: 60%;
-  height: 100%;
+  height: 800px; /* Full height */
   padding: 10px;
   border: 1px solid black;
-  position: relative;
+  border-radius: 5px;
+  display: flex;
+  flex-direction: column;
+  background-color: rgba(255, 255, 255, 0.5);
+
 }
 
-.detail_header{
+.detail_header {
   display: flex;
-  
   justify-content: center;
   align-items: center;
+  position: relative;
+  padding: 5px;
 }
 
-.header_title{
-  height: 40px;
-  left: 50%;
-  transform: translateX(-50%);
+.header_title {
   font-size: 30px;
 }
 
@@ -47,9 +69,15 @@
 .chat_window {
   flex: 1;
   overflow-y: auto;
+  
   padding: 10px;
   border: 1px solid #ccc;
   margin-bottom: 10px;
+  display: flex;
+  flex-direction: column;
+  max-height: 750px; /* Add this line to set max-height */
+  background-color: white;
+  border-radius: 5px;
 }
 
 .chat_message {
@@ -57,16 +85,22 @@
   padding: 10px;
   border-radius: 5px;
   max-width: 60%;
+  white-space: pre-wrap; /* Preserve white-space and line breaks */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
 }
 
 .chat_message.sent {
   background-color: #d1e7dd;
   align-self: flex-end;
+  width: 40%;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
 }
 
 .chat_message.received {
   background-color: #f8d7da;
   align-self: flex-start;
+  width: 40%;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
 }
 
 .chat_input_container {
@@ -75,12 +109,16 @@
 }
 
 .chat_input {
-  flex: 1;
+  width: 100%;
   padding: 10px;
   border: 1px solid #ccc;
   border-radius: 5px;
   margin-right: 10px;
+  resize: vertical; /* Allow vertical resizing */
+  overflow: auto; /* Allow scroll if needed */
+  box-sizing: border-box; /* Include padding and border in the element's total width and height */
 }
+
 
 .send_button {
   padding: 10px 20px;
