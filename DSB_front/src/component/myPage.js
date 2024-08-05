@@ -12,6 +12,7 @@ const MyPage = () => {
   const [comments, setComments] = useState([]);
   const [likes, setLikes] = useState([]);
   const [interests, setInterests] = useState({});
+  const [showConfirmation, setShowConfirmation] = useState(false);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -193,6 +194,37 @@ const MyPage = () => {
     return selectedCategory === category ? 'active' : '';
   };
 
+  const handleDeleteAccount = async () => {
+    try {
+      const authToken = localStorage.getItem('Authorization');
+      if (!authToken) {
+        throw new Error('Authorization token not found');
+      }
+
+      const response = await fetch('/users/sign-out', {
+        method: 'DELETE',
+        headers: {
+          Authorization: authToken,
+          'Content-Type': 'application/json'
+        }
+      });
+
+      if (!response.ok) {
+        throw new Error('Failed to delete account');
+      }
+
+      // 로그아웃 처리
+      localStorage.removeItem('Authorization');
+      localStorage.removeItem('user');
+      localStorage.removeItem('userInfo');
+      navigate('/login');
+
+    } catch (error) {
+      console.error('Error deleting account:', error);
+      // 예외 처리 필요 (예: 사용자에게 오류 메시지 보여주기)
+    }
+  };
+
   return (
     <div className='myPage-container'>
       <div className='card'>
@@ -282,7 +314,7 @@ const MyPage = () => {
         </div>
 
         <div className='myPage-footer'>
-          <button className='secession'>회원 탈퇴</button>
+          <button className='secession' onClick={() => setShowConfirmation(true)}>회원 탈퇴</button>
           <button className='logout' onClick={() => {
             localStorage.removeItem('Authorization');
             localStorage.removeItem('user');
@@ -291,6 +323,16 @@ const MyPage = () => {
           }}>로그아웃</button>
         </div>
       </div>
+
+      {showConfirmation && (
+        <div className='confirmation-modal'>
+          <div className='modal-content'>
+            <p>정말 탈퇴하시겠습니까?</p>
+            <button className='confirm-btn' onClick={handleDeleteAccount}>예</button>
+            <button className='cancel-btn' onClick={() => setShowConfirmation(false)}>아니오</button>
+          </div>
+        </div>
+      )}
     </div>
   );
 };
