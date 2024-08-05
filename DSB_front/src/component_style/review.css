@@ -6,6 +6,7 @@
 .review_container {
   width: 100%;
   transition: width 0.3s ease;
+  margin: 20px;
 }
 
 .review_container.shrink {
@@ -48,10 +49,11 @@
   border-radius: 5px;
   padding: 10px;
   cursor: pointer; /* 클릭 가능한 커서 추가 */
+  background-color: rgba(255,255,255,0.5);
 }
 
 .review_item:hover {
-  background-color: #f0f0f0; /* 호버 효과 추가 */
+  background-color: grey; /* 호버 효과 추가 */
 }
 
 .item_top, .item_middle, .item_bottom {
@@ -75,7 +77,8 @@
 
 .review_detail {
   width: 40%; /* 필요한 값으로 조정 */
-  padding: 20px;
+  padding: 10px;
+  margin: 20px;
   border-left: 1px solid #ccc;
   transition: width 0.3s ease;
   background-color: white;
@@ -95,6 +98,7 @@
   right: 0;
   width: 30px;
   height: 30px;
+  border-radius: 5px;
 }
 
 .detail_top h3 {
