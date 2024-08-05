@@ -10,15 +10,13 @@ import HotPost from './component/hotPost';
 import Footer from './component/footer';
 import Enrolment from './component/Enrolment';
 import Ai from './component/ai';
-
 import Calculate from './component/calculate';
 import Review from './component/review';
 import TimeSchedule from './component/timeschedule';
-
 import Interests from './component/interests';
+import PostMessage from './component/postMessage';
 
-import { BrowserRouter as Router, Routes, Route} from 'react-router-dom';
-
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
 function App() {
   return (
@@ -28,65 +26,70 @@ function App() {
           <>
             <Navbar />
             <MainBody />
-            <Footer/>
+            <Footer />
           </>
         } />
         <Route path='/post' element={
           <>
             <Navbar />
             <Post />
-            <Footer/>
+            <Footer />
           </>
-        }/>\
+        } />
         <Route path='/hotpost' element={
           <>
             <Navbar />
             <HotPost />
-            <Footer/>
+            <Footer />
           </>
-        }/>
+        } />
         <Route path='/enrolment' element={
           <>
-            <Navbar/>
-            <Enrolment/>
-            <Footer/>
+            <Navbar />
+            <Enrolment />
+            <Footer />
           </>
-        }/>
+        } />
         <Route path='/ai' element={
           <>
-            <Navbar/>
-            <Ai/>
-            <Footer/>
+            <Navbar />
+            <Ai />
+            <Footer />
           </>
-        }/>
+        } />
         <Route path='/calculate' element={
           <>
-            <Navbar/>
-            <Calculate/>
-            <Footer/>
+            <Navbar />
+            <Calculate />
+            <Footer />
           </>
-        }/>
+        } />
         <Route path='/review' element={
           <>
-            <Navbar/>
-            <Review/>
-            <Footer/>
+            <Navbar />
+            <Review />
+            <Footer />
           </>
-        }/>
+        } />
         <Route path='/schedule' element={
           <>
-            <Navbar/>
-            <TimeSchedule/>
-            <Footer/>
+            <Navbar />
+            <TimeSchedule />
+            <Footer />
           </>
-        }/>
-
+        } />
+        <Route path='/postMessage' element={
+          <>
+            <Navbar />
+            <PostMessage />
+            <Footer />
+          </>
+        } />
         <Route path='/login' element={<Login />} />
         <Route path='/signup' element={<Signup />} />
         <Route path='/find_info' element={<Findinfo />} />
         <Route path='/interests' element={<Interests />} />
-
-        <Route path='*' element={<div>404error! 없는 페이지 입니다.</div>} />
+        <Route path='*' element={<div>404error! 없는 페이지입니다.</div>} />
       </Routes>
     </Router>
   );
