@@ -100,7 +100,13 @@ class Navbar extends React.Component {
         <div className="container3">
           <div className='note'>
             <div className="message" onClick={this.toggleFavorite}>
-              쪽지
+              <Link
+                  to='/message'
+                  style={{ textDecoration: 'none', color: 'black' }} // 원하는 색상으로 변경
+                  className=''
+                >
+                  쪽지
+                </Link>
             </div>
             <div className='note_list'>
               쪽지 리스트

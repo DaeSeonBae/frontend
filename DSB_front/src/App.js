@@ -16,6 +16,7 @@ import Review from './component/review';
 import TimeSchedule from './component/timeschedule';
 
 import Interests from './component/interests';
+import Message from './component/message';
 
 import { BrowserRouter as Router, Routes, Route} from 'react-router-dom';
 
@@ -77,6 +78,13 @@ function App() {
           <>
             <Navbar/>
             <TimeSchedule/>
+            <Footer/>
+          </>
+        }/>
+        <Route path='/message' element={
+          <>
+            <Navbar/>
+            <Message/>
             <Footer/>
           </>
         }/>
