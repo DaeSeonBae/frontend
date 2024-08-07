@@ -17,6 +17,7 @@ import TimeSchedule from './component/timeschedule';
 
 import Interests from './component/interests';
 import Message from './component/message';
+import Notification from './component/notification';
 
 import { BrowserRouter as Router, Routes, Route} from 'react-router-dom';
 
@@ -85,6 +86,13 @@ function App() {
           <>
             <Navbar/>
             <Message/>
+            <Footer/>
+          </>
+        }/>
+        <Route path='/notification' element={
+          <>
+            <Navbar/>
+            <Notification/>
             <Footer/>
           </>
         }/>

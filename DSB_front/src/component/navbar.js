@@ -106,7 +106,7 @@ class Navbar extends React.Component {
                   className=''
                 >
                   쪽지
-                </Link>
+              </Link>
             </div>
             <div className='note_list'>
               쪽지 리스트
@@ -114,7 +114,13 @@ class Navbar extends React.Component {
           </div>
           <div className='alarm'>
             <div className="notification" onClick={this.toggleLike}>
-              알림
+              <Link
+                  to='/notification'
+                  style={{ textDecoration: 'none', color: 'black' }} // 원하는 색상으로 변경
+                  className=''
+                >
+                  알림
+              </Link>
             </div>
             <div className='alarm_list'>
               알림 리스트
