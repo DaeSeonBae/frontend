@@ -4,9 +4,9 @@ import '../component_style/message.css';
 const Message = () => {
   const [selectedMessage, setSelectedMessage] = useState(null);
   const [messages, setMessages] = useState({
-    'message item1': [{ text: '바보야', type: 'received' }],
-    'message item2': [{ text: '바보야', type: 'received' }],
-    'message item3': [{ text: '바보야', type: 'received' }]
+    'message item1': [{ text: '바보야', type: 'received', author: '익명', time: '10:00' }],
+    'message item2': [{ text: '바보야', type: 'received', author: '익명', time: '10:00' }],
+    'message item3': [{ text: '바보야', type: 'received', author: '익명', time: '10:00' }]
   });
   const [inputValue, setInputValue] = useState('');
   const chatWindowRef = useRef(null);
@@ -31,11 +31,12 @@ const Message = () => {
 
   const handleSendMessage = () => {
     if (inputValue.trim() !== '') {
+      const currentTime = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
       setMessages((prevMessages) => ({
         ...prevMessages,
         [selectedMessage]: [
           ...prevMessages[selectedMessage],
-          { text: inputValue, type: 'sent' },
+          { text: inputValue, type: 'sent', author: '나', time: currentTime },
         ],
       }));
       setInputValue('');
@@ -44,7 +45,7 @@ const Message = () => {
 
   const handleKeyDown = (e) => {
     if (e.key === 'Enter' && !e.shiftKey) {
-      e.preventDefault(); // Prevent the default action of the Enter key (e.g., form submission)
+      e.preventDefault();
       handleSendMessage();
     }
   };
@@ -71,7 +72,12 @@ const Message = () => {
           </div>
           <div className='chat_window' ref={chatWindowRef}>
             {messages[selectedMessage].map((msg, index) => (
-              <div key={index} className={`chat_message ${msg.type}`}>{msg.text}</div>
+              <div key={index} className={`chat_message_container ${msg.type}`}>
+                <div className='chat_author'>{msg.author} - {msg.time}</div>
+                <div className={`chat_message ${msg.type}`}>
+                  <div className='chat_text'>{msg.text}</div>
+                </div>
+              </div>
             ))}
           </div>
           <div className='chat_input_container'>
@@ -81,7 +87,7 @@ const Message = () => {
               onKeyDown={handleKeyDown}
               className='chat_input'
               placeholder='Type a message...'
-              rows='3' /* Initial number of rows */
+              rows='3'
             />
             <button onClick={handleSendMessage} className='send_button'>Send</button>
           </div>
