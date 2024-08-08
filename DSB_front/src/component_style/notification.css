@@ -1,0 +1,105 @@
+.notification_container {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+}
+
+.notification_box {
+  margin-top: 100px;
+  padding: 10px;
+  width: 20%;
+  height: 100%;
+  overflow-y: auto;
+  text-align: center;
+  border: 1px solid black;
+  background-color: rgba(255, 255, 255, 0.5);
+  border-radius: 5px;
+}
+
+.notification_list {
+  border: 1px solid black;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
+  cursor: pointer;
+  margin-bottom: 10px;
+  background-color: rgb(185, 242, 223);
+  transition: background-color 0.5s ease;
+  border-radius: 5px;
+  padding: 10px;
+}
+
+.notification_list:hover {
+  background-color: grey;
+}
+
+.notif_receive {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.notification_detail {
+  width: 60%;
+  height: 800px;
+  padding: 10px;
+  border: 1px solid black;
+  border-radius: 5px;
+  display: flex;
+  flex-direction: column;
+  background-color: rgba(255, 255, 255, 0.5);
+}
+
+.detail_header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  padding: 5px;
+}
+
+.header_title {
+  font-size: 30px;
+}
+
+.close_button {
+  position: absolute;
+  right: 10px;
+  cursor: pointer;
+  font-size: 18px;
+  font-weight: bold;
+  padding: 5px;
+}
+
+.notif_window {
+  flex: 1;
+  overflow-y: auto;
+  padding: 10px;
+  border: 1px solid #ccc;
+  margin-bottom: 10px;
+  display: flex;
+  flex-direction: column;
+  max-height: 750px;
+  background-color: white;
+  border-radius: 5px;
+}
+
+.notif_author {
+  font-weight: bold;
+  margin-bottom: 5px;
+  font-size: 0.9em;
+}
+
+.notif_message {
+  margin-bottom: 10px;
+  padding: 10px;
+  border-radius: 5px;
+  max-width: 100%;
+  white-space: pre-wrap;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
+}
+
+.notif_message.received {
+  background-color: #f8d7da;
+  width: 90%;
+}
