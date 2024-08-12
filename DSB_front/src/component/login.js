@@ -41,7 +41,8 @@ function Login() {
       }
   
       // 응답 헤더에서 토큰 추출
-      const authToken = response.headers.get('Authorization');
+      const authToken = response.headers.get('authorization');
+      console.log(response.headers);
       if (authToken) {
         console.log('토큰:', authToken);
         localStorage.setItem('Authorization', authToken);
