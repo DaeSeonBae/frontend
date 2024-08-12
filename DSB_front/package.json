@@ -33,7 +33,6 @@
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build"
   },
-  "proxy": "http://api.daeseonbae.com:8080/",
   "eslintConfig": {
     "extends": [
       "react-app",

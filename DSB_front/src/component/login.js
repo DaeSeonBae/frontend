@@ -26,7 +26,7 @@ function Login() {
       formDataToSend.append('email', formData.email);
       formDataToSend.append('password', formData.password);
   
-      const response = await fetch('/api/login', {
+      const response = await fetch('http://api.daeseonbae.com:8080/api/login', {
         method: 'POST',
         body: formDataToSend,
         headers: {
@@ -41,8 +41,7 @@ function Login() {
       }
   
       // 응답 헤더에서 토큰 추출
-      const authToken = response.headers.get('authorization');
-      console.log(response.headers);
+      const authToken = response.headers.get('Authorization');
       if (authToken) {
         console.log('토큰:', authToken);
         localStorage.setItem('Authorization', authToken);
