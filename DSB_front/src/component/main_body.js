@@ -7,6 +7,7 @@ import banner_3 from '../images/banner_3.jpg';
 
 // import Post from '../component/post';
 import HotPost from '../component/hotPost';
+import Clock from '../component/Clock'; // Clock 컴포넌트 가져오기
 
 
 function MainBody() {
@@ -119,10 +120,10 @@ function MainBody() {
               </div>
             )}
           </div>
-          <div className='side'>
-          </div>
         </div>
-        <hr />
+        <div className='side'>
+          <Clock/>
+        </div>
       </div>
     </div>
   );
