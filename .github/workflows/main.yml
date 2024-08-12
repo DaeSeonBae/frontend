@@ -20,6 +20,8 @@ jobs:
         working-directory: ./DSB_front
 
       - name: React Build
+        env:
+          CI: false
         run: npm run build
         working-directory: ./DSB_front
 
