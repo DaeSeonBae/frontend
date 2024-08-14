@@ -4,7 +4,7 @@
 }
 
 .review_container {
-  width: 100%;
+  width: 90%;
   transition: width 0.3s ease;
   margin: 20px;
 }

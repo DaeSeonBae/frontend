@@ -8,7 +8,9 @@
   align-content: center;
   justify-content: center;
   max-width: 1980px;
-  min-width: 768px;
+  min-width: 1200px;
+  flex-wrap: nowrap; /* 자식 요소들이 한 줄에 유지되도록 설정 */
+  white-space: nowrap; /* 텍스트 줄바꿈 방지 */
 }
 
 .DSB_logo {
@@ -48,6 +50,8 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  flex-wrap: nowrap; /* 자식 요소들이 한 줄에 유지되도록 설정 */
+  white-space: nowrap; /* 텍스트 줄바꿈 방지 */
 }
 
 .nav-item {
@@ -60,6 +64,8 @@
   align-items: center;
   justify-content: center;
   text-align: center;
+  flex-wrap: nowrap; /* 자식 요소들이 한 줄에 유지되도록 설정 */
+  white-space: nowrap; /* 텍스트 줄바꿈 방지 */
 }
 
 .nav-item>p:hover, .nav-item>a:hover {
@@ -161,14 +167,18 @@ Link{
   border-radius: 10px;
   font-size: 28px;
   gap: 20px;
+  flex-wrap: nowrap; /* 자식 요소들이 한 줄에 유지되도록 설정 */
+  white-space: nowrap; /* 텍스트 줄바꿈 방지 */
 }
 
 .message {
   margin-right: 30px;
+  flex-wrap: nowrap; /* 자식 요소들이 한 줄에 유지되도록 설정 */
 }
 
 .notification {
   margin-right: 30px;
+  flex-wrap: nowrap; /* 자식 요소들이 한 줄에 유지되도록 설정 */
 }
 
 .profile {

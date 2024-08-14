@@ -96,7 +96,7 @@
 /* ================================================================= */
 
 .middle{
-  width: 70%;
+  width: 60%;
   margin: 10px;
 }
 
@@ -197,18 +197,14 @@
   transition: 1s;
 }
 
-/* ================================================================= */
-
-/* .side{
+.side {
+  width: 10%;
+  display: flex;
+  justify-content: center; 
+  align-items: center;    
+  height: 100%;            
+  padding: 20px;           
+  border: 1px solid black;
   margin: 10px;
-  width: 15%;
-  height: 700px;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-} */
-
-/* hr{
-  margin-top: 5%;
-  margin-bottom: 0;
-} */
+  border-radius: 5px;
+}
