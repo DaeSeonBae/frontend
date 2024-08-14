@@ -1,0 +1,189 @@
+/* 전체 컨테이너(카드 모양) */
+.mypage-container {
+    margin: 10px auto; /* 상하 여백을 추가하여 nav와 footer와의 간격 확보 */
+    padding: 5px;
+    border: 1px solid white;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+/* 카드 스타일 */
+.card {
+    display: block;
+    margin: 10px auto; /* 추가 여백 */
+    width: 600px; /* 카드의 너비를 줄임 */
+    height: auto; /* 높이를 내용에 맞게 자동 조정 */
+    align-content: center;
+    flex-direction: column;
+    justify-content: center;
+    background: white;
+}
+  
+.card h2 {
+    text-align: left;
+    margin: 0;
+    margin-bottom: 10px;
+}
+
+/* 내 정보 */
+.user-info {
+    display: block;
+    align-items: center;
+}
+
+/* 계정, 나의 활동, 기타, 관리 padding 설정 */
+.account-info,
+.activity,
+.etc,
+.myPage-footer {
+    padding: 10px 0;
+}
+
+/* 계정 */
+.account-info .info-group {
+    display: flex;
+    justify-content: space-between; /* 내부 요소들을 양 끝에 배치 */
+    align-items: center;
+}
+
+.account-info .info {
+    display: block;
+    font-size: 16px;
+    width: auto; /* 자동 너비 조정 */
+    height: 30px;
+    padding: 5px 10px; /* 좌우 패딩 추가 */
+    margin-top: 0;
+    margin-right: 5px;
+    background-color: white;
+    color: black;
+    border: 1px solid black;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+/* 나의 활동 */
+.account-info label {
+    display: block;
+    margin-bottom: 5px;
+}
+
+/* 이름, 학과, 이메일 구분 스타일링 */
+.account-info .detail-item {
+    margin-bottom: 10px;
+}
+
+/* 구분 선 스타일링 */
+.account-info .divider {
+    border-top: 1px solid #ddd;
+    margin: 10px 0;
+}
+
+/* 게시물 제목과 내용을 가로 정렬 */
+.post-item {
+    border-bottom: 1px solid #ccc; /* 각 게시물 사이에 구분선 추가 */
+    padding: 10px 0;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+  
+.post-title,
+.post-content {
+    width: 48%; /* 제목과 내용을 48%씩 차지하도록 설정 */
+}
+
+.activity {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.activity h2 {
+    text-align: left;
+    width: 100%;
+    padding-left: 10px; /* 왼쪽 여백 추가 */
+}
+
+.activity-categories {
+    display: flex;
+    width: 100%;
+    justify-content: space-around;
+    margin-bottom: 10px;
+}
+
+.activity-category {
+    cursor: pointer;
+    padding: 10px;
+    text-align: center;
+}
+
+.activity-category.active {
+    text-decoration: underline;
+    text-decoration-color: red;
+    text-decoration-style: solid;
+}
+
+.activity-content {
+    width: 100%;
+}
+
+/* 회원탈퇴, 로그아웃 버튼 */
+.myPage-footer button {
+    display: inline;
+    margin: 5px;
+    font-size: 16px;
+    width: 100px;
+    height: 30px;
+    text-align: center;
+    background-color: white;
+    color: black;
+    border: 1px solid black;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+/* 모달 배경 */
+.confirmation-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000; /* 다른 요소들보다 위에 표시되도록 z-index 설정 */
+}
+
+/* 모달 내용 */
+.modal-content {
+  background-color: white;
+  padding: 20px;
+  border-radius: 10px;
+  text-align: center;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+}
+
+/* 확인 버튼 */
+.confirm-btn, .cancel-btn {
+  margin: 10px;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+/* 확인 버튼 색상 */
+.confirm-btn {
+  background-color: white;
+  color: black;
+  border: 1px solid black;
+}
+
+/* 취소 버튼 색상 */
+.cancel-btn {
+  background-color: white;
+  color: black;
+  border: 1px solid black;
+}

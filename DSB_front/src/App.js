@@ -10,6 +10,7 @@ import HotPost from './component/hotPost';
 import Footer from './component/footer';
 import Enrolment from './component/Enrolment';
 import Ai from './component/ai';
+import MyPage from './component/myPage';
 
 import Calculate from './component/calculate';
 import Review from './component/review';
@@ -96,12 +97,18 @@ function App() {
             <Footer/>
           </>
         }/>
+        <Route path='/myPage' element={
+          <>
+            <Navbar/>
+            <MyPage/>
+            <Footer/>
+          </>
+        }/>
 
         <Route path='/login' element={<Login />} />
         <Route path='/signup' element={<Signup />} />
         <Route path='/find_info' element={<Findinfo />} />
         <Route path='/interests' element={<Interests />} />
-
         <Route path='*' element={<div>404error! 없는 페이지 입니다.</div>} />
       </Routes>
     </Router>

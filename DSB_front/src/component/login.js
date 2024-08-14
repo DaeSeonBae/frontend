@@ -110,7 +110,7 @@ function Login() {
             </div>
             
             {error && <div className="error">{error}</div>} {/* 오류 메시지 표시 */}
-            <button type="button" className='loginBtn' onClick={handleLogin}>로그인</button>
+            <button type="button" onClick={handleLogin}>Login</button>
           </form>
         </div>
       </div>
