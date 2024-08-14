@@ -14,7 +14,7 @@ function Findinfo() {
     }
 
     try {
-      const response = await fetch('/user/reset-password', {
+      const response = await fetch('http://api.daeseonbae.com:8080/user/reset-password', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
