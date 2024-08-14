@@ -227,7 +227,7 @@ const MyPage = () => {
 
   return (
     <div className='myPage-container'>
-      <div className='card'>
+      <div className='myPage-card'>
         <div className='user-info'>
           <h1>내정보</h1>
         </div>
