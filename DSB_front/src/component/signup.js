@@ -129,7 +129,7 @@ function Signup() {
   return (
     <div>
       <div className="container">
-        <div className="card">
+        <div className="signup_card">
           <h2>
             <Link to='/' className='login_link'>
               <img className='DSB_logo' src={logoIcon} alt='logoIcon'/>

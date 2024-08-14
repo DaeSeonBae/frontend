@@ -7,7 +7,7 @@
   background-color: grey;
 }
 
-.card {
+.signup_card {
   width: 300px;
   padding: 20px;
   border-radius: 8px;
@@ -16,7 +16,7 @@
 }
 
 
-.card h2 {
+.signup_card h2 {
   text-align: center;
   margin-bottom: 20px;
 }
@@ -33,7 +33,7 @@
   margin-bottom: 5px;
 }
 
-.card .input-group input {
+.signup_card .input-group input {
   width: 100%;
   padding: 8px;
   border: 1px solid #ccc;

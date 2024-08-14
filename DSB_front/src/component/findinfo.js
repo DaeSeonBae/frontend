@@ -40,7 +40,7 @@ function Findinfo() {
   return (
     <div>
       <div className="container">
-        <div className="card">
+        <div className="findinfo_card">
           <h2>
             <Link to='/' className='login_link'><img className='DSB_logo' src={logoIcon} alt='logoIcon' /></Link>
           </h2>
