@@ -282,9 +282,6 @@ const MyPage = () => {
               )}
             </>
           )}
-          <div>
-            <button className='change-password'>비밀번호 변경</button>
-          </div>
         </div>
         <hr/>
 
