@@ -29,9 +29,6 @@ function Login() {
       const response = await fetch('/api/login', {
         method: 'POST',
         body: formDataToSend,
-        headers: {
-          'Access-Control-Allow-Origin': '*',
-        },
         mode: 'cors'
       });
   
