@@ -29,9 +29,15 @@ function Login() {
       const response = await fetch('/api/login', {
         method: 'POST',
         body: formDataToSend,
+        headers: {
+          'Access-Control-Allow-Origin': '*',
+        },
         mode: 'cors'
       });
-  
+
+      console.log(response)
+      console.log(response.headers.get("Authorization"));
+
       if (!response.ok) {
         const errorText = await response.text();
         throw new Error(`Network response was not ok: ${errorText}`);
