@@ -24,7 +24,7 @@ const MyPage = () => {
         }
 
         // 사용자 정보 가져오기
-        const response = await fetch('http://api.daeseonbae.com:8080/api/user-info', {
+        const response = await fetch('https://api.daeseonbae.com/api/user-info', {
           headers: {
             Authorization: authToken,
             'Content-Type': 'application/json'
@@ -39,7 +39,7 @@ const MyPage = () => {
         setUserInfo(userData);
 
         // 사용자 게시물 가져오기
-        const postResponse = await fetch('http://api.daeseonbae.com:8080/user/board/list', {
+        const postResponse = await fetch('https://api.daeseonbae.com/user/board/list', {
           headers: {
             Authorization: authToken,
             'Content-Type': 'application/json'
@@ -54,7 +54,7 @@ const MyPage = () => {
         setPosts(userPosts);
 
         // 사용자 댓글 가져오기
-        const commentResponse = await fetch('http://api.daeseonbae.com:8080/api/user/comment', {
+        const commentResponse = await fetch('https://api.daeseonbae.com/api/user/comment', {
           headers: {
             Authorization: authToken,
             'Content-Type': 'application/json'
@@ -69,7 +69,7 @@ const MyPage = () => {
         setComments(userComments);
 
         // 사용자 좋아요 목록 가져오기
-        const likeResponse = await fetch('http://api.daeseonbae.com:8080/api/user/like-board', {
+        const likeResponse = await fetch('https://api.daeseonbae.com/api/user/like-board', {
           headers: {
             Authorization: authToken,
             'Content-Type': 'application/json'
@@ -83,7 +83,7 @@ const MyPage = () => {
         const userLikes = await likeResponse.json();
         // 각 좋아요 게시글의 제목을 가져오기
         const likeWithTitles = await Promise.all(userLikes.map(async (like) => {
-          const postResponse = await fetch(`http://api.daeseonbae.com:8080/api/posts/${like.boardnumber}`, {
+          const postResponse = await fetch(`https://api.daeseonbae.com/api/posts/${like.boardnumber}`, {
             headers: {
               Authorization: authToken,
               'Content-Type': 'application/json'
@@ -101,7 +101,7 @@ const MyPage = () => {
         setLikes(likeWithTitles);
 
         // 사용자 관심사 가져오기
-        const interestsResponse = await fetch('http://api.daeseonbae.com:8080/api/user-info', {
+        const interestsResponse = await fetch('https://api.daeseonbae.com/api/user-info', {
           headers: {
             Authorization: authToken,
             'Content-Type': 'application/json'
@@ -201,7 +201,7 @@ const MyPage = () => {
         throw new Error('Authorization token not found');
       }
 
-      const response = await fetch('http://api.daeseonbae.com:8080/users/sign-out', {
+      const response = await fetch('https://api.daeseonbae.com/users/sign-out', {
         method: 'DELETE',
         headers: {
           Authorization: authToken,

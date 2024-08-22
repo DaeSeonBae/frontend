@@ -30,7 +30,7 @@ const Ai = () => {
       try {
         const token = localStorage.getItem('Authorization');
 
-        const response = await fetch('/api/ai', {
+        const response = await fetch('https://api.daeseonbae.com/api/ai', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -86,7 +86,7 @@ const Ai = () => {
     try {
       const token = localStorage.getItem('Authorization');
   
-      const response = await fetch('/api/ai', {
+      const response = await fetch('https://api.daeseonbae.com/api/ai', {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',

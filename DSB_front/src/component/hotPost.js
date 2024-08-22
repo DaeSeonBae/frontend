@@ -66,7 +66,7 @@ const HotPost = () => {
     const fetchData = async () => {
       try {
         const token = localStorage.getItem('Authorization');
-        const response = await fetch('/api/board/list/hot', {
+        const response = await fetch('https://api.daeseonbae.com/api/board/list/hot', {
           method: 'GET',
           mode: 'cors',
           headers: {
@@ -76,7 +76,7 @@ const HotPost = () => {
         const data = await response.json();
   
         const postsWithComments = await Promise.all(data.map(async (post) => {
-          const commentsResponse = await fetch(`/api/board/comment/${post.boardNumber}`, {
+          const commentsResponse = await fetch(`https://api.daeseonbae.com/api/board/comment/${post.boardNumber}`, {
             method: 'GET',
             headers: {
               'Authorization': token
@@ -154,7 +154,7 @@ const HotPost = () => {
     if (commentText !== '' && selectedPost !== null) {
       try {
         const token = localStorage.getItem('Authorization');
-        const response = await fetch(`/api/board/comment/${posts[selectedPost].boardNumber}`, {
+        const response = await fetch(`https://api.daeseonbae.com/api/board/comment/${posts[selectedPost].boardNumber}`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -213,7 +213,7 @@ const HotPost = () => {
 
     try {
       const token = localStorage.getItem('Authorization');
-      const response = await fetch(`/api/board/comment?commentId=${commentId}&boardId=${boardId}`, {
+      const response = await fetch(`https://api.daeseonbae.com/api/board/comment?commentId=${commentId}&boardId=${boardId}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
@@ -266,7 +266,7 @@ const HotPost = () => {
         return;
       }
   
-      const response = await fetch(`/api/board/comment?commentId=${commentId}&boardId=${boardId}`, {
+      const response = await fetch(`https://api.daeseonbae.com/api/board/comment?commentId=${commentId}&boardId=${boardId}`, {
         method: 'DELETE',
         headers: {
           'Content-Type': 'application/json',
@@ -325,7 +325,7 @@ const HotPost = () => {
         return;
       }
 
-      const response = await fetch('/free-board', {
+      const response = await fetch('https://api.daeseonbae.com/free-board', {
         method: 'POST',
         headers: {
           'Authorization': token
@@ -386,7 +386,7 @@ const HotPost = () => {
         return;
       }
 
-      const response = await fetch(`/api/board/${posts[selectedPost].boardNumber}`, {
+      const response = await fetch(`https://api.daeseonbae.com/api/board/${posts[selectedPost].boardNumber}`, {
         method: 'PUT',
         headers: {
           'Authorization': token
@@ -423,7 +423,7 @@ const HotPost = () => {
         return;
       }
 
-      const response = await fetch(`/api/board/${posts[index].boardNumber}`, {
+      const response = await fetch(`https://api.daeseonbae.com/api/board/${posts[index].boardNumber}`, {
         method: 'DELETE',
         headers: {
           'Authorization': token
@@ -465,7 +465,7 @@ const HotPost = () => {
       }
 
       const method = liked[index] ? 'DELETE' : 'POST';
-      const response = await fetch(`/api/board/favorite/${posts[index].boardNumber}`, {
+      const response = await fetch(`https://api.daeseonbae.com/api/board/favorite/${posts[index].boardNumber}`, {
         method: method,
         headers: {
           'Authorization': token,

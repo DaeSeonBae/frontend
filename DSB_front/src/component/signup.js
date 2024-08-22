@@ -37,7 +37,7 @@ function Signup() {
     }
 
     try {
-      const response = await fetch('/api/email', {
+      const response = await fetch('https://api.daeseonbae.com/api/email', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
@@ -61,7 +61,7 @@ function Signup() {
 
   const handleVerifyCode = async () => {
     try {
-      const response = await fetch('/api/pwd/auth', {
+      const response = await fetch('https://api.daeseonbae.com/api/pwd/auth', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
@@ -108,7 +108,7 @@ function Signup() {
       formDataToSend.append('department', formData.department);
       formDataToSend.append('nickName', formData.nickName);
 
-      const response = await fetch('/api/signup', {
+      const response = await fetch('https://api.daeseonbae.com/api/signup', {
         method: 'POST',
         body: formDataToSend
       });
