@@ -26,7 +26,7 @@ function Login() {
       formDataToSend.append('email', formData.email);
       formDataToSend.append('password', formData.password);
   
-      const response = await fetch('/api/login', {
+      const response = await fetch('https://api.daeseonbae.com/api/login', {
         method: 'POST',
         body: formDataToSend,
         headers: {
